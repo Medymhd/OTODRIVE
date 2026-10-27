@@ -1,9 +1,9 @@
 # Otodrive Website
 
-**Status:** Design prototype complete for review; no production deployment.
+**Status:** Redesigned site is live in the repository root; no production deployment.
 **Baseline date:** 27 October 2026
 **Canonical public host:** `https://www.otodriveafrica.com/`
-**Source of this baseline:** Public live site at `https://www.otodriveafrica.com/`, captured page-by-page and asset-by-asset. This is not a server-side backup; hosting, DNS, mail and booking configuration are not included.
+**Source:** The original site was captured page-by-page from `https://www.otodriveafrica.com/` and is archived in `legacy/`. Hosting, DNS, mail and booking configuration are not included.
 
 ## Local preview
 
@@ -15,35 +15,30 @@ npm run preview
 
 Open <http://127.0.0.1:4173/>.
 
-The light-mode design prototype starts at <http://127.0.0.1:4173/prototype/index.html>, with redesigned pages for About, Services, Projects, Testimonials, Contact, Get a Quote, Locations and Booking. It uses owner-provided location labels and pins derived from the owner’s Google Maps links for layout review only; exact entrances, addresses and hours remain unconfirmed, and the map is not production data.
+The redesigned site (light "Daylight / Molten" direction) is served from the repository root. It uses owner-provided location labels and pins derived from the owner's Google Maps links for review only; exact entrances, addresses and hours remain unconfirmed, and the map is not production data.
 
-The prototype uses `images/lpgtech_conversion_movie-web.mp4` for the LPGTech film. The original `images/lpgtech_conversion_movie.mp4` is retained. Prototype forms open the visitor’s email app with the message or booking request prepared; no live form endpoint is connected yet.
+The site uses `images/lpgtech_conversion_movie-web.mp4` for the LPGTech film; the original `images/lpgtech_conversion_movie.mp4` is retained. Forms send through EmailJS with a `mailto:` fallback; the EmailJS service/template IDs are currently stale and need refreshing (see open items).
 
-The preview server is for local review only. It does not execute the production form transport, booking API, DNS redirects or server headers.
+The preview server is for local review only.
 
-## What is in the baseline
+## Repository layout
 
-- The public live pages, including `booking.html`, `navbar.html` and the live-only scripts.
-- The same-origin CSS, JavaScript, images and video referenced by those pages.
-- Six Phase 1 audit and planning documents in `docs/`.
-- A dependency-free local preview server.
+- Root — the redesigned site (`index.html` + inner pages, `styles.css`, `pages.css`, `pages.js`, `script.js`).
+- `images/` — shared media and video.
+- `legacy/` — the archived original site (HTML, `css/`, `js/`, `contactscript.js`), kept for reference and not part of the live site.
+- `docs/` — planning and audit documents.
+- `scripts/preview.mjs` — dependency-free local preview server.
 
-## Known baseline defects
+## Known open items
 
-These are intentionally preserved in the baseline so they can be fixed and verified in Phase 2A–2D:
-
-- `contactscript.js` runs before the form and throws a `TypeError`.
-- The contact page has a legacy fallback to the missing `send_email.php`.
-- EmailJS and the booking API are not configured for local delivery.
-- Hotjar and Clarity use placeholder IDs; the homepage throws a `ReferenceError` and Clarity returns HTTP 400.
-- The homepage autoplays a roughly 47 MiB hero video.
-- Several live assets return 404: `images/fevicon.png`, `fonts/BalooChettan-Regular.ttf`, `css/swiper.min.css` and legacy CSS-relative images.
-- The canonical URL points to the non-resolving `https://otodrive.co.ke/`.
+- Exact entrances, addresses and hours are unconfirmed; the map and location list are provisional.
+- The EmailJS service/template IDs (`service_u7bdgwm` / `template_u57mj4b`) no longer exist on the account and need refreshing, or the forms should move to the owner's Microsoft 365/Exchange.
+- Booking is a request that the team confirms by phone/email; there is no calendar or availability integration yet.
 - Researched location coordinates are **not** published here as confirmed facts.
 
 ## Design originality
 
-Apple, Nike and the owner’s C.O.R.E project are reference points for qualities such as clarity, craft, restraint and pacing — not templates to copy. The redesign must establish an original Otodrive identity and must not reuse another brand’s layout, assets, copy or visual signature.
+Apple, Nike and the owner's C.O.R.E project are reference points for qualities such as clarity, craft, restraint and pacing — not templates to copy. The redesign establishes an original Otodrive identity.
 
 Three.js is not part of the baseline. Any 3D or heavy motion work must follow the Phase 2D performance work and the Phase 2E design gate, with a static fallback and reduced-motion support.
 
