@@ -62,6 +62,49 @@ if (header) {
   header.classList.toggle("is-scrolled", lastScroll > 18);
 }
 
+function setFormStatus(form, message) {
+  const scope = form.closest("[data-form-scope]") || form.parentElement;
+  const status = scope ? scope.querySelector("[data-form-status]") : null;
+
+  if (status) {
+    status.hidden = false;
+    status.textContent = message;
+  }
+}
+
+function encodeFormValue(value) {
+  return encodeURIComponent(value).replace(/%0A/g, "%0D%0A");
+}
+
+document.querySelectorAll("form[data-mailto]").forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const data = new FormData(form);
+    const lines = [];
+
+    data.forEach((value, key) => {
+      const text = String(value).trim();
+      if (text && key !== "subject") {
+        lines.push(`${key}: ${text}`);
+      }
+    });
+
+    const subject = form.dataset.subject || "Otodrive website enquiry";
+    const body = lines.join("\r\n");
+    window.location.href = `mailto:info@otodrive.co.ke?subject=${encodeFormValue(subject)}&body=${encodeFormValue(body)}`;
+    setFormStatus(
+      form,
+      "Your email app should open with the message ready to send. If it does not, call +254 704 644 909 or email info@otodrive.co.ke."
+    );
+  });
+});
+
 const filterButtons = document.querySelectorAll(".filter");
 const networkRows = document.querySelectorAll(".network-row");
 
@@ -299,17 +342,10 @@ function initNetworkMap() {
   }
 }
 
-if (mapSection && "IntersectionObserver" in window) {
-  const mapObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        initNetworkMap();
-        mapObserver.disconnect();
-      }
-    },
-    { rootMargin: "300px 0px" }
-  );
-  mapObserver.observe(mapSection);
-} else {
-  initNetworkMap();
+if (mapSection) {
+  if (mapSection.hasAttribute("data-map-eager") || document.readyState === "complete") {
+    initNetworkMap();
+  } else {
+    window.addEventListener("load", initNetworkMap, { once: true });
+  }
 }
