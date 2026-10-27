@@ -180,7 +180,7 @@ function initNetworkMap() {
 
     networkMap = new maplibregl.Map({
       container: "network-map",
-      style: "https://tiles.openfreemap.org/styles/positron",
+      style: "https://tiles.openfreemap.org/styles/bright",
       center: [37.2, -2.2],
       zoom: 5.7,
       minZoom: 4,
