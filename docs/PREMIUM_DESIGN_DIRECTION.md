@@ -289,6 +289,36 @@ The first prototype should prove the direction with one page, not the whole site
 
 Only after the prototype is approved should the full page set be rebuilt.
 
+### 9.1 Prototype content coverage
+
+The prototype is a **homepage design proof**, not the final content build. No original page, text, image or video has been deleted from the repository or the live site.
+
+Currently represented in the prototype:
+
+- the primary hero paragraph and the first hero slide;
+- all four service names, with shortened descriptions;
+- all six project photographs across the hero, statement and selected-work sections;
+- both original videos;
+- the location network and map;
+- contact phone, email and the main calls to action.
+
+Not yet represented on the prototype homepage:
+
+- hero slides 2 and 3;
+- the full About paragraph and About video section;
+- the full service descriptions and all supporting copy;
+- the full project descriptions (the images are used, but the long copy is not yet in the prototype);
+- all six testimonials and their names/locations;
+- the contact-section copy;
+- the newsletter field and footer “Work Portfolio” paragraph;
+- the content of the other pages.
+
+Not yet redesigned at all:
+
+- About, Services, Projects, Testimonial, Contact, Get a Quote, Maps and Booking.
+
+The full rollout must restore every original text block, project description, testimonial, video, image and footer item. The final site should be **information-rich**, not a shortened marketing shell. These missing items are a design-prototype gap, not an approved content deletion.
+
 ---
 
 ## 10. Locations as a premium product surface

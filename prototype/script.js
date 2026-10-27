@@ -86,6 +86,49 @@ filterButtons.forEach((button) => {
   button.addEventListener("click", () => applyLocationFilter(button.dataset.filter));
 });
 
+const autoplayVideo = document.querySelector("[data-autoplay-on-view]");
+const filmSection = document.querySelector("#film");
+
+if (autoplayVideo && filmSection && !reduceMotion) {
+  let started = false;
+
+  const startFilm = () => {
+    if (started) return;
+    started = true;
+    autoplayVideo.muted = true;
+    autoplayVideo.preload = "auto";
+    autoplayVideo.play().catch(() => {
+      // If the browser blocks playback, the poster and controls remain usable.
+    });
+  };
+
+  const checkFilmPosition = () => {
+    const rect = filmSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+      startFilm();
+      window.removeEventListener("scroll", checkFilmPosition);
+    }
+  };
+
+  window.addEventListener("scroll", checkFilmPosition, { passive: true });
+  window.addEventListener("load", checkFilmPosition);
+  checkFilmPosition();
+
+  if ("IntersectionObserver" in window) {
+    const videoObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startFilm();
+        } else if (started && !autoplayVideo.paused) {
+          autoplayVideo.pause();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    videoObserver.observe(filmSection);
+  }
+}
+
 const locations = [
   {
     name: "Thika",
@@ -160,6 +203,10 @@ function serviceTags(service) {
   return ["Autogas LPG"];
 }
 
+function directionsUrl(location) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${location.coords[1]},${location.coords[0]}`;
+}
+
 function setMapDetail(location) {
   if (!mapDetail || !mapDetailName || !mapDetailServices || !mapDetailArea || !mapDetailLink) {
     return;
@@ -167,7 +214,7 @@ function setMapDetail(location) {
 
   mapDetailName.textContent = location.name;
   mapDetailArea.textContent = location.area;
-  mapDetailLink.href = location.mapsUrl;
+  mapDetailLink.href = directionsUrl(location);
   mapDetailServices.replaceChildren(
     ...serviceTags(location.service).map((label) => {
       const tag = document.createElement("span");

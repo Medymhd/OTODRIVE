@@ -747,11 +747,19 @@ html.js .hero-media.is-visible::before {
   align-items: center;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
   transition: background-color 220ms var(--ease);
 }
 
-.network-row:hover {
+.network-row:hover,
+.network-row:focus-visible {
   background: rgba(253, 164, 23, 0.055);
+}
+
+.network-row:focus-visible {
+  outline: 2px solid var(--orange-deep);
+  outline-offset: 2px;
 }
 
 .network-row.is-hidden {
@@ -867,16 +875,6 @@ html.js .hero-media.is-visible::before {
   margin: 22px 0 0;
   color: var(--ink-soft);
   font-size: 0.88rem;
-}
-
-.map-detail-note {
-  max-width: 32ch;
-  margin: 16px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.75rem;
-  line-height: 1.55;
 }
 
 .map-detail .text-link {
