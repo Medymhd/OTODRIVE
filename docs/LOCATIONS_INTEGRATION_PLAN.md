@@ -64,6 +64,7 @@ This plan defines how Otodrive should present physical locations without publish
 - Thika and Mavoko offer both Otodrive conversion and Autogas LPG fueling.
 - Kangundo Road, Rongai, Shanzu and Jomvu are Autogas LPG fueling only.
 - Jomvu Yard is Otodrive conversion only and is distinct from Jomvu.
+- There are three Otodrive conversion centres: Mavoko, Thika and Jomvu Yard.
 - Jomvu Yard is along the Mombasa–Nairobi Highway in the Jomvu area of Mombasa, immediately beside the A.O. Bayusuf & Sons Ltd logistics yard.
 - No site should be assumed to offer both services unless the owner confirms it.
 
@@ -710,7 +711,7 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 
 1. **The official Petrocity locator is incomplete.** On 27 October 2026 it returned only four Kenya stations — Mombasa Road, Bamburi, Shanzu and Nyali — even though the official Petrocity Kenya page names Mavoko, Rongai and Thika, and public Otodrive posts name Kangundo Road, Jomvu and Shanzu. Absence from the locator is not evidence that a site is closed or unaffiliated; presence is not proof of Otodrive conversion.
 2. **Map listings are supporting evidence, not service proof.** Some listings are unclaimed or user-edited. A gas-station listing does not prove Autogas LPG is sold there, and an Otodrive listing does not prove every service is offered.
-3. **The service split is still largely owner-provided.** Outside Mavoko and Jomvu Yard, no separate Otodrive listings were found at the Petrocity fueling stations in Thika, Kangundo Road, Rongai, Shanzu or Jomvu. The only Otodrive map listings found were Mavoko (name includes fueling and conversion) and the Jomvu Yard auto repair shop. Therefore, Otodrive conversion at Thika is the largest service-type uncertainty.
+3. **The service split is still largely owner-provided.** Outside Mavoko and Jomvu Yard, no separate Otodrive listings were found at the Petrocity fueling stations in Thika, Kangundo Road, Rongai, Shanzu or Jomvu. The only Otodrive map listings found were Mavoko (name includes fueling and conversion) and the Jomvu Yard auto repair shop. The owner has since confirmed three Otodrive conversion centres — Mavoko, Thika and Jomvu Yard — with the exact Thika entrance and hours still to verify.
 4. **Mavoko has two map pins about 99 m apart.** The Otodrive listing is near Mombasa Cement; the Petrocity Mavoko Station listing is on the Mombasa–Nairobi Road. They may be one facility with two pins or adjacent facilities. Do not merge them until the owner confirms the customer entrance and whether one or two records should be published.
 5. **Jomvu and Jomvu Yard are distinct.** Petrocity Jomvu is about 837 m east of the Jomvu Yard pin. The current owner link resolves to XHVW+6W6 at `-4.0074044, 39.596643`, about 87 m from A.O. Bayusuf; the earlier link resolved to the Otodrive listing about 10 m away. Both match the owner’s “immediately beside” description. Do not merge the pins or labels.
 6. **Shanzu has a naming and coordinate conflict.** Google/OSM place the Petrocity site at about `-3.98375, 39.7381`; the official locator places “Shanzu Service Station” about 182 m west at `-3.983909, 39.736588`; OSM also names the node “Petrocity Bamburi.” Confirm the official name and entrance before publishing. Do not merge it with the separate Petrocity Bamburi station at `-4.002046, 39.69951` in the official locator.
@@ -723,7 +724,7 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 
 | Site | Proposed label | Service message |
 |---|---|---|
-| Thika | Otodrive Thika — Autogas conversion & LPG fueling | Both services, only if the owner confirms conversion at this site. |
+| Thika | Otodrive Thika — Autogas conversion & LPG fueling | Both services; owner-confirmed conversion centre (exact entrance still to verify). |
 | Mavoko | Otodrive Mavoko — Autogas conversion & LPG fueling | Both services, subject to one confirmed entrance/pin. |
 | Kangundo Road | Autogas Kangundo Road — LPG fueling | LPG fueling only; no Otodrive conversion. |
 | Rongai | Autogas Rongai — LPG fueling | LPG fueling only; no Otodrive conversion. |
@@ -733,7 +734,7 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 
 Use “at Petrocity [site]” in body copy where helpful, so customers understand the relationship without implying that every Petrocity station is an Otodrive conversion centre. Final brand casing (Otodrive, OtoDrive or OTODRIVE) remains an owner decision.
 
-**Conclusion:** the evidence is strong enough to design a text-first, multi-site location index and to prioritise Mavoko and Jomvu Yard for verification. It is not strong enough to publish confirmed pins or service labels for all seven sites. Each row remains **owner confirmation required** until the checklist below is complete.
+**Conclusion:** the evidence is strong enough to design a text-first, multi-site location index and to prioritise the three conversion centres (Mavoko, Thika and Jomvu Yard) for verification. It is not strong enough to publish confirmed pins or service labels for all seven sites. Each row remains **owner confirmation required** until the checklist below is complete.
 
 ### 12.11 How locations will be added or edited
 
