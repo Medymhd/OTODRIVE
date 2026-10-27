@@ -74,6 +74,8 @@ Status key: **Fixed** = set by the engagement brief; **Proposed** = recommended,
 | D-032 | No CMS, database or location SaaS until the owner defines who edits locations and how often | Proposed | Avoids adding a workflow the owner will not maintain. |
 | D-033 | Premium design discovery is Phase 2E, after Phase 2D performance; Three.js is optional and gate-controlled | Proposed | A premium feel comes from art direction and performance, not animation weight. |
 | D-034 | No new paid subscriptions; use existing hosting, Microsoft 365 and free/open-source components | Fixed | $0 implementation constraint; free-tier limits and renewals must be documented. |
+| D-035 | Premium direction is light-mode “Daylight / Molten”; C.O.R.E dark mode is reference only | Proposed | Light canvas suits Otodrive photography; avoids a dark SaaS clone. |
+| D-036 | Locations are a list-first network product with per-site pages and separate service labels | Proposed | Not one generic map; conversion and LPG fueling stay distinct. |
 
 ---
 
@@ -276,6 +278,8 @@ The full checklist is in `docs/LOCATIONS_INTEGRATION_PLAN.md` section 13. The hi
 | Q-108 | Is Three.js actually required, and what static/reduced-motion fallback will be accepted? | Performance, accessibility and maintenance | No; prove a 2D hero first, then decide. |
 | Q-109 | Is SMTP AUTH available on the Microsoft 365/Exchange tenant, and which mailbox sends/receives form mail? | Form transport and deliverability | Use the existing monitored mailbox if the host supports outbound SMTP; otherwise use a free EmailJS tier with documented quota. |
 | Q-110 | Can staging be created on the existing hosting at no extra cost? | Safe local/staging review | Use local preview only until a $0 staging path is confirmed. |
+| Q-111 | Is the light-mode “Daylight / Molten” direction approved? | Visual direction and prototype scope | Proceed with the light prototype; no dark SaaS clone. |
+| Q-112 | Should the locations index be list-first or include a searchable map? | UX, cost and performance | List-first; per-site consent-gated embeds only. |
 
 ---
 
@@ -360,7 +364,8 @@ Use this table to track evidence. “Verified” requires a document, a dated sc
 | Location scope | ☐ Seven owner-listed sites ☐ Subset ☐ Other: ______ | | |
 | Service split | ☐ Thika/Mavoko both; others as listed ☐ Changes: ______ | | |
 | Location editing model | ☐ Structured file + build ☐ Git CMS ☐ Headless CMS ☐ Database/API ☐ Other: ______ | | |
-| Premium design direction | ☐ Approved after Phase 2E ☐ Other: ______ | | |
+| Premium design direction | ☐ Light “Daylight / Molten” ☐ Other: ______ | | |
+| Locations UX | ☐ List-first ☐ Searchable map ☐ Other: ______ | | |
 | Three.js / 3D | ☐ No default ☐ Prototype only ☐ Approved after performance gate | | |
 | Zero-cost constraint | ☐ Acknowledged: no new paid subscriptions | | |
 | Map provider | ☐ Google Embed ☐ Google JS ☐ MapTiler/MapLibre ☐ Other: ______ | | |
@@ -392,6 +397,7 @@ Use this table to track evidence. “Verified” requires a document, a dated sc
 - `docs/MODERNIZATION_ROADMAP.md`
 - `docs/LOCATIONS_INTEGRATION_PLAN.md`
 - `docs/ONLINE_PRESENCE_PLAN.md`
+- `docs/PREMIUM_DESIGN_DIRECTION.md`
 
 ---
 

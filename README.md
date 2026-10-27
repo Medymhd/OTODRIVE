@@ -1,6 +1,6 @@
 # Otodrive Website
 
-**Status:** Clean project baseline; Phase 0/2A in preparation. No production deployment.
+**Status:** Design prototype complete for review; no production deployment.
 **Baseline date:** 27 October 2026
 **Canonical public host:** `https://www.otodriveafrica.com/`
 **Source of this baseline:** Public live site at `https://www.otodriveafrica.com/`, captured page-by-page and asset-by-asset. This is not a server-side backup; hosting, DNS, mail and booking configuration are not included.
@@ -14,6 +14,10 @@ npm run preview
 ```
 
 Open <http://127.0.0.1:4173/>.
+
+The light-mode design prototype starts at <http://127.0.0.1:4173/prototype/index.html>, with redesigned pages for About, Services, Projects, Testimonials, Contact, Get a Quote, Locations and Booking. It uses owner-provided location labels and pins derived from the owner’s Google Maps links for layout review only; exact entrances, addresses and hours remain unconfirmed, and the map is not production data.
+
+The prototype uses `images/lpgtech_conversion_movie-web.mp4` for the LPGTech film. The original `images/lpgtech_conversion_movie.mp4` is retained. Prototype forms open the visitor’s email app with the message or booking request prepared; no live form endpoint is connected yet.
 
 The preview server is for local review only. It does not execute the production form transport, booking API, DNS redirects or server headers.
 
@@ -58,4 +62,5 @@ No deployment, DNS change, EmailJS change, Exchange change or booking API change
 - `docs/MODERNIZATION_ROADMAP.md`
 - `docs/LOCATIONS_INTEGRATION_PLAN.md`
 - `docs/ONLINE_PRESENCE_PLAN.md`
+- `docs/PREMIUM_DESIGN_DIRECTION.md`
 - `docs/DECISIONS_AND_OPEN_QUESTIONS.md`

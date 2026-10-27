@@ -374,6 +374,7 @@ A premium feel is not created by adding Three.js. It comes from art direction, t
 ### Inputs
 
 - Current brand assets, logo, photography and video.
+- The light-mode direction in `PREMIUM_DESIGN_DIRECTION.md`; C.O.R.E dark mode is reference only.
 - The current content and approved service/location facts.
 - Performance budgets from Phase 2D.
 - The owner’s premium visual references, including C.O.R.E as **inspiration only**.

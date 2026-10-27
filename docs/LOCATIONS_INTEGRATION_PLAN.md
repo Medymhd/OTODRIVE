@@ -56,7 +56,7 @@ This plan defines how Otodrive should present physical locations without publish
 - The booking script hard-codes weekday/Saturday hours and closes Sunday.
 - The site claims 24/7 support in metadata and structured data.
 - The live canonical host (`otodrive.co.ke`) has no A record and does not serve the website; the working host is `otodriveafrica.com`.
-- The owner-supplied Jomvu Yard map link resolves to the Otodrive “AUTOGAS CONVERSION CENTRE JOMVU” listing at `-4.0073924, 39.5965528`, about 95 m from A.O. Bayusuf & Sons.
+- The current owner-supplied Jomvu Yard map link resolves to the XHVW+6W6 place at `-4.0074044, 39.596643`, about 87 m from A.O. Bayusuf & Sons; the earlier link resolved to the Otodrive listing about 10 m away.
 
 **Owner-provided, not independently verified:**
 
@@ -150,7 +150,8 @@ Prices and terms were checked on 27 October 2026. They change frequently; confir
 | **Google Maps Embed API** | One map or a small number of per-page embeds | Free, unlimited embeds | $0 | Allowed under Google terms | Very low | Low | **Recommended for the current Mavoko page and per-site pages; not for seven eager embeds** |
 | **Google Maps JavaScript API / Dynamic Maps** | Rich maps, Places, Street View, locator | 10,000 map loads/month, then $7 per 1,000 | Usage-based | Allowed under Google terms | Medium | Medium | Consider for multi-location or Google Business Profile integration |
 | **Mapbox GL JS** | Custom-styled maps, high design control | 50,000 map loads/month, then $5 per 1,000 | Usage-based | Allowed under Mapbox terms | Medium–high | Medium | Good alternative if custom styling matters |
-| **MapTiler + MapLibre GL JS** | Open-source stack with managed tiles | 5,000 sessions/month, non-commercial only | Flex from $30/month for 25,000 sessions | Commercial plan required | Medium | Low–medium | Best open-stack option if a locator is approved |
+| **MapTiler + MapLibre GL JS** | Open-source stack with managed tiles | 5,000 sessions/month, non-commercial only | Flex from $30/month for 25,000 sessions | Commercial plan required | Medium | Low-medium | Best paid open-stack option if a locator is approved |
+| **OpenFreeMap + MapLibre GL JS** | Free multi-pin prototype / light vector map | Free public instance; commercial use allowed per vendor | $0 public instance; self-host cost | Allowed per vendor terms; confirm | Medium | Low-medium | **Prototype candidate; verify terms/uptime before production** |
 | **Stadia Maps + Leaflet/MapLibre** | Low-cost maps | 200,000 credits, **no commercial use** | Starter from $20/month | Paid plan required | Medium | Low–medium | Not recommended for a commercial site on the free tier |
 | **OpenStreetMap public tiles** | Prototyping only | “Free” but policy-limited | N/A | **Not suitable for production** | Low | Low | Do not use |
 | **Self-hosted tiles (Leaflet/MapLibre)** | Full control, offline/private | Software free | Server/storage/ops cost | Allowed | High | Low | Only with a serious ops budget |
@@ -180,6 +181,13 @@ Prices and terms were checked on 27 October 2026. They change frequently; confir
 - Requires an access token; restrict it by URL and scope.
 - The free tier is generous for a small site, but pricing and terms should be reviewed.
 - Not necessary until a searchable locator is approved.
+
+**OpenFreeMap + MapLibre**
+
+- OpenFreeMap provides a free public vector-tile instance and states that commercial use is allowed; confirm current terms, attribution and uptime before production.
+- MapLibre GL JS is BSD-3-Clause and does not require an API key.
+- The prototype uses this stack for a large multi-pin map; it is not yet a production commitment.
+- Fallback: list-first locations plus free Google Maps Embeds on verified detail pages.
 
 **MapTiler + MapLibre**
 
@@ -212,7 +220,8 @@ Prices and terms were checked on 27 October 2026. They change frequently; confir
 |----------|----------------------|------------------------|
 | One or several sites, static per-page embeds | Google Maps Embed | $0 |
 | One site, custom map | MapTiler Flex | $30 |
-| Seven-site locator, low traffic | Google Maps JS or Mapbox | $0–$7-ish, depending on loads |
+| Seven-site locator, prototype | MapLibre + OpenFreeMap | $0 public instance |
+| Seven-site locator, low traffic | Google Maps JS or Mapbox | $0-$7-ish, depending on loads |
 | Seven-site locator, high traffic | Google Maps JS or Mapbox | Usage-based; monitor |
 | Self-hosted tiles | MapLibre + server | Server/storage/ops cost |
 
@@ -223,8 +232,8 @@ These are rough planning figures, not quotes. Taxes, exchange rates and overage 
 | Need | Recommendation |
 |------|----------------|
 | Current published Mavoko location | Google Maps Embed, consent-gated, with text-first card |
-| Owner-listed network (7 sites) | Text-first index and per-site pages; static Google Embed per page; locator only after verification and approval |
-| Searchable locator (2–20 sites) | MapLibre + MapTiler Flex, or Google Maps JS if Google ecosystem is preferred |
+| Owner-listed network (7 sites) | Text-first index and per-site pages; static Google Embed per page; one large MapLibre/OpenFreeMap prototype map |
+| Searchable locator (2–20 sites) | MapLibre + MapTiler Flex, MapLibre + OpenFreeMap (terms permitting), or Google Maps JS if Google ecosystem is preferred |
 | Custom brand styling | Mapbox or MapTiler + MapLibre |
 | Zero budget, commercial site | Google Maps Embed on individual verified site pages; do not use OSM public tiles |
 | Privacy-first/self-hosted | MapLibre + self-hosted tiles, with ops budget |
@@ -375,6 +384,8 @@ If real-time availability is not available, replace the grid with a **request ap
 ---
 
 ## 7. UX and page design
+
+For the premium location index, location cards and per-site page pattern, see `docs/PREMIUM_DESIGN_DIRECTION.md` §10.
 
 ### 7.1 Current published location (Mavoko)
 
@@ -642,7 +653,7 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 
 **Research date:** 27 October 2026.  
 **Method:** official Petrocity pages and locator, Google Maps listings, OpenStreetMap/Nominatim supporting checks, and official Otodrive social posts. Google Maps and OpenStreetMap are third-party sources and can be incomplete, outdated or user-edited.  
-**Rule:** the coordinates below are research references, not published pins. No map markers were created and no location was published.
+**Rule:** the coordinates below are research references, not confirmed production pins. No production map markers were created; the local design prototype contains provisional pins for layout review only.
 
 **Confidence definitions:**
 
@@ -654,13 +665,13 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 
 | Customer-facing site name (proposed) | Verified service types | Petrocity reference | Address | Coordinates | Evidence / source links | Date checked | Confidence | Unresolved questions |
 |---|---|---|---|---|---|---|---|---|
-| Otodrive Thika — Autogas conversion & LPG fueling | Owner-provided: Otodrive conversion + Autogas LPG. Petrocity listing is a gas station; no separate Otodrive listing found. | Petrocity Thika | Thika Road, Thika, Kiambu; plus code X357+2GW; no street number published | `-1.0423809, 37.0638209` | [G1], [O1], [O3], [S2] | 27 Oct 2026 | Medium — exact Petrocity listing; conversion presence unverified; listing appears unclaimed | Is Otodrive conversion actually offered here? Which bay or entrance? Correct hours, phone and address? Should the listing be claimed? |
-| Otodrive Mavoko — Autogas conversion & LPG fueling | Owner-provided: both. Otodrive listing name supports fueling + conversion; Petrocity listing is a gas station. | Petrocity Mavoko Station | Otodrive pin: Mombasa Road, next to Mombasa Cement, Mavoko, Machakos. Petrocity pin: HXC6+67, Mombasa–Nairobi Road, Mlolongo/Syokimau, Machakos 00519. Existing JSON-LD “Nairobi 00100” is unverified. | Otodrive `-1.4297154, 36.9601985`; Petrocity `-1.4289387, 36.9608629`; about 114 m apart — do not merge | [G2], [G3], [O1], [S1], [M1] | 27 Oct 2026 | Medium — two listings corroborate the area; exact facility and entrance unresolved | Which pin is the customer entrance? Same facility or adjacent? Service-specific hours (Otodrive listing says 24 hours; Petrocity listing says closes 5 pm)? Correct county and postcode? Google Business Profile ownership? |
+| Otodrive Thika — Autogas conversion & LPG fueling | Owner-provided: Otodrive conversion + Autogas LPG. Petrocity listing is a gas station; no separate Otodrive listing found. | Petrocity Thika | Thika Road, Thika, Kiambu; plus code X357+2GW; no street number published | `-1.042145, 37.063842` (owner link); previous Google pin about 26 m away | [G1], [G11], [O1], [O3], [S2] | 27 Oct 2026 | Medium — owner link resolves in Thika; conversion presence and exact Petrocity entrance unverified | Is Otodrive conversion actually offered here? Which bay or entrance? Correct hours, phone and address? Should the listing be claimed? |
+| Otodrive Mavoko — Autogas conversion & LPG fueling | Owner-provided: both. Otodrive listing name supports fueling + conversion; Petrocity listing is a gas station. | Petrocity Mavoko Station | Otodrive pin: Mombasa Road, next to Mombasa Cement, Mavoko, Machakos. Petrocity pin: HXC6+67, Mombasa–Nairobi Road, Mlolongo/Syokimau, Machakos 00519. Existing JSON-LD “Nairobi 00100” is unverified. | Otodrive `-1.429533, 36.960198` (owner link); Petrocity `-1.4289387, 36.9608629`; about 99 m apart — do not merge | [G2], [G3], [G11], [O1], [S1], [M1] | 27 Oct 2026 | Medium — owner link and Petrocity listing corroborate the area; exact facility and entrance unresolved | Which pin is the customer entrance? Same facility or adjacent? Service-specific hours (Otodrive listing says 24 hours; Petrocity listing says closes 5 pm)? Correct county and postcode? Google Business Profile ownership? |
 | Autogas Kangundo Road — LPG fueling | Owner-provided: Autogas LPG only. No Otodrive conversion confirmed. | Petrocity Kangundo Road | Kangundo Road, Mowlem ward, Njiru, Nairobi 40653 | `-1.2752261, 36.8893014` (Google); OSM `-1.2752370, 36.8893195` (about 2 m apart) | [G4], [S2], [M2] | 27 Oct 2026 | High for the Petrocity location; service split owner-provided | Confirm Autogas only; exact entrance, phone and hours; confirm no conversion. |
 | Autogas Rongai — LPG fueling | Owner-provided: Autogas LPG only. No Otodrive conversion confirmed. | Petrocity Rongai | Magadi Road area, Olkeri ward, Kajiado North, Kajiado 00409 (reverse geocode); listing publishes no street address | `-1.4002857, 36.7234206` | [G5], [O1], [S2], [R1] | 27 Oct 2026 | Medium — exact listing; address and entrance unconfirmed | Exact address and entrance; confirm Autogas only; hours and phone; Google Business Profile. |
 | Autogas Shanzu — LPG fueling | Owner-provided: Autogas LPG only. No Otodrive conversion confirmed. | Petrocity Shanzu / “Shanzu Service Station” | Malindi Road, Shanzu/Bamburi, Mombasa 80295 | Google `-3.9837529, 39.7382157`; OSM `-3.9837493, 39.7380065` (about 23 m); official locator `-3.983909, 39.736588` (about 182 m west) | [G6], [O2], [S2], [M3], [R1] | 27 Oct 2026 | Medium — Google/OSM agree; official locator differs; naming ambiguity | Official name Shanzu or Bamburi? Which pin is the entrance? Confirm Autogas only; address, hours and phone. |
 | Autogas Jomvu — LPG fueling | Owner-provided: Autogas LPG only. No Otodrive conversion confirmed. | Petrocity Jomvu | Mombasa Road, Jomvu/Miritini area, Mombasa 80102; plus code XJV3+9R3; no street address published | `-4.0078763, 39.6040628` | [G7], [S2], [M4], [R1] | 27 Oct 2026 | Medium — exact Google listing; OSM mismatch; service split owner-provided | Confirm Autogas only; exact entrance, address, hours and phone; do not merge with Jomvu Yard or with the separate OSM Petrocity node about 4 km away. |
-| Otodrive Jomvu Yard — Autogas conversion | Owner-provided: Otodrive conversion only. Otodrive listing is an auto repair shop; no LPG fueling indicated. Owner supplied a map link that resolves to the same Otodrive listing. | Petrocity Jomvu yard / “OTODRIVE AUTOGAS CONVERSION CENTRE JOMVU” | XHVW+6W6 Jomvu, Mombasa Road; owner confirms it is along the Mombasa–Nairobi Highway, immediately beside A.O. Bayusuf & Sons Ltd; exact street address and gate/entrance not published | `-4.0073924, 39.5965528` (Otodrive listing); A.O. Bayusuf reference `-4.0069502, 39.5972786` (about 95 m); Petrocity Jomvu about 837 m east | [G8], [G9], [G10], [S1], [R1] | 27 Oct 2026 | High — owner-supplied link resolves to the same Otodrive listing and matches the A.O. Bayusuf landmark; exact gate and service scope still need confirmation | Confirm conversion only and no LPG fueling; exact gate/entrance and parking; customer-facing name; hours and phone; Google Business Profile. |
+| Otodrive Jomvu Yard — Autogas conversion | Owner-provided: Otodrive conversion only. Otodrive listing is an auto repair shop; no LPG fueling indicated. Owner supplied a map link that resolves to the yard plus code. | Petrocity Jomvu yard / “OTODRIVE AUTOGAS CONVERSION CENTRE JOMVU” | XHVW+6W6 Jomvu, Mombasa Road; owner confirms it is along the Mombasa–Nairobi Highway, immediately beside A.O. Bayusuf & Sons Ltd; exact street address and gate/entrance not published | `-4.0074044, 39.596643` (owner link); A.O. Bayusuf reference `-4.0069502, 39.5972786` (about 87 m); Petrocity Jomvu about 837 m east | [G8], [G9], [G10], [G11], [S1], [R1] | 27 Oct 2026 | High — owner link resolves to XHVW+6W6 and matches the A.O. Bayusuf landmark; exact gate and service scope still need confirmation | Confirm conversion only and no LPG fueling; exact gate/entrance and parking; customer-facing name; hours and phone; Google Business Profile. |
 
 **Evidence register — all links checked 27 October 2026:**
 
@@ -673,7 +684,17 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 - [G7] Google Maps — Petrocity Jomvu: <https://www.google.com/maps/place/Petrocity+Jomvu/@-4.0078763,39.6040628,17z>
 - [G8] Google Maps — OTODRIVE AUTOGAS CONVERSION CENTRE JOMVU: <https://www.google.com/maps/place/OTODRIVE+AUTOGAS+CONVERSION+CENTRE+JOMVU/@-4.0073924,39.5965528,17z>
 - [G9] Google Maps — A.O. Bayusuf And Sons Limited, landmark reference: <https://www.google.com/maps/place/A.+O.+Bayusuf+And+Sons+Limited/@-4.0069502,39.5972786,17z>
-- [G10] Owner-supplied Google Maps short link for Otodrive Jomvu Yard; it resolves to place ID `0x1840730066d6e4bb:0xaaea36c23744c8d0` at `-4.0073924, 39.5965528`, the same Otodrive listing as [G8]: <https://maps.app.goo.gl/oHfycTkMxsWJTjnG9>
+- [G10] Earlier owner-supplied Google Maps short link for Otodrive Jomvu Yard; it resolved to the Otodrive listing at `-4.0073924, 39.5965528`: <https://maps.app.goo.gl/oHfycTkMxsWJTjnG9>
+- [G11] Current owner-supplied Google Maps links, checked 27 October 2026:
+  - Mavoko: <https://maps.app.goo.gl/C2WLEC5tz1VwoAwZ7>
+  - Thika: <https://maps.app.goo.gl/ZHujXRnAL1nDtZSu6>
+  - Kangundo Road: <https://maps.app.goo.gl/3EDXSLFxYyYutGrA9>
+  - Rongai: <https://maps.app.goo.gl/GxpfryWxtuegwdWR7>
+  - Shanzu: <https://maps.app.goo.gl/hYihjjUFbdxKwveR7>
+  - Jomvu: <https://maps.app.goo.gl/LQZJuWqmyCyEe3Nk6>
+  - Jomvu Yard: <https://maps.app.goo.gl/frdagKS94VieWW7a7>
+
+**Coordinate check (27 October 2026):** the owner links resolve within 0–26 m of the earlier research pins: Mavoko about 20 m, Thika about 26 m, Jomvu Yard about 10 m; Kangundo Road, Rongai, Shanzu and Jomvu match. The prototype uses the owner-link coordinates. Exact entrances and service scope still require confirmation.
 - [O1] Petrocity Kenya page (names Mavoko, Rongai and Thika stations): <https://petrocityafrica.com/petrocity-kenya/>
 - [O2] Petrocity official service station locator (partial; supplies Shanzu reference): <https://petrocityafrica.com/service-station-locator/>
 - [O3] Petrocity Autogas page (confirms the Petrocity–Otodrive relationship, not per-site services): <https://petrocityafrica.com/autogas/>
@@ -690,13 +711,13 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 1. **The official Petrocity locator is incomplete.** On 27 October 2026 it returned only four Kenya stations — Mombasa Road, Bamburi, Shanzu and Nyali — even though the official Petrocity Kenya page names Mavoko, Rongai and Thika, and public Otodrive posts name Kangundo Road, Jomvu and Shanzu. Absence from the locator is not evidence that a site is closed or unaffiliated; presence is not proof of Otodrive conversion.
 2. **Map listings are supporting evidence, not service proof.** Some listings are unclaimed or user-edited. A gas-station listing does not prove Autogas LPG is sold there, and an Otodrive listing does not prove every service is offered.
 3. **The service split is still largely owner-provided.** Outside Mavoko and Jomvu Yard, no separate Otodrive listings were found at the Petrocity fueling stations in Thika, Kangundo Road, Rongai, Shanzu or Jomvu. The only Otodrive map listings found were Mavoko (name includes fueling and conversion) and the Jomvu Yard auto repair shop. Therefore, Otodrive conversion at Thika is the largest service-type uncertainty.
-4. **Mavoko has two map pins about 114 m apart.** The Otodrive listing is near Mombasa Cement; the Petrocity Mavoko Station listing is on the Mombasa–Nairobi Road. They may be one facility with two pins or adjacent facilities. Do not merge them until the owner confirms the customer entrance and whether one or two records should be published.
-5. **Jomvu and Jomvu Yard are distinct.** Petrocity Jomvu is about 837 m east of the Otodrive Jomvu listing. The owner supplied a map link for Jomvu Yard that resolves to the same Otodrive listing at `-4.0073924, 39.5965528`; that listing is about 95 m from A.O. Bayusuf and matches the owner’s “immediately beside” description. Do not merge the pins or labels.
+4. **Mavoko has two map pins about 99 m apart.** The Otodrive listing is near Mombasa Cement; the Petrocity Mavoko Station listing is on the Mombasa–Nairobi Road. They may be one facility with two pins or adjacent facilities. Do not merge them until the owner confirms the customer entrance and whether one or two records should be published.
+5. **Jomvu and Jomvu Yard are distinct.** Petrocity Jomvu is about 837 m east of the Jomvu Yard pin. The current owner link resolves to XHVW+6W6 at `-4.0074044, 39.596643`, about 87 m from A.O. Bayusuf; the earlier link resolved to the Otodrive listing about 10 m away. Both match the owner’s “immediately beside” description. Do not merge the pins or labels.
 6. **Shanzu has a naming and coordinate conflict.** Google/OSM place the Petrocity site at about `-3.98375, 39.7381`; the official locator places “Shanzu Service Station” about 182 m west at `-3.983909, 39.736588`; OSM also names the node “Petrocity Bamburi.” Confirm the official name and entrance before publishing. Do not merge it with the separate Petrocity Bamburi station at `-4.002046, 39.69951` in the official locator.
 7. **The OSM Jomvu-area node does not match the Google Jomvu listing.** It is about 4 km away. It may represent a different Petrocity station, but that is not confirmed. Do not use it as the Jomvu pin or merge it with Jomvu Yard.
 8. **Mavoko hours conflict.** The Otodrive listing says open 24 hours; the Petrocity listing says it closes at 5 pm. These may refer to different services or pins. Do not publish “24/7” for the site until the owner confirms service-specific hours.
 9. **Addresses are context, not confirmed entrances.** Several addresses come from reverse geocoding or plus codes. They are useful for finding the area, but they are not proof of the customer entrance, plot number or parking access.
-10. **No tentative details were published.** No map markers were created, no coordinates were added to the website, and no service-type claim was changed.
+10. **No production details were published.** The local design prototype contains provisional map pins for layout review only; no production coordinates, addresses or service claims were added to the live website.
 
 **Recommended customer-facing labels (pending owner approval):**
 
@@ -985,6 +1006,9 @@ Accessed 27 October 2026. Re-check before purchase.
 - Leaflet licence: <https://github.com/Leaflet/Leaflet/blob/main/LICENSE>
 - MapLibre GL JS: <https://maplibre.org/>
 - MapLibre licence: <https://github.com/maplibre/maplibre-gl-js/blob/main/LICENSE.txt>
+- OpenFreeMap: <https://openfreemap.org/>
+- OpenFreeMap quick start: <https://openfreemap.org/quick_start/>
+- OpenFreeMap terms: <https://openfreemap.org/tos/>
 - Schema.org `AutoRepair`: <https://schema.org/AutoRepair>
 - Schema.org `OpeningHoursSpecification`: <https://schema.org/OpeningHoursSpecification>
 - WCAG 2.2: <https://www.w3.org/TR/WCAG22/>
@@ -1003,8 +1027,9 @@ Accessed 27 October 2026. Re-check before purchase.
 - `docs/CONTENT_AND_ASSET_INVENTORY.md`
 - `docs/MODERNIZATION_ROADMAP.md`
 - `docs/ONLINE_PRESENCE_PLAN.md`
+- `docs/PREMIUM_DESIGN_DIRECTION.md`
 - `docs/DECISIONS_AND_OPEN_QUESTIONS.md`
 
 ---
 
-**End of plan. No location data was published as confirmed and no map markers were created. Research references remain provisional until owner verification and approval.**
+**End of plan. No location data was published as confirmed. The local design prototype contains provisional pins for layout review only; all research references remain provisional until owner verification and approval.**
