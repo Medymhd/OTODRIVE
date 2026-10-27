@@ -11,6 +11,10 @@
   --charcoal: #11100e;
   --shell: min(1440px, calc(100vw - 96px));
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --space-section: clamp(3.5rem, 6.5vw, 6.5rem);
+  --space-body: clamp(3rem, 6vw, 6rem);
+  --space-head: clamp(2rem, 4vw, 3.5rem);
+  --space-cta: clamp(2.5rem, 5vw, 5rem);
   --font-display: "Archivo", "Arial Black", system-ui, sans-serif;
   --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
 }
@@ -100,7 +104,7 @@ a {
 }
 
 .section {
-  padding-block: clamp(5rem, 10vw, 10rem);
+  padding-block: var(--space-section);
 }
 
 .site-header {
@@ -613,7 +617,7 @@ html.js .hero-media.is-visible::before {
   grid-template-columns: 1fr auto;
   align-items: end;
   gap: 30px;
-  margin-bottom: clamp(3rem, 6vw, 5.5rem);
+  margin-bottom: var(--space-head);
 }
 
 .section-head .section-index {
@@ -1025,7 +1029,7 @@ html.js .hero-media.is-visible::before {
 }
 
 .map-section {
-  padding-block: clamp(5rem, 10vw, 10rem);
+  padding-block: var(--space-section);
   border-top: 1px solid var(--line);
 }
 
