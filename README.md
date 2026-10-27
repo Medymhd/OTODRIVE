@@ -15,6 +15,8 @@ npm run preview
 
 Open <http://127.0.0.1:4173/>.
 
+The light-mode design prototype is at <http://127.0.0.1:4173/prototype/index.html>. It uses owner-provided location labels for layout review only; it does not publish addresses, hours or map pins.
+
 The preview server is for local review only. It does not execute the production form transport, booking API, DNS redirects or server headers.
 
 ## What is in the baseline
@@ -58,4 +60,5 @@ No deployment, DNS change, EmailJS change, Exchange change or booking API change
 - `docs/MODERNIZATION_ROADMAP.md`
 - `docs/LOCATIONS_INTEGRATION_PLAN.md`
 - `docs/ONLINE_PRESENCE_PLAN.md`
+- `docs/PREMIUM_DESIGN_DIRECTION.md`
 - `docs/DECISIONS_AND_OPEN_QUESTIONS.md`

@@ -376,6 +376,8 @@ If real-time availability is not available, replace the grid with a **request ap
 
 ## 7. UX and page design
 
+For the premium location index, location cards and per-site page pattern, see `docs/PREMIUM_DESIGN_DIRECTION.md` §10.
+
 ### 7.1 Current published location (Mavoko)
 
 Add to the homepage and `maps.html`, then repeat the same pattern for each verified site in the owner-listed network:
