@@ -397,6 +397,7 @@ Use this table to track evidence. “Verified” requires a document, a dated sc
 - `docs/MODERNIZATION_ROADMAP.md`
 - `docs/LOCATIONS_INTEGRATION_PLAN.md`
 - `docs/ONLINE_PRESENCE_PLAN.md`
+- `docs/PREMIUM_DESIGN_DIRECTION.md`
 
 ---
 

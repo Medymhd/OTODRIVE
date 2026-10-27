@@ -9,7 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css">
   <link rel="stylesheet" href="styles.css">
+  <script defer src="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -129,24 +131,58 @@
       </div>
 
       <div class="project-grid">
-        <figure class="project project--large reveal">
-          <img src="../images/george2.jpg" alt="Otodrive technician checking a vehicle during an Autogas conversion" width="1152" height="864" loading="lazy">
-          <figcaption><span>Toyota Passo</span><span>Diagnosis / conversion</span></figcaption>
+        <figure class="project project--feature reveal">
+          <img src="../images/milton%20conversion%20.jpg" alt="Toyota Alion during an Otodrive Autogas conversion" width="1280" height="960" loading="lazy">
+          <figcaption><span>Toyota Alion</span><span>Sedan / bi-fuel conversion</span></figcaption>
         </figure>
-        <figure class="project reveal">
+        <div class="project-note reveal">
+          <p class="section-index">Workshop notes</p>
+          <p>From daily drivers to 4x4s, the work is documented in the workshop — the vehicle, the system and the finish.</p>
+          <a class="text-link" href="../projects.html">See the full archive <span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="project project--small reveal">
+          <img src="../images/technical%20autogas.jpg" alt="Typical LPG Autogas system layout" width="960" height="720" loading="lazy">
+          <figcaption><span>System layout</span><span>Engineering detail</span></figcaption>
+        </figure>
+        <figure class="project project--small reveal">
+          <img src="../images/technical%202%20autogas.jpg" alt="Autogas system components installed in a vehicle" width="960" height="720" loading="lazy">
+          <figcaption><span>Autogas parts</span><span>Component detail</span></figcaption>
+        </figure>
+        <figure class="project project--small reveal">
           <img src="../images/canopy%202.jpg" alt="Otodrive Autogas station canopy and fuel pumps" width="1280" height="960" loading="lazy">
           <figcaption><span>Mavoko station</span><span>LPG fueling</span></figcaption>
         </figure>
-        <figure class="project reveal">
-          <img src="../images/technical%20autogas.jpg" alt="Typical LPG Autogas system layout" width="960" height="720" loading="lazy">
-          <figcaption><span>System layout</span><span>Engineering detail</span></figcaption>
+      </div>
+    </section>
+
+    <section class="film shell section" aria-labelledby="film-title">
+      <div class="section-head reveal">
+        <p class="section-index">04 / In motion</p>
+        <h2 id="film-title" class="display">The work,<br><span class="muted">in motion.</span></h2>
+        <p class="section-note">Original Otodrive footage. Playback starts only when you choose it.</p>
+      </div>
+
+      <div class="film-grid">
+        <figure class="film film--wide reveal">
+          <video controls preload="none" playsinline poster="../images/pado%20conversion.jpg">
+            <source src="../images/lpgtech_conversion_movie.mp4" type="video/mp4">
+            Your browser does not support the video element. The original conversion film is available on the Otodrive site.
+          </video>
+          <figcaption><span>Otodrive conversion film</span><span>Original footage</span></figcaption>
+        </figure>
+        <figure class="film reveal">
+          <video controls preload="none" playsinline poster="../images/george2.jpg">
+            <source src="../images/LPG-Service.mp4" type="video/mp4">
+            Your browser does not support the video element. The service film is available on the Otodrive site.
+          </video>
+          <figcaption><span>Inside the workshop</span><span>Original footage</span></figcaption>
         </figure>
       </div>
     </section>
 
     <section class="network shell section" id="network" aria-labelledby="network-title">
       <div class="network-intro reveal">
-        <p class="section-index">04 / The network</p>
+        <p class="section-index">05 / The network</p>
         <h2 id="network-title" class="display">One standard.<br><span class="muted">Several places to start.</span></h2>
         <p class="lede">Otodrive conversion and Autogas LPG fueling operate across the network. Choose the service you need, then find the right location.</p>
         <div class="filters" role="group" aria-label="Filter locations by service">
@@ -204,9 +240,29 @@
       </div>
     </section>
 
+    <section class="map-section" id="map" aria-labelledby="map-title">
+      <div class="shell map-head reveal">
+        <div>
+          <p class="section-index">06 / The map</p>
+          <h2 id="map-title" class="display">The network,<br><span class="muted">in one view.</span></h2>
+        </div>
+        <p class="section-note">Seven service points. Two service types. One standard.</p>
+      </div>
+
+      <div class="shell map-frame reveal">
+        <div id="network-map" class="network-map" role="region" aria-label="Map of Otodrive conversion and Autogas LPG locations"></div>
+        <div class="map-legend" aria-label="Map legend">
+          <span><i class="legend-dot legend-dot--orange"></i>Otodrive conversion</span>
+          <span><i class="legend-dot legend-dot--green"></i>Autogas LPG</span>
+          <span><i class="legend-dot legend-dot--both"></i>Both</span>
+        </div>
+        <p class="map-caption">Map data © OpenStreetMap contributors · Prototype tiles by OpenFreeMap. Pins are provisional until the owner verifies each entrance and service.</p>
+      </div>
+    </section>
+
     <section class="closing shell section" aria-labelledby="closing-title">
       <div class="closing-panel reveal">
-        <p class="section-index">05 / Start here</p>
+        <p class="section-index">07 / Start here</p>
         <h2 id="closing-title" class="display">Ready for a<br>different drive?</h2>
         <p class="lede">Talk to Otodrive about an Autogas conversion, a system check or LPG fueling.</p>
         <div class="actions">

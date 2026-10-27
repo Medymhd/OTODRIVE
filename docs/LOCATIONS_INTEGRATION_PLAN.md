@@ -150,7 +150,8 @@ Prices and terms were checked on 27 October 2026. They change frequently; confir
 | **Google Maps Embed API** | One map or a small number of per-page embeds | Free, unlimited embeds | $0 | Allowed under Google terms | Very low | Low | **Recommended for the current Mavoko page and per-site pages; not for seven eager embeds** |
 | **Google Maps JavaScript API / Dynamic Maps** | Rich maps, Places, Street View, locator | 10,000 map loads/month, then $7 per 1,000 | Usage-based | Allowed under Google terms | Medium | Medium | Consider for multi-location or Google Business Profile integration |
 | **Mapbox GL JS** | Custom-styled maps, high design control | 50,000 map loads/month, then $5 per 1,000 | Usage-based | Allowed under Mapbox terms | Medium–high | Medium | Good alternative if custom styling matters |
-| **MapTiler + MapLibre GL JS** | Open-source stack with managed tiles | 5,000 sessions/month, non-commercial only | Flex from $30/month for 25,000 sessions | Commercial plan required | Medium | Low–medium | Best open-stack option if a locator is approved |
+| **MapTiler + MapLibre GL JS** | Open-source stack with managed tiles | 5,000 sessions/month, non-commercial only | Flex from $30/month for 25,000 sessions | Commercial plan required | Medium | Low-medium | Best paid open-stack option if a locator is approved |
+| **OpenFreeMap + MapLibre GL JS** | Free multi-pin prototype / light vector map | Free public instance; commercial use allowed per vendor | $0 public instance; self-host cost | Allowed per vendor terms; confirm | Medium | Low-medium | **Prototype candidate; verify terms/uptime before production** |
 | **Stadia Maps + Leaflet/MapLibre** | Low-cost maps | 200,000 credits, **no commercial use** | Starter from $20/month | Paid plan required | Medium | Low–medium | Not recommended for a commercial site on the free tier |
 | **OpenStreetMap public tiles** | Prototyping only | “Free” but policy-limited | N/A | **Not suitable for production** | Low | Low | Do not use |
 | **Self-hosted tiles (Leaflet/MapLibre)** | Full control, offline/private | Software free | Server/storage/ops cost | Allowed | High | Low | Only with a serious ops budget |
@@ -180,6 +181,13 @@ Prices and terms were checked on 27 October 2026. They change frequently; confir
 - Requires an access token; restrict it by URL and scope.
 - The free tier is generous for a small site, but pricing and terms should be reviewed.
 - Not necessary until a searchable locator is approved.
+
+**OpenFreeMap + MapLibre**
+
+- OpenFreeMap provides a free public vector-tile instance and states that commercial use is allowed; confirm current terms, attribution and uptime before production.
+- MapLibre GL JS is BSD-3-Clause and does not require an API key.
+- The prototype uses this stack for a large multi-pin map; it is not yet a production commitment.
+- Fallback: list-first locations plus free Google Maps Embeds on verified detail pages.
 
 **MapTiler + MapLibre**
 
@@ -212,7 +220,8 @@ Prices and terms were checked on 27 October 2026. They change frequently; confir
 |----------|----------------------|------------------------|
 | One or several sites, static per-page embeds | Google Maps Embed | $0 |
 | One site, custom map | MapTiler Flex | $30 |
-| Seven-site locator, low traffic | Google Maps JS or Mapbox | $0–$7-ish, depending on loads |
+| Seven-site locator, prototype | MapLibre + OpenFreeMap | $0 public instance |
+| Seven-site locator, low traffic | Google Maps JS or Mapbox | $0-$7-ish, depending on loads |
 | Seven-site locator, high traffic | Google Maps JS or Mapbox | Usage-based; monitor |
 | Self-hosted tiles | MapLibre + server | Server/storage/ops cost |
 
@@ -223,8 +232,8 @@ These are rough planning figures, not quotes. Taxes, exchange rates and overage 
 | Need | Recommendation |
 |------|----------------|
 | Current published Mavoko location | Google Maps Embed, consent-gated, with text-first card |
-| Owner-listed network (7 sites) | Text-first index and per-site pages; static Google Embed per page; locator only after verification and approval |
-| Searchable locator (2–20 sites) | MapLibre + MapTiler Flex, or Google Maps JS if Google ecosystem is preferred |
+| Owner-listed network (7 sites) | Text-first index and per-site pages; static Google Embed per page; one large MapLibre/OpenFreeMap prototype map |
+| Searchable locator (2–20 sites) | MapLibre + MapTiler Flex, MapLibre + OpenFreeMap (terms permitting), or Google Maps JS if Google ecosystem is preferred |
 | Custom brand styling | Mapbox or MapTiler + MapLibre |
 | Zero budget, commercial site | Google Maps Embed on individual verified site pages; do not use OSM public tiles |
 | Privacy-first/self-hosted | MapLibre + self-hosted tiles, with ops budget |
@@ -644,7 +653,7 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 
 **Research date:** 27 October 2026.  
 **Method:** official Petrocity pages and locator, Google Maps listings, OpenStreetMap/Nominatim supporting checks, and official Otodrive social posts. Google Maps and OpenStreetMap are third-party sources and can be incomplete, outdated or user-edited.  
-**Rule:** the coordinates below are research references, not published pins. No map markers were created and no location was published.
+**Rule:** the coordinates below are research references, not confirmed production pins. No production map markers were created; the local design prototype contains provisional pins for layout review only.
 
 **Confidence definitions:**
 
@@ -698,7 +707,7 @@ All canonical/OG/JSON-LD URLs must use the approved host. The current `otodrive.
 7. **The OSM Jomvu-area node does not match the Google Jomvu listing.** It is about 4 km away. It may represent a different Petrocity station, but that is not confirmed. Do not use it as the Jomvu pin or merge it with Jomvu Yard.
 8. **Mavoko hours conflict.** The Otodrive listing says open 24 hours; the Petrocity listing says it closes at 5 pm. These may refer to different services or pins. Do not publish “24/7” for the site until the owner confirms service-specific hours.
 9. **Addresses are context, not confirmed entrances.** Several addresses come from reverse geocoding or plus codes. They are useful for finding the area, but they are not proof of the customer entrance, plot number or parking access.
-10. **No tentative details were published.** No map markers were created, no coordinates were added to the website, and no service-type claim was changed.
+10. **No production details were published.** The local design prototype contains provisional map pins for layout review only; no production coordinates, addresses or service claims were added to the live website.
 
 **Recommended customer-facing labels (pending owner approval):**
 
@@ -987,6 +996,9 @@ Accessed 27 October 2026. Re-check before purchase.
 - Leaflet licence: <https://github.com/Leaflet/Leaflet/blob/main/LICENSE>
 - MapLibre GL JS: <https://maplibre.org/>
 - MapLibre licence: <https://github.com/maplibre/maplibre-gl-js/blob/main/LICENSE.txt>
+- OpenFreeMap: <https://openfreemap.org/>
+- OpenFreeMap quick start: <https://openfreemap.org/quick_start/>
+- OpenFreeMap terms: <https://openfreemap.org/tos/>
 - Schema.org `AutoRepair`: <https://schema.org/AutoRepair>
 - Schema.org `OpeningHoursSpecification`: <https://schema.org/OpeningHoursSpecification>
 - WCAG 2.2: <https://www.w3.org/TR/WCAG22/>
@@ -1005,8 +1017,9 @@ Accessed 27 October 2026. Re-check before purchase.
 - `docs/CONTENT_AND_ASSET_INVENTORY.md`
 - `docs/MODERNIZATION_ROADMAP.md`
 - `docs/ONLINE_PRESENCE_PLAN.md`
+- `docs/PREMIUM_DESIGN_DIRECTION.md`
 - `docs/DECISIONS_AND_OPEN_QUESTIONS.md`
 
 ---
 
-**End of plan. No location data was published as confirmed and no map markers were created. Research references remain provisional until owner verification and approval.**
+**End of plan. No location data was published as confirmed. The local design prototype contains provisional pins for layout review only; all research references remain provisional until owner verification and approval.**

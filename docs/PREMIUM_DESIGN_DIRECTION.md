@@ -214,6 +214,7 @@ All candidates below are free/open-source or free to use. No paid theme or subsc
 | Lenis | MIT, under 5 KB | Smooth scroll | Skip by default; adds accessibility/performance risk without a clear payoff |
 | Embla Carousel | MIT | Accessible carousel if one is truly needed | Consider instead of a custom carousel |
 | Swiper | MIT | Carousel/slider | Avoid unless a specific feature requires it; current site already has a broken Swiper dependency |
+| MapLibre GL JS + OpenFreeMap | BSD-3-Clause / free public tile instance | Large multi-pin prototype map | **Prototype choice**; verify OpenFreeMap terms and uptime before production |
 | Three.js | MIT | 3D/WebGL | **Defer**. No 3D in the first redesign |
 | React Three Fiber / OGL | MIT | React/lighter WebGL | Defer with Three.js |
 | Tailwind CSS | MIT | Utility CSS | Not required for a static site; use CSS tokens instead |
@@ -248,6 +249,8 @@ Study the **thinking**, never copy the layout, assets or code:
 - C.O.R.E — narrative sequencing and performance guardrails only.
 
 No paid theme, template or stock asset should be purchased without owner approval. The design must be original Otodrive.
+
+**Preservation rule:** every original page, service description, project, testimonial, image, video and business fact stays in the redesign. The redesign may reorder, crop, animate or reframe the content, but it must not delete or replace it without owner approval. The prototype already reuses both original videos and all six live project images.
 
 ---
 
@@ -387,11 +390,12 @@ Do not create thin pages for unverified or duplicate locations.
 
 ### Map strategy under a $0 constraint
 
-- Use the free **Google Maps Embed** on individual verified location pages, consent-gated.
-- Keep the locations index text-first; do not add a paid dynamic map or paid tile provider.
-- A schematic “network” graphic can be designed without pretending to be a geographic map.
-- If a searchable map is approved later, re-check Google Maps JS, MapLibre/MapTiler and Mapbox pricing and terms immediately before selection.
-- Never use OpenStreetMap public tiles in production.
+- The prototype uses **MapLibre GL JS + OpenFreeMap Positron** to demonstrate a large multi-pin map. OpenFreeMap states that commercial use is allowed; verify its current terms, attribution and uptime before treating it as production infrastructure.
+- Production fallback: keep the locations index text-first and use the free **Google Maps Embed** on individual verified location pages, consent-gated.
+- Do not add a paid dynamic map or paid tile provider without approval.
+- A schematic “network” graphic can be used if the free map provider is not approved.
+- If a searchable map is approved later, re-check Google Maps JS, MapLibre/MapTiler, OpenFreeMap and Mapbox pricing and terms immediately before selection.
+- Never use OpenStreetMap public tiles in production. OpenFreeMap is a separate hosted service and must be evaluated on its own terms.
 
 ### What makes it feel expensive
 
@@ -438,6 +442,8 @@ This is the difference between a generic “Find us” page and a network that f
 7. Confirm the final CTA: booking, quote, call, or a combination.
 8. Approve the service-filter labels and whether the locations index includes a map or is list-first.
 9. Approve the location photography and confirm which sites can be shown publicly.
+10. Approve the prototype’s MapLibre + OpenFreeMap map for visual review; production terms and uptime are still to be verified.
+11. Confirm that all original photos, videos and testimonials are retained in the full rollout, not just the prototype.
 
 ---
 
