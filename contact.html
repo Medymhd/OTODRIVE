@@ -9,9 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="pages.css">
   <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script defer src="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js"></script>
+  <script defer src="map.js"></script>
   <script defer src="pages.js"></script>
 </head>
 <body>
@@ -101,24 +104,39 @@
       </div>
     </section>
 
-    <section class="page-body shell" aria-labelledby="find-title">
-      <div class="page-section-head reveal">
+    <section class="map-section" id="map" data-map-eager aria-labelledby="find-title">
+      <div class="shell map-head reveal">
         <div>
           <p class="section-index">02 / Find us</p>
-          <h2 id="find-title" class="display">Mavoko,<br><span class="muted">Kenya.</span></h2>
+          <h2 id="find-title" class="display">All<br><span class="muted">service points.</span></h2>
         </div>
-        <p class="section-note">The Mavoko service center handles Autogas fueling and conversion. Thika and Jomvu Yard are the other Otodrive conversion centres.</p>
+        <p class="section-note">Seven service points — three conversion centres (Mavoko, Thika and Jomvu Yard) plus Autogas LPG fueling. Select a pin for details and directions.</p>
       </div>
 
-      <div class="page-map-embed reveal">
-        <iframe
-          title="Map showing OtoDrive Autogas fueling and conversion Center Mavoko"
-          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15954.304904789087!2d36.9601985!3d-1.4297154!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f75004214d2a9%3A0x7831181284a4f334!2sOtoDrive%20Autogas%20fueling%20and%20conversion%20Center%20Mavoko!5e0!3m2!1sen!2ske!4v1727360677995!5m2!1sen!2ske"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen></iframe>
+      <div class="shell map-layout reveal">
+        <div class="map-panel">
+          <div id="network-map" class="network-map" role="region" aria-label="Map of Otodrive conversion and Autogas LPG locations"></div>
+          <div class="map-legend" aria-label="Map legend">
+            <span><i class="legend-dot legend-dot--orange"></i>Otodrive conversion</span>
+            <span><i class="legend-dot legend-dot--green"></i>Autogas LPG</span>
+            <span><i class="legend-dot legend-dot--both"></i>Both</span>
+          </div>
+        </div>
+
+        <aside id="map-detail" class="map-detail" aria-live="polite">
+          <p class="section-index">Selected location</p>
+          <h3 id="map-detail-name">Mavoko</h3>
+          <div id="map-detail-services" class="service-tags">
+            <span>Otodrive conversion</span>
+            <span>Autogas LPG</span>
+          </div>
+          <p id="map-detail-area" class="map-detail-area">Mavoko, Kenya</p>
+          <a id="map-detail-link" class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=-1.429533,36.960198" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">↗</span></a>
+        </aside>
       </div>
-      <p class="page-note">Directions open in Google Maps. Entrances and exact opening hours are being confirmed with Otodrive; call ahead before travelling.</p>
+
+      <p class="shell map-caption">Map data © OpenStreetMap contributors · Tiles by OpenFreeMap. Directions open in Google Maps.</p>
+      <p class="shell page-note reveal">Pins and directions are provisional while exact entrances are confirmed with Otodrive. Call ahead before travelling.</p>
     </section>
   </main>
 

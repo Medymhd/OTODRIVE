@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Map style comparison — Positron vs Bright</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="../styles.css">
+  <script defer src="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js"></script>
+  <style>
+    body { margin: 0; padding: 32px 24px 60px; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+    .wrap { max-width: 1280px; margin-inline: auto; }
+    h1 { font-family: var(--font-display); letter-spacing: -0.04em; margin: 0 0 6px; }
+    .lede { color: var(--muted); margin: 0 0 28px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    figure { margin: 0; }
+    figcaption { margin-top: 10px; color: var(--muted); font-size: 0.85rem; }
+    .map { height: 62vh; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+    .note { margin-top: 28px; padding: 16px 20px; border: 1px solid var(--line); border-left: 3px solid var(--orange-deep); border-radius: 3px; background: var(--surface); color: var(--muted); }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Map style comparison</h1>
+    <p class="lede">Same location data, same zoom. Left: <strong>Positron</strong> (current, muted). Right: <strong>Bright</strong> (proposed, colourful like Google Maps). Zoom in on Nairobi or Mombasa to compare detail.</p>
+
+    <div class="grid">
+      <figure>
+        <div id="map-positron" class="map"></div>
+        <figcaption>Positron — current</figcaption>
+      </figure>
+      <figure>
+        <div id="map-bright" class="map"></div>
+        <figcaption>Bright — proposed</figcaption>
+      </figure>
+    </div>
+
+    <p class="note">The pins are shown on both so you can also judge how visible the orange/green markers are on each style. Whichever you pick, it applies to the homepage, Locations and Contact maps at once.</p>
+  </div>
+
+  <script>
+    window.addEventListener("load", () => {
+      const locations = [
+        { name: "Thika", service: "both", coords: [37.063842, -1.042145] },
+        { name: "Mavoko", service: "both", coords: [36.960198, -1.429533] },
+        { name: "Kangundo Road", service: "fueling", coords: [36.8893014, -1.2752261] },
+        { name: "Rongai", service: "fueling", coords: [36.7234206, -1.4002857] },
+        { name: "Shanzu", service: "fueling", coords: [39.7382157, -3.9837529] },
+        { name: "Jomvu", service: "fueling", coords: [39.6040628, -4.0078763] },
+        { name: "Jomvu Yard", service: "conversion", coords: [39.596643, -4.0074044] },
+      ];
+
+      function makeMap(id, style) {
+        const map = new maplibregl.Map({
+          container: id,
+          style,
+          center: [37.2, -2.2],
+          zoom: 5.7,
+          attributionControl: { compact: true },
+        });
+
+        const bounds = new maplibregl.LngLatBounds();
+        locations.forEach((location) => {
+          const el = document.createElement("button");
+          el.type = "button";
+          el.className = `map-pin map-pin--${location.service}`;
+          el.setAttribute("aria-label", location.name);
+          el.title = location.name;
+          new maplibregl.Marker({ element: el, anchor: "center" }).setLngLat(location.coords).addTo(map);
+          bounds.extend(location.coords);
+        });
+
+        map.on("load", () => map.fitBounds(bounds, { padding: 64, maxZoom: 7 }));
+        return map;
+      }
+
+      makeMap("map-positron", "https://tiles.openfreemap.org/styles/positron");
+      makeMap("map-bright", "https://tiles.openfreemap.org/styles/bright");
+    });
+  </script>
+</body>
+</html>
