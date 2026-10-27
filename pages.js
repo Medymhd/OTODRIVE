@@ -87,7 +87,7 @@ function collectLines(data) {
   return lines;
 }
 
-const EMAILJS_PUBLIC_KEY = "ycv5mFr46ekPmud1X";
+const EMAILJS_PUBLIC_KEY = "UqC86yPkdUUSFLchd";
 const EMAILJS_SERVICE_ID = "service_u7bdgwm";
 const EMAILJS_TEMPLATE_ID = "template_u57mj4b";
 let emailjsReady = false;
