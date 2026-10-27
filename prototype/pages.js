@@ -76,6 +76,69 @@ function openMailClient(subject, lines) {
   window.location.href = `mailto:info@otodrive.co.ke?subject=${encode(subject)}&body=${encode(body)}`;
 }
 
+function collectLines(data) {
+  const lines = [];
+  data.forEach((value, key) => {
+    const text = String(value).trim();
+    if (text && key !== "subject") {
+      lines.push(`${key}: ${text}`);
+    }
+  });
+  return lines;
+}
+
+const EMAILJS_PUBLIC_KEY = "ycv5mFr46ekPmud1X";
+const EMAILJS_SERVICE_ID = "service_u7bdgwm";
+const EMAILJS_TEMPLATE_ID = "template_u57mj4b";
+let emailjsReady = false;
+
+if (typeof emailjs !== "undefined") {
+  try {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    emailjsReady = true;
+  } catch (error) {
+    emailjsReady = false;
+  }
+}
+
+function sendViaEmailJS(data) {
+  return new Promise((resolve) => {
+    if (!emailjsReady) {
+      resolve(false);
+      return;
+    }
+
+    const params = {
+      from_name: String(data.get("Name") || "").trim(),
+      phone_number: String(data.get("Phone Number") || "").trim(),
+      email_id: String(data.get("Email") || "").trim(),
+      message: collectLines(data).join("\n"),
+    };
+
+    emailjs
+      .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+      .then(() => resolve(true))
+      .catch(() => resolve(false));
+  });
+}
+
+function submitFormEmailJS(form, data) {
+  return sendViaEmailJS(data).then((sent) => {
+    if (sent) {
+      setFormStatus(form, "Thank you — your message has been sent. Otodrive will get back to you shortly.");
+      return true;
+    }
+
+    const subject = form.dataset.subject || "Otodrive website enquiry";
+    openMailClient(subject, collectLines(data));
+    setFormStatus(
+      form,
+      "We couldn't send automatically, so your email app was opened with the message ready to send. If it does not open, call +254 704 644 909 or email info@otodrive.co.ke."
+    );
+    return false;
+  });
+}
+
 document.querySelectorAll("form[data-mailto]").forEach((form) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -86,21 +149,25 @@ document.querySelectorAll("form[data-mailto]").forEach((form) => {
     }
 
     const data = new FormData(form);
-    const lines = [];
-
-    data.forEach((value, key) => {
-      const text = String(value).trim();
-      if (text && key !== "subject") {
-        lines.push(`${key}: ${text}`);
-      }
-    });
-
     const subject = form.dataset.subject || "Otodrive website enquiry";
-    openMailClient(subject, lines);
+    openMailClient(subject, collectLines(data));
     setFormStatus(
       form,
       "Your email app should open with the message ready to send. If it does not, call +254 704 644 909 or email info@otodrive.co.ke."
     );
+  });
+});
+
+document.querySelectorAll("form[data-emailjs]").forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    submitFormEmailJS(form, new FormData(form));
   });
 });
 
@@ -187,22 +254,26 @@ if (bookingForm && bookingDate && bookingTime && bookingSlots) {
     }
 
     const data = new FormData(bookingForm);
-    const lines = [];
-
-    data.forEach((value, key) => {
-      const text = String(value).trim();
-      if (text) {
-        lines.push(`${key}: ${text}`);
-      }
-    });
-
     const service = data.get("Service") || "Service";
     const date = data.get("Date") || "";
     const time = data.get("Time") || "";
-    openMailClient(`Booking request — ${service} — ${date} ${time}`, lines);
-    setFormStatus(
-      bookingForm,
-      "Your email app should open with the booking request ready to send. Otodrive will confirm the appointment. If the email does not open, call +254 704 644 909."
-    );
+    const lines = collectLines(data);
+    const subject = `Booking request — ${service} — ${date} ${time}`;
+
+    sendViaEmailJS(data).then((sent) => {
+      if (sent) {
+        setFormStatus(
+          bookingForm,
+          "Thank you — your booking request has been sent. Otodrive will confirm the appointment by phone or email."
+        );
+        return;
+      }
+
+      openMailClient(subject, lines);
+      setFormStatus(
+        bookingForm,
+        "We couldn't send automatically, so your email app was opened with the booking request ready to send. If it does not open, call +254 704 644 909."
+      );
+    });
   });
 }

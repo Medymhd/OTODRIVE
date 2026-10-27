@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="pages.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script defer src="pages.js"></script>
 </head>
 <body>
@@ -74,12 +75,12 @@
         </div>
 
         <div data-form-scope class="reveal">
-          <form id="quote-form" class="page-form" data-mailto data-subject="Otodrive quote request" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
+          <form id="quote-form" class="page-form" data-emailjs data-subject="Otodrive quote request" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
             <label>Name
               <input type="text" name="Name" autocomplete="name" required>
             </label>
             <label>Phone Number
-              <input type="tel" name="Phone Number" autocomplete="tel" required>
+              <input type="tel" name="Phone Number" autocomplete="tel" pattern="[0-9]{10}" title="Enter a 10-digit phone number" required>
             </label>
             <label class="form-wide">Email
               <input type="email" name="Email" autocomplete="email" required>
@@ -100,7 +101,7 @@
             <label class="form-wide">Message
               <textarea name="Message" rows="6" placeholder="Tell us about the vehicle and the work you need." required></textarea>
             </label>
-            <p class="form-note">Sending this form opens your email app with the request ready to send to info@otodrive.co.ke. Nothing is sent until you press send there.</p>
+            <p class="form-note">This sends your request straight to the Otodrive team. We’ll come back to you with a quote.</p>
             <button class="button button--primary" type="submit">Request a quote</button>
             <p class="form-status" data-form-status hidden></p>
           </form>
