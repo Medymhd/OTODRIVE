@@ -1,0 +1,18 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local environment and secrets
+.env
+.env.*
+*.local
+
+# Logs and caches
+*.log
+node_modules/
+.cache/
+
+# Local preview output
+preview/

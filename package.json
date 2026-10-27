@@ -1,0 +1,9 @@
+{
+  "name": "otodrive-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Otodrive website and local preview",
+  "scripts": {
+    "preview": "node scripts/preview.mjs"
+  }
+}
