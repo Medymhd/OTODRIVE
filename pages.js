@@ -87,6 +87,40 @@ function collectLines(data) {
   return lines;
 }
 
+function normalizeKenyanPhone(raw) {
+  let digits = String(raw || "").replace(/\D/g, "");
+
+  if (digits.startsWith("254")) {
+    digits = digits.slice(3);
+  } else if (digits.startsWith("0")) {
+    digits = digits.slice(1);
+  }
+
+  if (!/^[71]\d{8}$/.test(digits)) {
+    return null;
+  }
+
+  return `+254${digits}`;
+}
+
+function normalizePhoneField(form) {
+  const field = form.elements["Phone Number"];
+  if (!field) return true;
+
+  const normalized = normalizeKenyanPhone(field.value);
+  if (!normalized) {
+    setFormStatus(
+      form,
+      "Please enter a valid Kenyan phone number — for example 07XXXXXXXX, 01XXXXXXXX or +254XXXXXXXX."
+    );
+    field.focus();
+    return false;
+  }
+
+  field.value = normalized;
+  return true;
+}
+
 const EMAILJS_PUBLIC_KEY = "UqC86yPkdUUSFLchd";
 const EMAILJS_SERVICE_ID = "service_u7bdgwm";
 const EMAILJS_TEMPLATE_ID = "template_u57mj4b";
@@ -148,6 +182,10 @@ document.querySelectorAll("form[data-mailto]").forEach((form) => {
       return;
     }
 
+    if (!normalizePhoneField(form)) {
+      return;
+    }
+
     const data = new FormData(form);
     const subject = form.dataset.subject || "Otodrive website enquiry";
     openMailClient(subject, collectLines(data));
@@ -164,6 +202,10 @@ document.querySelectorAll("form[data-emailjs]").forEach((form) => {
 
     if (!form.checkValidity()) {
       form.reportValidity();
+      return;
+    }
+
+    if (!normalizePhoneField(form)) {
       return;
     }
 
@@ -244,6 +286,10 @@ if (bookingForm && bookingDate && bookingTime && bookingSlots) {
 
     if (!bookingForm.checkValidity()) {
       bookingForm.reportValidity();
+      return;
+    }
+
+    if (!normalizePhoneField(bookingForm)) {
       return;
     }
 
