@@ -233,6 +233,7 @@ const mapDetailArea = document.querySelector("#map-detail-area");
 const mapDetailLink = document.querySelector("#map-detail-link");
 const mapMarkers = new Map();
 let networkMap;
+let networkBounds;
 
 function serviceLabel(service) {
   if (service === "both") return "Otodrive conversion + Autogas LPG";
@@ -273,25 +274,106 @@ function setMapDetail(location) {
   });
 }
 
+class OtodriveZoomControl {
+  onAdd(map) {
+    this._map = map;
+    const wrap = document.createElement("div");
+    wrap.className = "maplibregl-ctrl maplibregl-ctrl-group otodrive-zoom";
+
+    const zoomIn = document.createElement("button");
+    zoomIn.type = "button";
+    zoomIn.className = "otodrive-zoom-btn";
+    zoomIn.setAttribute("aria-label", "Zoom in");
+    zoomIn.title = "Zoom in";
+    zoomIn.textContent = "+";
+    zoomIn.addEventListener("click", () => {
+      this._map.easeTo({ zoom: this._map.getZoom() + 1, duration: reduceMotion ? 0 : 240 });
+    });
+
+    const zoomOut = document.createElement("button");
+    zoomOut.type = "button";
+    zoomOut.className = "otodrive-zoom-btn";
+    zoomOut.setAttribute("aria-label", "Zoom out");
+    zoomOut.title = "Zoom out";
+    zoomOut.textContent = "\u2212";
+    zoomOut.addEventListener("click", () => {
+      this._map.easeTo({ zoom: this._map.getZoom() - 1, duration: reduceMotion ? 0 : 240 });
+    });
+
+    wrap.append(zoomIn, zoomOut);
+    this._container = wrap;
+    return wrap;
+  }
+
+  onRemove() {
+    this._container.remove();
+    this._map = undefined;
+  }
+}
+
+class OtodriveResetControl {
+  onAdd(map) {
+    this._map = map;
+    const wrap = document.createElement("div");
+    wrap.className = "maplibregl-ctrl maplibregl-ctrl-group otodrive-reset";
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "otodrive-reset-btn";
+    button.setAttribute("aria-label", "Reset map view");
+    button.title = "Reset view";
+    button.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg>';
+    button.addEventListener("click", () => {
+      if (!networkBounds) return;
+      this._map.fitBounds(networkBounds, {
+        padding: 64,
+        maxZoom: 7,
+        duration: reduceMotion ? 0 : 800,
+      });
+    });
+
+    wrap.append(button);
+    this._container = wrap;
+    return wrap;
+  }
+
+  onRemove() {
+    this._container.remove();
+    this._map = undefined;
+  }
+}
+
 function initNetworkMap() {
   if (networkMap || !mapElement || typeof maplibregl === "undefined") return;
 
   try {
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+
     networkMap = new maplibregl.Map({
       container: "network-map",
       style: "https://tiles.openfreemap.org/styles/positron",
       center: [37.2, -2.2],
       zoom: 5.7,
-      attributionControl: true,
-      cooperativeGestures: true,
+      minZoom: 4,
+      maxZoom: 17,
+      maxBounds: [[32.5, -5.5], [42.5, 5.5]],
+      attributionControl: { compact: true },
+      cooperativeGestures: !finePointer,
+      scrollZoom: finePointer,
     });
 
+    networkMap.addControl(new maplibregl.FullscreenControl(), "top-right");
     networkMap.addControl(
-      new maplibregl.NavigationControl({ showCompass: false }),
+      new maplibregl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+      }),
       "top-right"
     );
+    networkMap.addControl(new OtodriveZoomControl(), "bottom-right");
+    networkMap.addControl(new OtodriveResetControl(), "bottom-right");
 
-    const bounds = new maplibregl.LngLatBounds();
+    networkBounds = new maplibregl.LngLatBounds();
 
     locations.forEach((location) => {
       const markerElement = document.createElement("button");
@@ -323,13 +405,14 @@ function initNetworkMap() {
       });
 
       mapMarkers.set(location.name, marker);
-      bounds.extend(location.coords);
+      networkBounds.extend(location.coords);
     });
 
     setMapDetail(locations[1]);
 
     networkMap.on("load", () => {
-      networkMap.fitBounds(bounds, { padding: 64, maxZoom: 7 });
+      networkMap.fitBounds(networkBounds, { padding: 64, maxZoom: 7 });
+      injectMapHint(finePointer);
     });
 
     networkMap.on("error", (event) => {
@@ -340,6 +423,18 @@ function initNetworkMap() {
       '<p class="map-fallback">The interactive map could not load. Use the location list above or open the location page for details.</p>';
     console.warn("Map initialization failed:", error);
   }
+}
+
+function injectMapHint(finePointer) {
+  const panel = mapElement.parentElement;
+  if (!panel || panel.querySelector(".map-hint")) return;
+
+  const hint = document.createElement("p");
+  hint.className = "map-hint";
+  hint.textContent = finePointer
+    ? "Scroll to zoom · Drag to pan"
+    : "Pinch with two fingers to zoom · Tap a pin for details";
+  panel.append(hint);
 }
 
 if (mapSection) {

@@ -1191,6 +1191,82 @@ html.js .hero-media.is-visible::before {
   transform: scale(1.18);
 }
 
+.otodrive-zoom,
+.otodrive-reset {
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(23, 21, 18, 0.12);
+}
+
+.otodrive-zoom-btn,
+.otodrive-reset-btn,
+.maplibregl-ctrl-fullscreen button,
+.maplibregl-ctrl-geolocate button {
+  width: 44px;
+  height: 44px;
+}
+
+.otodrive-zoom-btn,
+.otodrive-reset-btn {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.otodrive-zoom-btn {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.otodrive-zoom-btn + .otodrive-zoom-btn {
+  border-top: 1px solid var(--line);
+}
+
+.otodrive-zoom-btn:hover,
+.otodrive-reset-btn:hover {
+  background: var(--paper);
+  color: var(--orange-deep);
+}
+
+.otodrive-reset-btn svg,
+.maplibregl-ctrl-fullscreen button svg,
+.maplibregl-ctrl-geolocate button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.maplibregl-ctrl-fullscreen button,
+.maplibregl-ctrl-geolocate button {
+  background: var(--surface);
+  border: 0;
+}
+
+.maplibregl-ctrl-fullscreen button:hover,
+.maplibregl-ctrl-geolocate button:hover {
+  background: var(--paper);
+}
+
+.map-hint {
+  position: absolute;
+  z-index: 2;
+  bottom: 12px;
+  left: 12px;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid rgba(222, 216, 204, 0.9);
+  border-radius: 2px;
+  background: rgba(255, 253, 248, 0.92);
+  color: var(--muted);
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
 .maplibregl-popup-content {
   padding: 14px 16px;
   border-radius: 2px;
