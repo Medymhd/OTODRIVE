@@ -87,23 +87,100 @@ filterButtons.forEach((button) => {
 });
 
 const locations = [
-  { name: "Thika", service: "both", coords: [37.0638209, -1.0423809] },
-  { name: "Mavoko", service: "both", coords: [36.9601985, -1.4297154] },
-  { name: "Kangundo Road", service: "fueling", coords: [36.8893014, -1.2752261] },
-  { name: "Rongai", service: "fueling", coords: [36.7234206, -1.4002857] },
-  { name: "Shanzu", service: "fueling", coords: [39.7382157, -3.9837529] },
-  { name: "Jomvu", service: "fueling", coords: [39.6040628, -4.0078763] },
-  { name: "Jomvu Yard", service: "conversion", coords: [39.5965528, -4.0073924] },
+  {
+    name: "Thika",
+    service: "both",
+    coords: [37.063842, -1.042145],
+    area: "Thika, Kenya",
+    mapsUrl: "https://maps.app.goo.gl/ZHujXRnAL1nDtZSu6",
+  },
+  {
+    name: "Mavoko",
+    service: "both",
+    coords: [36.960198, -1.429533],
+    area: "Mavoko, Kenya",
+    mapsUrl: "https://maps.app.goo.gl/C2WLEC5tz1VwoAwZ7",
+  },
+  {
+    name: "Kangundo Road",
+    service: "fueling",
+    coords: [36.8893014, -1.2752261],
+    area: "Kangundo Road, Nairobi",
+    mapsUrl: "https://maps.app.goo.gl/3EDXSLFxYyYutGrA9",
+  },
+  {
+    name: "Rongai",
+    service: "fueling",
+    coords: [36.7234206, -1.4002857],
+    area: "Rongai, Kajiado",
+    mapsUrl: "https://maps.app.goo.gl/GxpfryWxtuegwdWR7",
+  },
+  {
+    name: "Shanzu",
+    service: "fueling",
+    coords: [39.7382157, -3.9837529],
+    area: "Shanzu, Mombasa",
+    mapsUrl: "https://maps.app.goo.gl/hYihjjUFbdxKwveR7",
+  },
+  {
+    name: "Jomvu",
+    service: "fueling",
+    coords: [39.6040628, -4.0078763],
+    area: "Jomvu, Mombasa",
+    mapsUrl: "https://maps.app.goo.gl/LQZJuWqmyCyEe3Nk6",
+  },
+  {
+    name: "Jomvu Yard",
+    service: "conversion",
+    coords: [39.596643, -4.0074044],
+    area: "Jomvu, Mombasa",
+    mapsUrl: "https://maps.app.goo.gl/frdagKS94VieWW7a7",
+  },
 ];
 
 const mapElement = document.querySelector("#network-map");
 const mapSection = document.querySelector("#map");
+const mapDetail = document.querySelector("#map-detail");
+const mapDetailName = document.querySelector("#map-detail-name");
+const mapDetailServices = document.querySelector("#map-detail-services");
+const mapDetailArea = document.querySelector("#map-detail-area");
+const mapDetailLink = document.querySelector("#map-detail-link");
+const mapMarkers = new Map();
 let networkMap;
 
 function serviceLabel(service) {
   if (service === "both") return "Otodrive conversion + Autogas LPG";
   if (service === "conversion") return "Otodrive conversion";
   return "Autogas LPG";
+}
+
+function serviceTags(service) {
+  if (service === "both") return ["Otodrive conversion", "Autogas LPG"];
+  if (service === "conversion") return ["Otodrive conversion"];
+  return ["Autogas LPG"];
+}
+
+function setMapDetail(location) {
+  if (!mapDetail || !mapDetailName || !mapDetailServices || !mapDetailArea || !mapDetailLink) {
+    return;
+  }
+
+  mapDetailName.textContent = location.name;
+  mapDetailArea.textContent = location.area;
+  mapDetailLink.href = location.mapsUrl;
+  mapDetailServices.replaceChildren(
+    ...serviceTags(location.service).map((label) => {
+      const tag = document.createElement("span");
+      tag.textContent = label;
+      return tag;
+    })
+  );
+
+  mapMarkers.forEach((marker, name) => {
+    const element = marker.getElement();
+    element.classList.toggle("is-selected", name === location.name);
+    element.setAttribute("aria-pressed", String(name === location.name));
+  });
 }
 
 function initNetworkMap() {
@@ -136,17 +213,30 @@ function initNetworkMap() {
       );
       markerElement.title = `${location.name} — ${serviceLabel(location.service)}`;
 
-      const popup = new maplibregl.Popup({ offset: 16, closeButton: true }).setHTML(
-        `<strong>${location.name}</strong><span>${serviceLabel(location.service)}</span>`
-      );
-
-      new maplibregl.Marker({ element: markerElement, anchor: "center" })
+      const marker = new maplibregl.Marker({ element: markerElement, anchor: "center" })
         .setLngLat(location.coords)
-        .setPopup(popup)
         .addTo(networkMap);
 
+      markerElement.addEventListener("click", () => {
+        setMapDetail(location);
+        networkMap.flyTo({
+          center: location.coords,
+          zoom: 12.5,
+          duration: reduceMotion ? 0 : 800,
+        });
+        if (window.innerWidth <= 820) {
+          mapDetail.scrollIntoView({
+            behavior: reduceMotion ? "auto" : "smooth",
+            block: "nearest",
+          });
+        }
+      });
+
+      mapMarkers.set(location.name, marker);
       bounds.extend(location.coords);
     });
+
+    setMapDetail(locations[1]);
 
     networkMap.on("load", () => {
       networkMap.fitBounds(bounds, { padding: 64, maxZoom: 7 });

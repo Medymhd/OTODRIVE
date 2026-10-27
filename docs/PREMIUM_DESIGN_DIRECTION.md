@@ -396,6 +396,7 @@ Do not create thin pages for unverified or duplicate locations.
 - A schematic “network” graphic can be used if the free map provider is not approved.
 - If a searchable map is approved later, re-check Google Maps JS, MapLibre/MapTiler, OpenFreeMap and Mapbox pricing and terms immediately before selection.
 - Never use OpenStreetMap public tiles in production. OpenFreeMap is a separate hosted service and must be evaluated on its own terms.
+- Owner-supplied Google Maps links were checked on 27 October 2026 and the prototype pins were updated. Exact entrances and service availability still require confirmation.
 
 ### What makes it feel expensive
 

@@ -15,7 +15,7 @@ npm run preview
 
 Open <http://127.0.0.1:4173/>.
 
-The light-mode design prototype is at <http://127.0.0.1:4173/prototype/index.html>. It uses owner-provided location labels and provisional pins for layout review only; addresses and hours remain omitted, and the pins are not production data.
+The light-mode design prototype is at <http://127.0.0.1:4173/prototype/index.html>. It uses owner-provided location labels and pins derived from the owner’s Google Maps links for layout review only; exact entrances, addresses and hours remain omitted, and the map is not production data.
 
 The preview server is for local review only. It does not execute the production form transport, booking API, DNS redirects or server headers.
 

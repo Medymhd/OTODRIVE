@@ -820,16 +820,68 @@ html.js .hero-media.is-visible::before {
   text-align: right;
 }
 
-.map-frame {
+.map-layout {
+  display: grid;
+  grid-template-columns: 9fr 3fr;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.map-panel {
   position: relative;
 }
 
 .network-map {
-  height: clamp(460px, 62vw, 720px);
+  height: clamp(560px, 62vw, 740px);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 3px;
   background: #e9e5db;
+}
+
+.map-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 100%;
+  padding: clamp(20px, 2.2vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+}
+
+.map-detail h3 {
+  margin: 11px 0 18px;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.4vw, 2.8rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.map-detail .service-tags {
+  justify-content: flex-start;
+}
+
+.map-detail-area {
+  margin: 22px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+.map-detail-note {
+  max-width: 32ch;
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+
+.map-detail .text-link {
+  margin-top: auto;
+  padding-top: 8px;
 }
 
 .map-legend {
@@ -902,6 +954,7 @@ html.js .hero-media.is-visible::before {
   background: var(--orange);
   box-shadow: 0 2px 8px rgba(23, 21, 18, 0.3);
   cursor: pointer;
+  transition: transform 180ms var(--ease);
 }
 
 .map-pin--fueling {
@@ -912,9 +965,14 @@ html.js .hero-media.is-visible::before {
   background: linear-gradient(135deg, var(--orange) 0 50%, var(--green) 50% 100%);
 }
 
-.map-pin:focus-visible {
+.map-pin:focus-visible,
+.map-pin.is-selected {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
+}
+
+.map-pin.is-selected {
+  transform: scale(1.18);
 }
 
 .maplibregl-popup-content {
@@ -1070,7 +1128,16 @@ html.js .hero-media img {
 }
 
 html.js .hero-media.is-visible img {
-  transform: scale(1);
+  animation: hero-drift 22s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.035) translate3d(0, -0.6%, 0);
+  }
 }
 
 @media (max-width: 1080px) {
@@ -1277,8 +1344,20 @@ html.js .hero-media.is-visible img {
     text-align: left;
   }
 
+  .map-layout {
+    grid-template-columns: 1fr;
+  }
+
   .network-map {
     height: 480px;
+  }
+
+  .map-detail {
+    min-height: 0;
+  }
+
+  .map-detail .text-link {
+    margin-top: 26px;
   }
 
   .network {
@@ -1414,5 +1493,6 @@ html.js .hero-media.is-visible img {
   html.js .hero-media img {
     opacity: 1;
     transform: none;
+    animation: none;
   }
 }

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Otodrive — Daylight design prototype</title>
-  <meta name="description" content="A light-mode design prototype for the Otodrive website.">
+  <title>Otodrive — Autogas conversion and LPG fueling</title>
+  <meta name="description" content="Otodrive Autogas conversion and LPG fueling in Kenya.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -46,6 +46,7 @@
         <div class="actions reveal">
           <a class="button button--primary" href="../booking.html">Book a conversion</a>
           <a class="text-link" href="../services.html">Explore services <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#film">Watch the film <span aria-hidden="true">↓</span></a>
         </div>
         <dl class="hero-meta reveal">
           <div>
@@ -136,7 +137,7 @@
           <figcaption><span>Toyota Alion</span><span>Sedan / bi-fuel conversion</span></figcaption>
         </figure>
         <div class="project-note reveal">
-          <p class="section-index">Workshop notes</p>
+          <p class="section-index">From the workshop</p>
           <p>From daily drivers to 4x4s, the work is documented in the workshop — the vehicle, the system and the finish.</p>
           <a class="text-link" href="../projects.html">See the full archive <span aria-hidden="true">↗</span></a>
         </div>
@@ -155,27 +156,27 @@
       </div>
     </section>
 
-    <section class="film shell section" aria-labelledby="film-title">
+    <section class="film shell section" id="film" aria-labelledby="film-title">
       <div class="section-head reveal">
         <p class="section-index">04 / In motion</p>
         <h2 id="film-title" class="display">The work,<br><span class="muted">in motion.</span></h2>
-        <p class="section-note">Original Otodrive footage. Playback starts only when you choose it.</p>
+        <p class="section-note">Two films from the workshop.</p>
       </div>
 
       <div class="film-grid">
         <figure class="film film--wide reveal">
           <video controls preload="none" playsinline poster="../images/pado%20conversion.jpg">
             <source src="../images/lpgtech_conversion_movie.mp4" type="video/mp4">
-            Your browser does not support the video element. The original conversion film is available on the Otodrive site.
+            Your browser does not support the video element. The film is available on the Otodrive site.
           </video>
-          <figcaption><span>Otodrive conversion film</span><span>Original footage</span></figcaption>
+          <figcaption><span>The Autogas system</span><span>LPGTech explainer</span></figcaption>
         </figure>
         <figure class="film reveal">
           <video controls preload="none" playsinline poster="../images/george2.jpg">
             <source src="../images/LPG-Service.mp4" type="video/mp4">
             Your browser does not support the video element. The service film is available on the Otodrive site.
           </video>
-          <figcaption><span>Inside the workshop</span><span>Original footage</span></figcaption>
+          <figcaption><span>Inside the workshop</span><span>Service film</span></figcaption>
         </figure>
       </div>
     </section>
@@ -236,7 +237,7 @@
           <div class="service-tags"><span>Otodrive conversion</span></div>
           <span class="row-link" aria-hidden="true">↗</span>
         </article>
-        <p class="network-note">Network layout preview. Addresses, hours and map pins are added only after owner verification.</p>
+        <p class="network-note">Call to confirm hours and service availability before travelling.</p>
       </div>
     </section>
 
@@ -249,15 +250,30 @@
         <p class="section-note">Seven service points. Two service types. One standard.</p>
       </div>
 
-      <div class="shell map-frame reveal">
-        <div id="network-map" class="network-map" role="region" aria-label="Map of Otodrive conversion and Autogas LPG locations"></div>
-        <div class="map-legend" aria-label="Map legend">
-          <span><i class="legend-dot legend-dot--orange"></i>Otodrive conversion</span>
-          <span><i class="legend-dot legend-dot--green"></i>Autogas LPG</span>
-          <span><i class="legend-dot legend-dot--both"></i>Both</span>
+      <div class="shell map-layout reveal">
+        <div class="map-panel">
+          <div id="network-map" class="network-map" role="region" aria-label="Map of Otodrive conversion and Autogas LPG locations"></div>
+          <div class="map-legend" aria-label="Map legend">
+            <span><i class="legend-dot legend-dot--orange"></i>Otodrive conversion</span>
+            <span><i class="legend-dot legend-dot--green"></i>Autogas LPG</span>
+            <span><i class="legend-dot legend-dot--both"></i>Both</span>
+          </div>
         </div>
-        <p class="map-caption">Map data © OpenStreetMap contributors · Prototype tiles by OpenFreeMap. Pins are provisional until the owner verifies each entrance and service.</p>
+
+        <aside id="map-detail" class="map-detail" aria-live="polite">
+          <p class="section-index">Selected location</p>
+          <h3 id="map-detail-name">Mavoko</h3>
+          <div id="map-detail-services" class="service-tags">
+            <span>Otodrive conversion</span>
+            <span>Autogas LPG</span>
+          </div>
+          <p id="map-detail-area" class="map-detail-area">Mavoko, Kenya</p>
+          <p class="map-detail-note">Call to confirm hours and the customer entrance before travelling.</p>
+          <a id="map-detail-link" class="text-link" href="https://maps.app.goo.gl/C2WLEC5tz1VwoAwZ7" target="_blank" rel="noopener noreferrer">Open in Google Maps <span aria-hidden="true">↗</span></a>
+        </aside>
       </div>
+
+      <p class="shell map-caption">Map data © OpenStreetMap contributors · Tiles by OpenFreeMap.</p>
     </section>
 
     <section class="closing shell section" aria-labelledby="closing-title">
