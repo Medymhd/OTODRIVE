@@ -2625,3 +2625,36 @@ html.js .hero-media.is-visible img {
     order: 4;
   }
 }
+
+/* ---------- Blueprint 3D labels ---------- */
+.blueprint-kit {
+  position: relative;
+  overflow: hidden;
+}
+
+.blueprint-kit canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bp-label {
+  position: absolute;
+  z-index: 2;
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 253, 248, 0.2);
+  border-radius: 999px;
+  background: rgba(17, 16, 14, 0.85);
+  color: rgba(255, 253, 248, 0.92);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+.bp-label.is-on {
+  opacity: 1;
+}
