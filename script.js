@@ -171,3 +171,93 @@ if (autoplayVideo && filmSection && !reduceMotion) {
     videoObserver.observe(filmSection);
   }
 }
+
+/* ---------- Content-driven sections (playground) ---------- */
+const statsBand = document.querySelector(".stats-band");
+const instalmentPanel = document.querySelector(".instalment-panel");
+const savingsCalc = document.querySelector(".savings-calc");
+
+if (statsBand || instalmentPanel || savingsCalc) {
+  const fallback = {
+    stats: {
+      saving: { value: "40%+", label: "Fuel saving versus regular petrol" },
+      hours: { value: "24/7", label: "Open for our customers" },
+      license: { value: "KEBS", label: "Licensed to convert vehicles" },
+      check: { value: "Free", label: "LPG system check for Autogas vehicles" },
+    },
+    instalment: { total: 65000, deposit: 40000, months: 5 },
+    savings: { petrolPrice: 220, lpgPrice: 115 },
+  };
+
+  const formatKsh = (n) => Number(n).toLocaleString("en-KE");
+
+  function initSavingsCalc(settings) {
+    const petrol = document.querySelector("#calc-petrol");
+    const lpg = document.querySelector("#calc-lpg");
+    const spend = document.querySelector("#calc-spend");
+    const outMonthly = document.querySelector("#calc-monthly");
+    const outYearly = document.querySelector("#calc-yearly");
+    const outPercent = document.querySelector("#calc-percent");
+    if (!petrol || !lpg || !spend || !outMonthly) return;
+
+    petrol.value = settings.petrolPrice;
+    lpg.value = settings.lpgPrice;
+
+    const update = () => {
+      const p = parseFloat(petrol.value);
+      const l = parseFloat(lpg.value);
+      const s = parseFloat(spend.value);
+
+      if (!(p > 0) || !(l >= 0) || !(s > 0) || l >= p) {
+        outMonthly.textContent = "—";
+        outYearly.textContent = "—";
+        outPercent.textContent = "0%";
+        return;
+      }
+
+      const litres = s / p;
+      const monthly = litres * (p - l);
+      const yearly = monthly * 12;
+      const percent = ((p - l) / p) * 100;
+
+      outMonthly.textContent = `KSh ${formatKsh(Math.round(monthly))}`;
+      outYearly.textContent = `KSh ${formatKsh(Math.round(yearly))}`;
+      outPercent.textContent = `${Math.round(percent)}%`;
+    };
+
+    [petrol, lpg, spend].forEach((el) => el.addEventListener("input", update));
+    update();
+  }
+
+  fetch("content.json")
+    .then((res) => res.json())
+    .then((content) => {
+      if (statsBand) {
+        const stats = content.stats || fallback.stats;
+        statsBand.querySelectorAll(".stat").forEach((el) => {
+          const key = el.querySelector("dt").dataset.stat;
+          const stat = stats[key];
+          if (stat) {
+            el.querySelector("dt").textContent = stat.value;
+            el.querySelector("dd").textContent = stat.label;
+          }
+        });
+      }
+
+      if (instalmentPanel) {
+        const offer = content.installment || fallback.instalment;
+        const monthly = Math.round((offer.total - offer.deposit) / offer.months);
+        instalmentPanel.querySelectorAll("[data-instalment]").forEach((el) => {
+          const key = el.dataset.instalment;
+          if (key === "monthly") el.textContent = formatKsh(monthly);
+          else if (key === "months") el.textContent = String(offer.months);
+          else el.textContent = formatKsh(offer[key]);
+        });
+      }
+
+      if (savingsCalc) initSavingsCalc(content.savings || fallback.savings);
+    })
+    .catch(() => {
+      if (savingsCalc) initSavingsCalc(fallback.savings);
+    });
+}

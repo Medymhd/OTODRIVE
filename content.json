@@ -17,12 +17,12 @@
     "instagram": "https://www.instagram.com/otodriveke",
     "x": "https://x.com/OtodriveKE"
   },
-  "stats": [
-    { "value": "40%+", "label": "Fuel saving versus regular petrol" },
-    { "value": "24/7", "label": "Open for our customers" },
-    { "value": "KEBS", "label": "Licensed to convert vehicles" },
-    { "value": "Free", "label": "LPG system check for Autogas vehicles" }
-  ],
+  "stats": {
+    "saving": { "value": "40%+", "label": "Fuel saving versus regular petrol" },
+    "hours": { "value": "24/7", "label": "Open for our customers" },
+    "license": { "value": "KEBS", "label": "Licensed to convert vehicles" },
+    "check": { "value": "Free", "label": "LPG system check for Autogas vehicles" }
+  },
   "installment": {
     "currency": "KSh",
     "total": 65000,

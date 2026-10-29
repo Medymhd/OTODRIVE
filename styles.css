@@ -2079,3 +2079,274 @@ html.js .hero-media.is-visible img {
     animation: none;
   }
 }
+
+/* ---------- Stats band ---------- */
+.stats-band {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+}
+
+.stat {
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 2rem);
+  border-left: 1px solid var(--line);
+}
+
+.stat:first-child {
+  border-left: 0;
+}
+
+.stat dt {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--orange);
+}
+
+.stat dd {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* ---------- Savings calculator ---------- */
+.savings-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.5fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: stretch;
+}
+
+.savings-calc {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+}
+
+.calc-field {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  align-items: center;
+}
+
+.calc-field span {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.calc-field em {
+  display: block;
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+}
+
+.calc-field input {
+  width: 180px;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.savings-result {
+  margin-top: 6px;
+  padding: 18px 20px;
+  border-radius: 3px;
+  background: var(--charcoal);
+  color: var(--surface);
+}
+
+.result-label {
+  margin: 0;
+  color: rgba(255, 253, 248, 0.55);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.result-num {
+  margin: 6px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.result-num em {
+  font-style: normal;
+  font-size: 0.45em;
+  font-weight: 600;
+  color: rgba(255, 253, 248, 0.7);
+}
+
+.result-sub {
+  margin: 8px 0 0;
+  color: rgba(255, 253, 248, 0.7);
+  font-size: 0.8rem;
+}
+
+.result-sub span {
+  color: var(--map-green);
+  font-weight: 700;
+}
+
+.savings-media,
+.instalment-media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.savings-media video,
+.instalment-media video {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 3px;
+  background: #000;
+}
+
+.savings-media figcaption,
+.instalment-media figcaption {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.savings-media figcaption {
+  color: var(--muted);
+}
+
+.instalment-media figcaption {
+  color: rgba(255, 253, 248, 0.55);
+}
+
+/* ---------- Instalment panel ---------- */
+.instalment-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.5fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  padding: clamp(2.2rem, 5vw, 5rem);
+  border-radius: 4px;
+  background: var(--charcoal);
+  color: var(--surface);
+}
+
+.instalment-copy .section-index {
+  color: var(--blue-bright);
+}
+
+.instalment-copy .display {
+  margin-top: 1rem;
+  color: var(--surface);
+}
+
+.instalment-copy .display .muted {
+  color: rgba(255, 253, 248, 0.42);
+}
+
+.instalment-copy .lede {
+  max-width: 46ch;
+  color: rgba(255, 253, 248, 0.75);
+}
+
+.instalment-copy .lede strong {
+  color: #fffdf8;
+}
+
+.instalment-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  margin-top: 1.8rem;
+}
+
+.instalment-steps div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 253, 248, 0.8);
+  font-size: 0.85rem;
+}
+
+.instalment-steps strong {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 253, 248, 0.25);
+  border-radius: 50%;
+  color: var(--blue-bright);
+  font-size: 0.72rem;
+}
+
+.instalment-panel .actions {
+  margin-top: 2rem;
+}
+
+.instalment-panel .text-link {
+  color: #fffdf8;
+  border-color: rgba(255, 253, 248, 0.45);
+}
+
+.instalment-panel .text-link:hover {
+  border-color: var(--blue-bright);
+  color: #fffdf8;
+}
+
+@media (max-width: 820px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .stat:nth-child(-n + 2) {
+    border-top: 0;
+  }
+
+  .savings-layout,
+  .instalment-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-field {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-field input {
+    width: 100%;
+  }
+}

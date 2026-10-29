@@ -75,14 +75,26 @@
       </div>
     </section>
 
-    <div class="service-strip" aria-label="Otodrive services">
-      <div class="shell service-strip-inner">
-        <span>Autogas system installation</span>
-        <span>LPG fueling</span>
-        <span>Vehicle diagnosis</span>
-        <span>LPG system check</span>
-      </div>
-    </div>
+    <section class="stats-band" aria-label="Otodrive at a glance">
+      <dl class="shell stats-grid">
+        <div class="stat reveal">
+          <dt data-stat="saving">40%+</dt>
+          <dd>Fuel saving versus regular petrol</dd>
+        </div>
+        <div class="stat reveal">
+          <dt data-stat="hours">24/7</dt>
+          <dd>Open for our customers</dd>
+        </div>
+        <div class="stat reveal">
+          <dt data-stat="license">KEBS</dt>
+          <dd>Licensed to convert vehicles</dd>
+        </div>
+        <div class="stat reveal">
+          <dt data-stat="check">Free</dt>
+          <dd>LPG system check for Autogas vehicles</dd>
+        </div>
+      </dl>
+    </section>
 
     <section class="statement shell section" aria-labelledby="statement-title">
       <div class="section-index reveal">01 / The work</div>
@@ -109,6 +121,45 @@
         <p class="section-index">Otodrive service center</p>
         <p class="about-band-quote">Elevate your experience to keep moving.</p>
       </aside>
+    </section>
+
+    <section class="savings shell section" id="savings" aria-labelledby="savings-title">
+      <div class="section-head reveal">
+        <p class="section-index">The maths</p>
+        <h2 id="savings-title" class="display">Count the<br><span class="muted">savings.</span></h2>
+        <p class="section-note">Same consumption on LPG — work out what you keep every month.</p>
+      </div>
+
+      <div class="savings-layout">
+        <div class="savings-calc reveal">
+          <label class="calc-field">
+            <span>Petrol price <em>KSh / litre</em></span>
+            <input id="calc-petrol" type="number" min="1" step="1" inputmode="decimal" value="220">
+          </label>
+          <label class="calc-field">
+            <span>LPG price <em>KSh / litre</em></span>
+            <input id="calc-lpg" type="number" min="0" step="1" inputmode="decimal" value="115">
+          </label>
+          <label class="calc-field">
+            <span>Monthly petrol spend <em>KSh</em></span>
+            <input id="calc-spend" type="number" min="0" step="100" inputmode="decimal" value="20000">
+          </label>
+
+          <div class="savings-result" aria-live="polite">
+            <p class="result-label">Your estimated saving</p>
+            <p class="result-num"><span id="calc-monthly">—</span> <em>/ month</em></p>
+            <p class="result-sub">That's <span id="calc-yearly">—</span> a year · <span id="calc-percent">0%</span> off your fuel bill</p>
+          </div>
+        </div>
+
+        <figure class="savings-media reveal">
+          <video controls playsinline preload="none" poster="images/pumps-side.jpg">
+            <source src="images/101-savings.mp4" type="video/mp4">
+            Your browser does not support the video element.
+          </video>
+          <figcaption><span>Otodrive 101</span><span>How much to save</span></figcaption>
+        </figure>
+      </div>
     </section>
 
     <section class="services shell section" aria-labelledby="services-title">
@@ -161,6 +212,32 @@
           <p>From daily drivers to 4x4s, the work is documented in the workshop — the vehicle, the system and the finish.</p>
           <a class="text-link" href="projects.html">See the full archive <span aria-hidden="true">↗</span></a>
         </div>
+      </div>
+    </section>
+
+    <section class="instalment shell section" id="instalment" aria-labelledby="instalment-title">
+      <div class="instalment-panel reveal">
+        <div class="instalment-copy">
+          <p class="section-index">Pay your way</p>
+          <h2 id="instalment-title" class="display">KSh <span data-instalment="deposit">40,000</span> deposit.<br><span class="muted">Balance over <span data-instalment="months">5</span> months.</span></h2>
+          <p class="lede">Total conversion <strong>KSh <span data-instalment="total">65,000</span></strong> — pay <strong>KSh <span data-instalment="deposit">40,000</span></strong> upfront, then <strong>KSh <span data-instalment="monthly">5,000</span> / month</strong> for <span data-instalment="months">5</span> months. Drive away on LPG today.</p>
+          <div class="instalment-steps">
+            <div><strong>01</strong><span>Pay the deposit</span></div>
+            <div><strong>02</strong><span>We convert your vehicle</span></div>
+            <div><strong>03</strong><span>Clear the balance monthly</span></div>
+          </div>
+          <div class="actions">
+            <a class="button button--primary" href="booking.html">Book a conversion</a>
+            <a class="text-link" href="get-quote.html">Get a quote <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="instalment-media reveal">
+          <video controls playsinline preload="none" poster="images/petrocity-totem.jpg">
+            <source src="images/101-cost-installments.mp4" type="video/mp4">
+            Your browser does not support the video element.
+          </video>
+          <figcaption><span>Otodrive 101</span><span>Cost &amp; instalments</span></figcaption>
+        </figure>
       </div>
     </section>
 
