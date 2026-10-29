@@ -322,7 +322,7 @@
   border: 1px solid rgba(168, 82, 0, 0.28);
   border-left: 3px solid var(--orange-deep);
   border-radius: 2px;
-  background: rgba(253, 164, 23, 0.09);
+  background: rgba(29, 88, 168, 0.09);
   color: var(--ink-soft);
   font-size: 0.84rem;
   line-height: 1.55;
@@ -344,7 +344,7 @@
 }
 
 .page-location-row:hover {
-  background: rgba(253, 164, 23, 0.055);
+  background: rgba(29, 88, 168, 0.055);
 }
 
 .page-location-row h2 {
@@ -387,7 +387,7 @@
   border: 1px solid var(--line);
   border-radius: 3px;
   background:
-    radial-gradient(ellipse at 30% 30%, rgba(253, 164, 23, 0.12), transparent 60%),
+    radial-gradient(ellipse at 30% 30%, rgba(29, 88, 168, 0.12), transparent 60%),
     var(--surface);
   text-align: center;
 }
