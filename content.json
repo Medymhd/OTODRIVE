@@ -31,8 +31,8 @@
   },
   "savings": {
     "currency": "KSh",
-    "petrolPrice": 180,
-    "lpgPrice": 110,
+    "petrolPrice": 220,
+    "lpgPrice": 115,
     "note": "Consumption is the same on LPG; savings = litres × (petrol price − LPG price)."
   }
 }
