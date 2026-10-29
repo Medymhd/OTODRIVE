@@ -261,3 +261,36 @@ if (statsBand || instalmentPanel || savingsCalc) {
       if (savingsCalc) initSavingsCalc(fallback.savings);
     });
 }
+
+/* ---------- Zavoli blueprint (scroll assembly) ---------- */
+const blueprintTrack = document.querySelector(".blueprint-track");
+
+if (blueprintTrack) {
+  const steps = [...blueprintTrack.querySelectorAll(".bp-step")];
+  const bar = blueprintTrack.querySelector(".bp-bar i");
+  const counter = blueprintTrack.querySelector(".bp-count");
+  const kitImg = blueprintTrack.querySelector(".blueprint-kit img");
+
+  const updateBlueprint = () => {
+    const rect = blueprintTrack.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+
+    if (total <= 0) {
+      steps.forEach((step) => step.classList.add("is-active"));
+      if (kitImg) kitImg.style.filter = "none";
+      return;
+    }
+
+    const progress = Math.min(1, Math.max(0, -rect.top / total));
+    const stepIndex = Math.min(steps.length - 1, Math.floor(progress * steps.length));
+
+    steps.forEach((step, index) => step.classList.toggle("is-active", index <= stepIndex));
+    if (bar) bar.style.width = `${Math.round(progress * 100)}%`;
+    if (counter) counter.textContent = String(stepIndex + 1).padStart(2, "0");
+    if (kitImg) kitImg.style.filter = `grayscale(${1 - progress}) brightness(${0.7 + progress * 0.3})`;
+  };
+
+  window.addEventListener("scroll", updateBlueprint, { passive: true });
+  window.addEventListener("resize", updateBlueprint);
+  updateBlueprint();
+}
