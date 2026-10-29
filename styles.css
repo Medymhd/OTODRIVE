@@ -2350,3 +2350,94 @@ html.js .hero-media.is-visible img {
     width: 100%;
   }
 }
+
+/* ---------- Map detail panel ---------- */
+.map-detail-note {
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+.map-detail-note[hidden] {
+  display: none;
+}
+
+.map-detail-label {
+  margin: 18px 0 6px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.map-detail-hours,
+.map-detail-services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.map-detail-services-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+
+.map-detail-services-list li::before {
+  content: "\2713";
+  color: var(--map-green);
+  font-weight: 700;
+}
+
+.map-detail-phone {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.map-detail-phone:hover {
+  color: var(--orange-deep);
+}
+
+.map-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.map-detail-actions .text-link {
+  margin-top: 0;
+}
+
+.map-detail-larger {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3px;
+}
+
+.map-detail-larger:hover {
+  color: var(--orange-deep);
+  border-color: var(--orange-deep);
+}

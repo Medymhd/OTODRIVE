@@ -2,46 +2,64 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 const locations = [
   {
-    name: "Thika",
+    name: "Petrocity Thika",
     service: "both",
     coords: [37.063842, -1.042145],
-    area: "Thika, Kenya",
+    area: "Thika, Kiambu",
     mapsUrl: "https://maps.app.goo.gl/ZHujXRnAL1nDtZSu6",
+    addressNote: "Exact street address to be confirmed.",
+    hours: ["Mon–Fri: 8:00 am – 5:00 pm", "Sat: 8:30 am – 1:00 pm"],
+    services: ["LPG Conversion", "Vehicle Diagnosis", "LPG System Check", "LPG Refueling"],
   },
   {
-    name: "Mavoko",
+    name: "Petrocity Mavoko",
     service: "both",
     coords: [36.960198, -1.429533],
-    area: "Mavoko, Kenya",
+    area: "Mavoko, Machakos",
     mapsUrl: "https://maps.app.goo.gl/C2WLEC5tz1VwoAwZ7",
+    addressNote: "Otodrive head office.",
+    hours: ["Open 24 hours, 7 days a week"],
+    services: ["LPG Conversion", "Vehicle Diagnosis", "LPG System Check", "LPG Refueling"],
   },
   {
-    name: "Kangundo Road",
+    name: "Petrocity Kangundo Road",
     service: "fueling",
     coords: [36.8893014, -1.2752261],
     area: "Kangundo Road, Nairobi",
     mapsUrl: "https://maps.app.goo.gl/3EDXSLFxYyYutGrA9",
+    addressNote: "Exact street address to be confirmed.",
+    hours: ["24/7 fueling"],
+    services: ["Autogas LPG fueling"],
   },
   {
-    name: "Rongai",
+    name: "Petrocity Rongai",
     service: "fueling",
     coords: [36.7234206, -1.4002857],
     area: "Rongai, Kajiado",
     mapsUrl: "https://maps.app.goo.gl/GxpfryWxtuegwdWR7",
+    addressNote: "Exact street address to be confirmed.",
+    hours: ["24/7 fueling"],
+    services: ["Autogas LPG fueling"],
   },
   {
-    name: "Shanzu",
+    name: "Petrocity Shanzu",
     service: "fueling",
     coords: [39.7382157, -3.9837529],
     area: "Shanzu, Mombasa",
     mapsUrl: "https://maps.app.goo.gl/hYihjjUFbdxKwveR7",
+    addressNote: "Exact street address to be confirmed.",
+    hours: ["24/7 fueling"],
+    services: ["Autogas LPG fueling"],
   },
   {
-    name: "Jomvu",
+    name: "Petrocity Jomvu",
     service: "fueling",
     coords: [39.6040628, -4.0078763],
     area: "Jomvu, Mombasa",
     mapsUrl: "https://maps.app.goo.gl/LQZJuWqmyCyEe3Nk6",
+    addressNote: "Exact street address to be confirmed.",
+    hours: ["24/7 fueling"],
+    services: ["Autogas LPG fueling"],
   },
   {
     name: "Jomvu Yard",
@@ -49,6 +67,9 @@ const locations = [
     coords: [39.596643, -4.0074044],
     area: "Jomvu, Mombasa",
     mapsUrl: "https://maps.app.goo.gl/frdagKS94VieWW7a7",
+    addressNote: "Along the Mombasa–Nairobi Highway, immediately beside the A.O. Bayusuf & Sons Ltd yard. Exact gate to be confirmed.",
+    hours: ["Mon–Fri: 8:00 am – 5:00 pm", "Sat: 8:30 am – 1:00 pm"],
+    services: ["Autogas Installation", "Autogas Troubleshooting", "Autogas Periodic Service", "Autogas Repairs"],
   },
 ];
 
@@ -94,6 +115,49 @@ function setMapDetail(location) {
       return tag;
     })
   );
+
+  const note = mapDetail.querySelector(".map-detail-note");
+  if (note) {
+    if (location.addressNote) {
+      note.hidden = false;
+      note.textContent = location.addressNote;
+    } else {
+      note.hidden = true;
+    }
+  }
+
+  const hours = mapDetail.querySelector(".map-detail-hours");
+  if (hours && location.hours) {
+    hours.replaceChildren(
+      ...location.hours.map((line) => {
+        const li = document.createElement("li");
+        li.textContent = line;
+        return li;
+      })
+    );
+  }
+
+  const servicesList = mapDetail.querySelector(".map-detail-services-list");
+  if (servicesList && location.services) {
+    servicesList.replaceChildren(
+      ...location.services.map((line) => {
+        const li = document.createElement("li");
+        li.textContent = line;
+        return li;
+      })
+    );
+  }
+
+  const phone = mapDetail.querySelector(".map-detail-phone");
+  if (phone) {
+    phone.href = "tel:+254704644909";
+    phone.textContent = "+254 704 644 909";
+  }
+
+  const larger = mapDetail.querySelector(".map-detail-larger");
+  if (larger) {
+    larger.href = `https://www.google.com/maps/search/?api=1&query=${location.coords[1]},${location.coords[0]}`;
+  }
 
   mapMarkers.forEach((marker, name) => {
     const element = marker.getElement();
