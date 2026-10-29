@@ -8,6 +8,8 @@
   --orange: #1d58a8;
   --blue-bright: #2e6cbd;
   --blue-bright-hover: #3a7bd0;
+  --map-blue: #3b82e8;
+  --map-green: #2fb774;
   --orange-deep: #123a6b;
   --green: #3f6b4f;
   --charcoal: #11100e;
@@ -1242,15 +1244,15 @@ html.js .hero-media.is-visible::before {
 }
 
 .legend-dot--orange {
-  background: var(--orange);
+  background: var(--map-blue);
 }
 
 .legend-dot--green {
-  background: var(--green);
+  background: var(--map-green);
 }
 
 .legend-dot--both {
-  background: linear-gradient(135deg, var(--orange) 0 50%, var(--green) 50% 100%);
+  background: linear-gradient(135deg, var(--map-blue) 0 50%, var(--map-green) 50% 100%);
 }
 
 .map-caption {
@@ -1277,18 +1279,18 @@ html.js .hero-media.is-visible::before {
   padding: 0;
   border: 3px solid var(--surface);
   border-radius: 50%;
-  background: var(--orange);
+  background: var(--map-blue);
   box-shadow: 0 2px 8px rgba(23, 21, 18, 0.3);
   cursor: pointer;
   transition: transform 180ms var(--ease);
 }
 
 .map-pin--fueling {
-  background: var(--green);
+  background: var(--map-green);
 }
 
 .map-pin--both {
-  background: linear-gradient(135deg, var(--orange) 0 50%, var(--green) 50% 100%);
+  background: linear-gradient(135deg, var(--map-blue) 0 50%, var(--map-green) 50% 100%);
 }
 
 .map-pin:focus-visible,
