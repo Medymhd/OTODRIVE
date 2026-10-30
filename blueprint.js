@@ -958,7 +958,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
 
     const updateScene = (value, time) => {
       smoothProgress += (value - smoothProgress) * 0.08;
-      const p = reduceMotion ? 1 : smoothProgress;
+      const p = reduceMotion && !isMobileBP() ? 1 : smoothProgress;
 
       const narrow = width / Math.max(height, 1) < 1.1;
       const idle = Math.sin(time * 0.18) * 0.02;
