@@ -69,9 +69,22 @@
   measure();
   updateUI();
 
-  import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js")
-    .then((THREE) => initBlueprint3D(THREE))
-    .catch(() => fallback());
+  const load3D = () => {
+    import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js")
+      .then((THREE) => initBlueprint3D(THREE))
+      .catch(() => fallback());
+  };
+  if ("IntersectionObserver" in window && track) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        io.disconnect();
+        load3D();
+      }
+    }, { rootMargin: "300px 0px" });
+    io.observe(track);
+  } else {
+    load3D();
+  }
 
   function fallback() {
     host.innerHTML = '<img src="images/zavoli/full-kit.jpg" alt="The complete Zavoli kit">';
