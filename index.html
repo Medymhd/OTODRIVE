@@ -62,9 +62,8 @@
       100%     { transform: translateY(0); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .keyword-rotator-word { animation: none; }
-      .keyword-rotator-viewport { height: auto; overflow: visible; border-bottom: 0; }
-      .keyword-rotator-viewport .keyword-rotator-word { display: inline; }
+      .keyword-rotator-word { animation: none !important; display: inline !important; white-space: nowrap; }
+      .keyword-rotator-viewport { height: auto !important; overflow: visible !important; border-bottom: 0; white-space: nowrap; }
       .keyword-rotator-viewport .keyword-rotator-word::after { content: " · "; color: rgba(255,253,248,0.4); }
       .keyword-rotator-viewport .keyword-rotator-word:last-child::after { content: ""; }
     }
