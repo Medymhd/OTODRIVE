@@ -19,6 +19,9 @@
   const easeOut = (v) => 1 - Math.pow(1 - v, 3);
 
   let progress = 0;
+let autoPlay = true;
+let idleTimer = null;
+const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
   let currentStep = -1;
   let staticMode = reduceMotion;
 
@@ -29,6 +32,7 @@
       progress = 1;
       return;
     }
+    if (autoPlay) return;
     const rect = track.getBoundingClientRect();
     const total = rect.height - window.innerHeight - window.innerHeight * 0.3;
     progress = total > 0 ? clamp01(-rect.top / total) : 1;
@@ -54,7 +58,14 @@
   };
 
   let ticking = false;
+  const pauseAutoPlay = () => {
+    if (isMobileBP()) return;
+    autoPlay = false;
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { autoPlay = true; }, 3500);
+  };
   const onScroll = () => {
+    pauseAutoPlay();
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
@@ -66,6 +77,14 @@
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
+  ["pointerdown","touchstart"].forEach((evt) => {
+    window.addEventListener(evt, () => {
+      if (isMobileBP()) return;
+      autoPlay = false;
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => { autoPlay = true; }, 2500);
+    }, { passive: true });
+  });
   measure();
   updateUI();
 
@@ -982,11 +1001,27 @@
 
     const clock = new THREE.Clock();
 
+    let holdStart = null;
     const frame = () => {
       requestAnimationFrame(frame);
       const delta = Math.min(clock.getDelta(), 0.05);
       const time = clock.elapsedTime;
       if (!inView) return;
+      if (autoPlay && !staticMode && !reduceMotion) {
+        progress += delta * 0.13;
+        if (progress >= 1) {
+          if (holdStart === null) holdStart = time;
+          if (time - holdStart >= 2) {
+            progress = 0;
+            holdStart = null;
+          } else {
+            progress = 1;
+          }
+        } else {
+          holdStart = null;
+        }
+        updateUI();
+      }
       updateScene(staticMode ? 1 : progress, time + delta);
       renderer.render(scene, camera);
     };
