@@ -132,10 +132,14 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
   function initBlueprint3D(THREE) {
     let renderer;
     try {
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     } catch (error) {
-      fallback();
-      return;
+      try {
+        renderer = new THREE.WebGLRenderer();
+      } catch (error2) {
+        fallback();
+        return;
+      }
     }
 
     const scene = new THREE.Scene();
@@ -1007,7 +1011,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
 
     // ---- render loop ----
     let inView = true;
-    if (typeof IntersectionObserver !== "undefined") {
+    if (!isMobileBP() && typeof IntersectionObserver !== "undefined") {
       new IntersectionObserver(
         ([entry]) => {
           inView = entry.isIntersecting;
