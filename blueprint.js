@@ -88,10 +88,14 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
   measure();
   updateUI();
 
+  let loaded3D = false;
+  let loading3D = false;
   const load3D = () => {
+    if (loaded3D || loading3D) return;
+    loading3D = true;
     import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js")
-      .then((THREE) => initBlueprint3D(THREE))
-      .catch(() => fallback());
+      .then((THREE) => { loaded3D = true; loading3D = false; initBlueprint3D(THREE); })
+      .catch(() => { loading3D = false; fallback(); });
   };
   if ("IntersectionObserver" in window && track) {
     const io = new IntersectionObserver((entries) => {
@@ -99,8 +103,12 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
         io.disconnect();
         load3D();
       }
-    }, { rootMargin: "300px 0px" });
+    }, { rootMargin: "800px 0px" });
     io.observe(track);
+    // Fallback: load after 2.5s if not already loaded and section is in view
+    setTimeout(() => {
+      if (!loaded3D) load3D();
+    }, 2500);
   } else {
     load3D();
   }
