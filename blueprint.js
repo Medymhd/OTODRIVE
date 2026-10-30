@@ -26,7 +26,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
   let staticMode = reduceMotion;
 
   const measure = () => {
-    staticMode = reduceMotion || !stage || (!isMobileBP() && getComputedStyle(stage).position !== "sticky");
+    staticMode = reduceMotion || !stage;
     if (!track) return;
     if (staticMode) {
       progress = 1;
@@ -1007,7 +1007,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
       const delta = Math.min(clock.getDelta(), 0.05);
       const time = clock.elapsedTime;
       if (!inView) return;
-      if (autoPlay && !staticMode && !reduceMotion) {
+      if (autoPlay && !reduceMotion) {
         progress += delta * 0.055;
         if (progress >= 1) {
           if (holdStart === null) holdStart = time;
