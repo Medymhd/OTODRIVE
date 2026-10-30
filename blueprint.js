@@ -100,7 +100,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
     const delta = Math.min((now - uiLastTime) / 1000, 0.05);
     uiLastTime = now;
     if (!inViewOuter && !isMobileBP()) return;
-    if (autoPlay && !reduceMotion) {
+    if (autoPlay) {
       progress += delta * 0.055;
       if (progress >= 1) {
         if (uiHoldStart === null) uiHoldStart = now;
