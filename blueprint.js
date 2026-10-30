@@ -87,6 +87,37 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
   });
   measure();
   updateUI();
+  // Outer animation loop: drives progress + UI even if 3D fails to load
+  let uiHoldStart = null;
+  let uiLastTime = performance.now();
+  let inViewOuter = true;
+  if (typeof IntersectionObserver !== "undefined" && track) {
+    new IntersectionObserver(([e]) => { inViewOuter = e.isIntersecting; }, { threshold: 0 }).observe(track);
+  }
+  const uiLoop = () => {
+    requestAnimationFrame(uiLoop);
+    const now = performance.now();
+    const delta = Math.min((now - uiLastTime) / 1000, 0.05);
+    uiLastTime = now;
+    if (!inViewOuter) return;
+    if (autoPlay && !reduceMotion) {
+      progress += delta * 0.055;
+      if (progress >= 1) {
+        if (uiHoldStart === null) uiHoldStart = now;
+        if (now - uiHoldStart >= 2000) {
+          progress = 0;
+          uiHoldStart = null;
+        } else {
+          progress = 1;
+        }
+      } else {
+        uiHoldStart = null;
+      }
+      updateUI();
+    }
+  };
+  if (steps.length) uiLoop();
+
   const playBtn = document.getElementById("bp-play");
   if (playBtn) {
     playBtn.addEventListener("click", () => {
@@ -1022,27 +1053,11 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
 
     const clock = new THREE.Clock();
 
-    let holdStart = null;
     const frame = () => {
       requestAnimationFrame(frame);
       const delta = Math.min(clock.getDelta(), 0.05);
       const time = clock.elapsedTime;
       if (!inView) return;
-      if (autoPlay && !reduceMotion) {
-        progress += delta * 0.055;
-        if (progress >= 1) {
-          if (holdStart === null) holdStart = time;
-          if (time - holdStart >= 2) {
-            progress = 0;
-            holdStart = null;
-          } else {
-            progress = 1;
-          }
-        } else {
-          holdStart = null;
-        }
-        updateUI();
-      }
       updateScene(staticMode ? 1 : progress, time + delta);
       renderer.render(scene, camera);
     };
