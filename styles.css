@@ -31,7 +31,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 @view-transition {
@@ -41,7 +40,6 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
-  overscroll-behavior-y: contain;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
