@@ -2516,10 +2516,35 @@ html.js .hero-media.is-visible img {
   text-transform: uppercase;
 }
 
+.bp-play {
+  margin-left: auto;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 253, 248, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.08);
+  color: var(--surface);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.bp-play:hover {
+  background: rgba(255, 253, 248, 0.16);
+  border-color: rgba(255, 253, 248, 0.4);
+}
+.bp-play:focus-visible {
+  outline: 2px solid var(--map-blue);
+  outline-offset: 3px;
+}
 .blueprint-canvas-wrap {
   position: relative;
   min-height: 62vh;
 }
+
+
 
 .blueprint-kit {
   position: absolute;

@@ -87,6 +87,15 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
   });
   measure();
   updateUI();
+  const playBtn = document.getElementById("bp-play");
+  if (playBtn) {
+    playBtn.addEventListener("click", () => {
+      autoPlay = true;
+      progress = 0;
+      if (!loaded3D && !loading3D) load3D();
+    });
+  }
+
 
   let loaded3D = false;
   let loading3D = false;
