@@ -26,7 +26,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
   let staticMode = reduceMotion;
 
   const measure = () => {
-    staticMode = reduceMotion || !stage;
+    staticMode = (!isMobileBP() && reduceMotion) || !stage;
     if (!track) return;
     if (staticMode) {
       progress = 1;
