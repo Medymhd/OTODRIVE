@@ -261,21 +261,3 @@ if (statsBand || instalmentPanel || savingsCalc) {
       if (savingsCalc) initSavingsCalc(fallback.savings);
     });
 }
-
-/* ---------- Zavoli blueprint is handled in blueprint.js ---------- */
-
-
-// Hero video autoplay (Safari-friendly): ensure muted + retry on canplay
-(() => {
-  const video = document.querySelector(".hero-media video");
-  if (!video) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const tryPlay = () => {
-    try { video.muted = true; } catch (e) {}
-    const p = video.play();
-    if (p && typeof p.catch === "function") p.catch(() => {});
-  };
-  tryPlay();
-  video.addEventListener("loadeddata", tryPlay, { once: true });
-  video.addEventListener("canplay", tryPlay, { once: true });
-})();
