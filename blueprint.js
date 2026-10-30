@@ -21,7 +21,7 @@
   let progress = 0;
 let autoPlay = true;
 let idleTimer = null;
-const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
+const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(stage && getComputedStyle(stage).position === "static");
   let currentStep = -1;
   let staticMode = reduceMotion;
 
@@ -99,7 +99,6 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches;
     const now = performance.now();
     const delta = Math.min((now - uiLastTime) / 1000, 0.05);
     uiLastTime = now;
-    if (!inViewOuter && !isMobileBP()) return;
     if (autoPlay) {
       progress += delta * 0.055;
       if (progress >= 1) {
