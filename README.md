@@ -17,7 +17,7 @@ Open <http://127.0.0.1:4173/>.
 
 The redesigned site (light "Daylight / Molten" direction) is served from the repository root. It uses owner-provided location labels and pins derived from the owner's Google Maps links for review only; exact entrances, addresses and hours remain unconfirmed, and the map is not production data.
 
-The site uses `images/lpgtech_conversion_movie-web.mp4` for the LPGTech film; the original `images/lpgtech_conversion_movie.mp4` is retained. Forms send through EmailJS with a `mailto:` fallback; the EmailJS service/template IDs are currently stale and need refreshing (see open items).
+The homepage corporate film is `images/otodrive-corporate.mp4`, played on demand with sound. Forms send through EmailJS with a `mailto:` fallback; the EmailJS service/template IDs are currently stale and need refreshing (see open items).
 
 The preview server is for local review only.
 
@@ -40,7 +40,7 @@ The preview server is for local review only.
 
 Apple, Nike and the owner's C.O.R.E project are reference points for qualities such as clarity, craft, restraint and pacing — not templates to copy. The redesign establishes an original Otodrive identity.
 
-Three.js is not part of the baseline. Any 3D or heavy motion work must follow the Phase 2D performance work and the Phase 2E design gate, with a static fallback and reduced-motion support.
+Three.js is used only for the Zavoli system blueprint on `zavoli.html`. It ships with a static image fallback, a reduced-motion layout and no additional runtime dependencies. Any further 3D or heavy motion work must follow the Phase 2D performance work and the Phase 2E design gate.
 
 ## Cost constraint
 
