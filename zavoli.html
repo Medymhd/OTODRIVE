@@ -189,82 +189,48 @@
       <div class="blueprint-track">
         <div class="blueprint-stage">
           <div class="blueprint-head">
-            <p class="section-index">02 / How it fits together</p>
-            <h2 id="blueprint-title" class="display">Nine parts.<br><span class="muted">One system.</span></h2>
+            <div>
+              <p class="section-index">02 / How it fits together</p>
+              <h2 id="blueprint-title" class="display">Nine parts.<br><span class="muted">One system.</span></h2>
+            </div>
+            <div class="bp-status" aria-hidden="true">
+              <span class="bp-count">01</span><span class="bp-slash">/</span><span class="bp-total">09</span>
+              <span class="bp-status-label">Tank</span>
+            </div>
           </div>
 
-          <div class="blueprint-kit" id="blueprint-canvas" role="img" aria-label="3D sketch of the Zavoli kit assembling from the tank to the injector rail"></div>
+          <div class="blueprint-canvas-wrap">
+            <div class="blueprint-kit" id="blueprint-canvas" role="img" aria-label="Cutaway of a car showing the Zavoli Autogas system installed: the tank in the spare-wheel well, the vaporizer and injectors in the engine bay, and the pipe run between them"></div>
+            <svg class="bp-leaders" aria-hidden="true" focusable="false"></svg>
+            <div class="bp-callouts" aria-hidden="true"></div>
+            <div class="bp-legend" aria-hidden="true">
+              <span><i style="--c: #f5c451"></i>Fill</span>
+              <span><i style="--c: #ff9a52"></i>Liquid</span>
+              <span><i style="--c: #5fd0ff"></i>Vapour</span>
+              <span><i style="--c: #7ef0b0"></i>Control</span>
+            </div>
+          </div>
 
-          <ol class="blueprint-steps">
-            <li class="bp-step">
-              <img src="images/zavoli/tank-60l.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>Tank</h3>
-                <p>LPG lives here — pressurised, in the spare-wheel well.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/multivalve.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>Multivalve</h3>
-                <p>Fills safely to 80% and reads the level.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/reducer.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>Vaporizer / reducer</h3>
-                <p>Liquid becomes gas, pressure drops.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/vapor-phase-filter.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>Vapor filter</h3>
-                <p>The gas is cleaned before it moves on.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/injector-4-cylinder.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>Injector rail</h3>
-                <p>One injector per cylinder, dosing precisely.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/manifold-injector.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>Manifold</h3>
-                <p>The rail docks onto the intake.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/ecu.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>ECU</h3>
-                <p>The brain takes control of the flow.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/door-filling-unit.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>Filling unit</h3>
-                <p>Your refuelling point on the body.</p>
-              </div>
-            </li>
-            <li class="bp-step">
-              <img src="images/zavoli/full-kit.jpg" alt="" width="160" height="107" loading="lazy">
-              <div>
-                <h3>The full kit</h3>
-                <p>Everything together — and you drive on.</p>
-              </div>
-            </li>
-          </ol>
-
-          <div class="blueprint-progress" aria-hidden="true">
-            <span class="bp-count">01</span>
-            <div class="bp-bar"><i></i></div>
-            <span class="bp-total">09</span>
+          <div class="blueprint-foot">
+            <p class="bp-readout">
+              <span class="bp-readout-index">01</span>
+              <b class="bp-readout-title">Tank</b>
+              <span class="bp-readout-desc">LPG lives here — pressurised, in the spare-wheel well.</span>
+            </p>
+            <ol class="blueprint-rail">
+              <li class="bp-step is-active" data-name="Tank" data-desc="LPG lives here — pressurised, in the spare-wheel well."><span>01</span><b>Tank</b></li>
+              <li class="bp-step" data-name="Multivalve" data-desc="Fills safely to 80% and reports the level to your switch."><span>02</span><b>Multivalve</b></li>
+              <li class="bp-step" data-name="Vaporizer / reducer" data-desc="Turns liquid LPG into gas and steps the pressure down."><span>03</span><b>Vaporizer</b></li>
+              <li class="bp-step" data-name="Vapor filter" data-desc="Cleans the gas before it reaches the injectors."><span>04</span><b>Filter</b></li>
+              <li class="bp-step" data-name="Injector rail" data-desc="One injector per cylinder, dosing the gas precisely."><span>05</span><b>Injector rail</b></li>
+              <li class="bp-step" data-name="Manifold" data-desc="The injector rail docks onto the intake manifold."><span>06</span><b>Manifold</b></li>
+              <li class="bp-step" data-name="ECU" data-desc="The brain reads engine signals and controls the flow."><span>07</span><b>ECU</b></li>
+              <li class="bp-step" data-name="Filling unit" data-desc="Your refuelling point, set into the bodywork."><span>08</span><b>Filling unit</b></li>
+              <li class="bp-step" data-name="The full kit" data-desc="Everything together — and you drive on."><span>09</span><b>Full kit</b></li>
+            </ol>
+            <div class="blueprint-progress" aria-hidden="true">
+              <div class="bp-bar"><i></i></div>
+            </div>
           </div>
         </div>
       </div>
