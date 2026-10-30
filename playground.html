@@ -62,9 +62,19 @@
       80%, 95% { transform: translateY(0); }
       100%     { transform: translateY(0); }
     }
+    /* Ensure 2-word viewport on all devices */
+    @media (max-width: 820px) {
+      .keyword-rotator-viewport {
+        height: 2.7em !important;
+        overflow: hidden !important;
+      }
+      .keyword-rotator-word {
+        animation: keyword-slide 10s ease-in-out infinite !important;
+        will-change: transform;
+      }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .keyword-rotator-word { animation: none; }
-      .keyword-rotator-viewport { height: auto; overflow: visible; border-bottom: 0; }
+      .keyword-rotator { display: none; }
     }
   </style>
 
