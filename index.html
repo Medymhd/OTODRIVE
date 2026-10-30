@@ -64,6 +64,9 @@
     @media (prefers-reduced-motion: reduce) {
       .keyword-rotator-word { animation: none; }
       .keyword-rotator-viewport { height: auto; overflow: visible; border-bottom: 0; }
+      .keyword-rotator-viewport .keyword-rotator-word { display: inline; }
+      .keyword-rotator-viewport .keyword-rotator-word::after { content: " · "; color: rgba(255,253,248,0.4); }
+      .keyword-rotator-viewport .keyword-rotator-word:last-child::after { content: ""; }
     }
   </style>
 
