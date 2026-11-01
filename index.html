@@ -3,80 +3,188 @@
   <meta charset="utf-8">
   <link rel="icon" href="images/favicon.png" type="image/png" sizes="128x128">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
     <title>Otodrive — Autogas conversion and LPG fueling</title>
   <meta name="description" content="Otodrive Autogas conversion and LPG fueling in Kenya.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="styles.css">
-  <script defer="" src="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js"></script>
-  <script defer="" src="map.js"></script>
-  <script defer="" src="script.js"></script>
-  <style>
-    /* Sandbox: hero text legibility on video (mobile) */
-    @media (max-width: 820px) {
-      .hero--cinema .hero-scrim {
-        background: linear-gradient(180deg, rgba(17,16,14,0.55) 0%, rgba(17,16,14,0.25) 35%, rgba(17,16,14,0.82) 100%);
+  <link rel="canonical" href="https://www.otodriveafrica.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Otodrive">
+  <meta property="og:locale" content="en_KE">
+  <meta property="og:title" content="Otodrive — Autogas conversion and LPG fueling">
+  <meta property="og:description" content="Otodrive Autogas conversion and LPG fueling in Kenya.">
+  <meta property="og:url" content="https://www.otodriveafrica.com/">
+  <meta property="og:image" content="https://www.otodriveafrica.com/images/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Otodrive Autogas station canopy">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Otodrive — Autogas conversion and LPG fueling">
+  <meta name="twitter:description" content="Otodrive Autogas conversion and LPG fueling in Kenya.">
+  <meta name="twitter:image" content="https://www.otodriveafrica.com/images/og-cover.jpg">  <link rel="stylesheet" href="styles.css?v=2">  <script defer="" src="map.js?v=2"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script defer="" src="script.js?v=2"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.otodriveafrica.com/#organization",
+      "name": "Otodrive",
+      "url": "https://www.otodriveafrica.com/",
+      "logo": "https://www.otodriveafrica.com/images/website%20Logo.png",
+      "email": "info@otodrive.co.ke",
+      "telephone": "+254704644909",
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61566117596915",
+        "https://www.instagram.com/otodriveke",
+        "https://x.com/OtodriveKE"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+254704644909",
+          "contactType": "customer service",
+          "areaServed": "KE",
+          "availableLanguage": [
+            "en",
+            "sw"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.otodriveafrica.com/#website",
+      "url": "https://www.otodriveafrica.com/",
+      "name": "Otodrive",
+      "publisher": {
+        "@id": "https://www.otodriveafrica.com/#organization"
       }
-      .hero--cinema .hero-copy .eyebrow,
-      .hero--cinema .hero-copy .hero-title,
-      .hero--cinema .hero-copy .hero-meta dd {
-        text-shadow: 0 2px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4);
-      }
+    },
+    {
+      "@type": "AutoRepair",
+      "@id": "https://www.otodriveafrica.com/#mavoko",
+      "name": "Petrocity Mavoko — Otodrive",
+      "parentOrganization": {
+        "@id": "https://www.otodriveafrica.com/#organization"
+      },
+      "telephone": "+254704644909",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mavoko",
+        "addressRegion": "Machakos",
+        "addressCountry": "KE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -1.429533,
+        "longitude": 36.960198
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      ],
+      "hasMap": "https://maps.app.goo.gl/C2WLEC5tz1VwoAwZ7"
+    },
+    {
+      "@type": "AutoRepair",
+      "@id": "https://www.otodriveafrica.com/#thika",
+      "name": "Petrocity Thika — Otodrive",
+      "parentOrganization": {
+        "@id": "https://www.otodriveafrica.com/#organization"
+      },
+      "telephone": "+254704644909",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Thika",
+        "addressRegion": "Kiambu",
+        "addressCountry": "KE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -1.042145,
+        "longitude": 37.063842
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "17:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:30",
+          "closes": "13:00"
+        }
+      ],
+      "hasMap": "https://maps.app.goo.gl/ZHujXRnAL1nDtZSu6"
+    },
+    {
+      "@type": "AutoRepair",
+      "@id": "https://www.otodriveafrica.com/#jomvu-yard",
+      "name": "Jomvu Yard — Otodrive",
+      "parentOrganization": {
+        "@id": "https://www.otodriveafrica.com/#organization"
+      },
+      "telephone": "+254704644909",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Jomvu",
+        "addressRegion": "Mombasa",
+        "addressCountry": "KE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -4.0074044,
+        "longitude": 39.596643
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "17:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:30",
+          "closes": "13:00"
+        }
+      ],
+      "hasMap": "https://maps.app.goo.gl/frdagKS94VieWW7a7"
     }
-    /* Vertical rotating keyword (SEO + motion, no marquee) — 2 visible at a time */
-    .keyword-rotator {
-      display: inline-block;
-      margin-top: 1.6rem;
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      color: rgba(255,253,248,0.75);
-    }
-    .keyword-rotator-viewport {
-      position: relative;
-      display: inline-block;
-      height: 2.7em;
-      overflow: hidden;
-      vertical-align: bottom;
-      padding-bottom: 2px;
-      border-bottom: 1px solid rgba(255,253,248,0.18);
-    }
-    .keyword-rotator-word {
-      display: block;
-      height: 1.35em;
-      line-height: 1.35em;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      animation: keyword-slide 10s ease-in-out infinite;
-    }
-    .keyword-rotator-word:nth-child(odd)  { color: #1d58a8; }
-    .keyword-rotator-word:nth-child(even) { color: #2fb774; }
-    @keyframes keyword-slide {
-      0%,  15% { transform: translateY(0); }
-      20%, 35% { transform: translateY(-200%); }
-      40%, 55% { transform: translateY(-400%); }
-      60%, 75% { transform: translateY(-600%); }
-      80%, 95% { transform: translateY(0); }
-      100%     { transform: translateY(0); }
-    }
-    /* Ensure 2-word viewport on all devices */
-    @media (max-width: 820px) {
-      .keyword-rotator-viewport {
-        height: 2.7em !important;
-        overflow: hidden !important;
-      }
-      .keyword-rotator-word {
-        animation: keyword-slide 10s ease-in-out infinite !important;
-        will-change: transform;
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .keyword-rotator { display: none; }
-    }
-  </style>
-
+  ]
+}
+</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -504,12 +612,20 @@
           <a href="mailto:info@otodrive.co.ke">info@otodrive.co.ke</a>
         </p>
       </div>
-      <form class="contact-form reveal" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
+      <form class="contact-form reveal" data-emailjs data-subject="Otodrive website enquiry" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
         <label>Name<input type="text" name="Name" autocomplete="name" required=""></label>
-        <label>Phone<input type="tel" name="Phone" autocomplete="tel" required=""></label>
+        <label>Phone<input type="tel" name="Phone" autocomplete="tel" inputmode="tel" required=""></label>
         <label>Email<input type="email" name="Email" autocomplete="email" required=""></label>
         <label class="contact-form-message">Message<textarea name="Message" rows="5" required=""></textarea></label>
+        <div class="hp-field" aria-hidden="true">
+          <label>Company website<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <label class="form-consent">
+          <input type="checkbox" name="Consent" value="Yes" required="">
+          <span>I agree to Otodrive using these details to reply to my enquiry.</span>
+        </label>
         <button class="button button--primary" type="submit">Send message</button>
+        <p class="form-status" data-form-status role="status" aria-live="polite" hidden=""></p>
       </form>
     </section>
 
@@ -542,6 +658,9 @@
         <div class="news-row">
           <input id="newsletter-email" name="Email" type="email" placeholder="Enter your email">
           <button class="button button--primary" type="submit">Subscribe</button>
+        </div>
+        <div class="hp-field" aria-hidden="true">
+          <label>Company website<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
         </div>
       </form>
 

@@ -1,0 +1,17 @@
+---
+# cPanel Git Version Control deployment.
+# First target is the staging subdomain. At cutover, change DEPLOYPATH to
+# /home/otodriveafrica/public_html/ and redeploy the same commit.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/otodriveafrica/public_html/staging/
+    - export BACKUPPATH=/home/otodriveafrica/backups/
+    - /bin/mkdir -p "$DEPLOYPATH" "$BACKUPPATH"
+    # Snapshot the previous staging build before replacing it.
+    - /bin/sh -c 'if [ -f "$DEPLOYPATH/index.html" ]; then /bin/tar -czf "$BACKUPPATH/staging-$(date +%Y%m%d-%H%M%S).tar.gz" -C "$DEPLOYPATH" .; fi'
+    # Only these files are published.
+    - /bin/cp -f index.html about.html booking.html contact.html get-quote.html maps.html projects.html services.html testimonial.html zavoli.html 404.html styles.css pages.css script.js map.js blueprint.js content.json sitemap.xml robots.txt .htaccess "$DEPLOYPATH"
+    # Media and fonts are synced, never re-encoded.
+    - /bin/sh -c 'if command -v rsync >/dev/null 2>&1; then rsync -a --delete fonts/ "$DEPLOYPATH/fonts/"; rsync -a --delete images/ "$DEPLOYPATH/images/"; else /bin/mkdir -p "$DEPLOYPATH/fonts" "$DEPLOYPATH/images"; /bin/cp -Rf fonts/. "$DEPLOYPATH/fonts/"; /bin/cp -Rf images/. "$DEPLOYPATH/images/"; fi'
+    # Remove files that must never be served.
+    - /bin/rm -f "$DEPLOYPATH/playground.html" "$DEPLOYPATH/zavoli_playground.html" "$DEPLOYPATH/pages.js"

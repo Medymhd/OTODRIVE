@@ -11,10 +11,10 @@ The site is a static, multi-page marketing and conversion platform built for cla
 ## Tech stack
 
 - Plain HTML, CSS and JavaScript — no build step, no framework dependencies.
-- [MapLibre GL JS](https://maplibre.org/) for the interactive conversion and refueling network map.
+- [MapLibre GL JS](https://maplibre.org/) for the interactive conversion and refueling network map (loaded on approach to the map, not on page load).
 - [Three.js](https://threejs.org/) (loaded on demand) for the Zavoli kit 3D blueprint on `zavoli.html`.
 - [EmailJS](https://www.emailjs.com/) for contact, quote and booking forms, with a `mailto:` fallback.
-- Google Fonts (Archivo + Instrument Sans).
+- Self-hosted Archivo and Instrument Sans (`fonts/`, woff2) — no third-party font requests.
 
 ## Local preview
 
@@ -32,6 +32,7 @@ The preview server is for local review only.
 
 - Root — the live site (`index.html` + inner pages, `styles.css`, `pages.css`, `script.js`).
 - `images/` — shared media, video and icons.
+- `fonts/` — self-hosted woff2 font files.
 - `legacy/` — archived previous-site reference (not part of the live site).
 - `scripts/preview.mjs` — dependency-free local preview server.
 - `zavoli_playground.html` — sandbox copy of the kit page for design iteration (noindexed).
@@ -47,15 +48,34 @@ The preview server is for local review only.
 
 ## Deployment
 
-Static site — no build step. Publish the repository root (`./`).
+Static site — no build step. Production is **cPanel / Apache**; Render is a preview host only.
 
-- **Build command:** (none)
-- **Publish directory:** `./`
-- **Auto-deploy:** on push to `main`
+- **Production docroot:** `/home/otodriveafrica/public_html/`
+- **Staging docroot:** `/home/otodriveafrica/public_html/staging/` (served at `https://staging.otodriveafrica.com/`)
+- **Deploy config:** `.cpanel.yml` (explicit file allowlist; media and fonts synced, never re-encoded)
+- **Trigger:** cPanel → Git Version Control → **Deploy HEAD Commit** on `main`
+
+### First-time cPanel setup
+
+1. cPanel → **Git Version Control** → clone `https://github.com/Medymhd/OTODRIVE`.
+2. Set the deploy path in `.cpanel.yml` (`DEPLOYPATH`) to the staging docroot.
+3. Deploy, then verify `https://staging.otodriveafrica.com/`.
+4. Add the staging origin in EmailJS (Account → Security → allowed origins).
+
+### Production cutover
+
+1. Merge the release branch to `main`.
+2. Change `DEPLOYPATH` to `/home/otodriveafrica/public_html/` and deploy.
+3. Delete `/home/otodriveafrica/public_html/staging/` and remove the staging subdomain.
+4. Confirm HTTPS, `www`, redirects, `robots.txt`, `sitemap.xml` and the 404 page.
+5. Rollback = restore the `public_html` backup, or redeploy the previous commit.
+
+Never edit files directly on the server; the repository is the source of truth.
 
 ## Notes
 
 - Location data, addresses and hours should be verified before publishing.
 - Forms depend on valid EmailJS service/template IDs; refresh if expired.
 - Booking requests are confirmed by the team by phone or email.
+- `playground.html` and `zavoli_playground.html` are noindexed and are not deployed.
 
