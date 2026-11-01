@@ -1575,39 +1575,35 @@ html.js .hero-media.is-visible::before {
   color: var(--surface);
 }
 
-.footer-main {
+.footer-news-band {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 26px clamp(2rem, 4vw, 3.5rem);
-  padding-block: clamp(2.5rem, 4vw, 3rem) clamp(1.75rem, 3vw, 2.25rem);
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding-block: clamp(2rem, 3.5vw, 2.75rem);
+  border-bottom: 1px solid rgba(255, 253, 248, 0.12);
 }
 
-.brand--footer img {
-  height: 46px;
+.footer-kicker {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
-.footer-contact {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 0.95rem;
-}
-
-.footer-contact a {
-  color: rgba(255, 253, 248, 0.85);
-  text-decoration: none;
-}
-
-.footer-contact a:hover {
-  color: var(--orange);
+.footer-news-copy {
+  max-width: 44ch;
+  margin: 0.35rem 0 0;
+  color: rgba(255, 253, 248, 0.55);
+  font-size: 0.85rem;
 }
 
 .footer-news {
   display: flex;
   flex-direction: column;
   gap: 9px;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .footer-news label {
@@ -1645,9 +1641,59 @@ html.js .hero-media.is-visible::before {
   font-size: 0.85rem;
 }
 
+.footer-main {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+  padding-block: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.brand--footer img {
+  height: 46px;
+}
+
+.footer-about {
+  max-width: 32ch;
+  margin: 1rem 0 0;
+  color: rgba(255, 253, 248, 0.55);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.footer-col h2 {
+  margin: 0 0 1rem;
+  color: rgba(255, 253, 248, 0.45);
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.footer-col ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-col a {
+  color: rgba(255, 253, 248, 0.78);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.footer-col a:hover {
+  color: var(--blue-bright);
+}
+
 .footer-social {
   display: flex;
   gap: 12px;
+  margin-top: 1.25rem;
 }
 
 .footer-social a {
@@ -1676,12 +1722,38 @@ html.js .hero-media.is-visible::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   padding-block: 18px 24px;
   border-top: 1px solid rgba(255, 253, 248, 0.12);
   color: rgba(255, 253, 248, 0.5);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
+@media (max-width: 1100px) {
+  .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .footer-news-band {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .news-row input {
+    width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 html.js .reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -3097,4 +3169,49 @@ html.js .hero-media.is-visible img {
 
 .form-status[hidden] {
   display: none;
+}
+
+/* ---------- FAQ ---------- */
+.faq-list {
+  max-width: 920px;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.faq-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.9vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.faq-item p {
+  max-width: 72ch;
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+}
+
+/* Keep the labeled 3D diagram uncropped in 4:5 media slots */
+.page-hero-aside img.diagram-3d,
+.page-row-media img.diagram-3d,
+.page-project img.diagram-3d {
+  aspect-ratio: 1 / 1;
+}
+
+.diagram-3d {
+  filter: drop-shadow(0 22px 28px rgba(23, 21, 18, 0.16));
+}
+
+.footer-note {
+  margin: 0.9rem 0 0;
+  color: rgba(255, 253, 248, 0.4);
+  font-size: 0.72rem;
+  line-height: 1.5;
 }
