@@ -73,6 +73,20 @@ function setFormStatus(form, message) {
   }
 }
 
+function setSubmitting(form, busy) {
+  const button = form.querySelector('button[type="submit"]');
+  if (!button) return;
+
+  if (busy) {
+    if (!button.dataset.idleLabel) button.dataset.idleLabel = button.textContent;
+    button.textContent = "Sending…";
+    button.disabled = true;
+  } else {
+    if (button.dataset.idleLabel) button.textContent = button.dataset.idleLabel;
+    button.disabled = false;
+  }
+}
+
 function encode(value) {
   return encodeURIComponent(value).replace(/%0A/g, "%0D%0A");
 }
@@ -140,14 +154,20 @@ function isSpam(form) {
   const honey = form.querySelector('input[name="company_website"]');
   if (honey && honey.value.trim()) return true;
 
-  const loadedAt = Number(form.dataset.loadedAt || 0);
-  if (loadedAt && Date.now() - loadedAt < 2500) return true;
+  const startedAt = Number(form.dataset.startedAt || 0);
+  if (startedAt && Date.now() - startedAt < 1500) return true;
 
   return false;
 }
 
 document.querySelectorAll("form").forEach((form) => {
-  form.dataset.loadedAt = String(Date.now());
+  form.addEventListener(
+    "focusin",
+    () => {
+      if (!form.dataset.startedAt) form.dataset.startedAt = String(Date.now());
+    },
+    { once: true }
+  );
 });
 
 const EMAILJS_PUBLIC_KEY = "UqC86yPkdUUSFLchd";
@@ -250,7 +270,8 @@ document.querySelectorAll("form[data-emailjs]").forEach((form) => {
       return;
     }
 
-    submitFormEmailJS(form, new FormData(form));
+    setSubmitting(form, true);
+    submitFormEmailJS(form, new FormData(form)).finally(() => setSubmitting(form, false));
   });
 });
 
@@ -353,21 +374,24 @@ if (bookingForm && bookingDate && bookingTime && bookingSlots) {
     const lines = collectLines(data);
     const subject = `Booking request — ${service} — ${date} ${time}`;
 
-    sendViaEmailJS(data).then((sent) => {
-      if (sent) {
+    setSubmitting(bookingForm, true);
+    sendViaEmailJS(data)
+      .then((sent) => {
+        if (sent) {
+          setFormStatus(
+            bookingForm,
+            "Thank you — your booking request has been sent. Otodrive will confirm the appointment by phone or email."
+          );
+          return;
+        }
+
+        openMailClient(subject, lines);
         setFormStatus(
           bookingForm,
-          "Thank you — your booking request has been sent. Otodrive will confirm the appointment by phone or email."
+          "We couldn't send automatically, so your email app was opened with the booking request ready to send. If it does not open, call +254 704 644 909."
         );
-        return;
-      }
-
-      openMailClient(subject, lines);
-      setFormStatus(
-        bookingForm,
-        "We couldn't send automatically, so your email app was opened with the booking request ready to send. If it does not open, call +254 704 644 909."
-      );
-    });
+      })
+      .finally(() => setSubmitting(bookingForm, false));
   });
 }
 
