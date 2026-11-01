@@ -79,9 +79,17 @@ function encode(value) {
 
 function collectLines(data) {
   const lines = [];
+  const consent = String(data.get("Consent") || "").trim();
+
+  if (consent) {
+    lines.push(
+      "Consent to contact: Yes — the customer agreed to Otodrive using these details to respond to this request."
+    );
+  }
+
   data.forEach((value, key) => {
     const text = String(value).trim();
-    if (text && key !== "subject" && key !== "company_website") {
+    if (text && key !== "subject" && key !== "company_website" && key !== "Consent") {
       lines.push(`${key}: ${text}`);
     }
   });
