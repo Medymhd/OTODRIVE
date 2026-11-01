@@ -99,6 +99,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     const now = performance.now();
     const delta = Math.min((now - uiLastTime) / 1000, 0.05);
     uiLastTime = now;
+    if (!inViewOuter) return;
     if (autoPlay) {
       progress += delta * 0.055;
       if (progress >= 1) {
@@ -144,10 +145,6 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
       }
     }, { rootMargin: "800px 0px" });
     io.observe(track);
-    // Fallback: load after 2.5s if not already loaded and section is in view
-    setTimeout(() => {
-      if (!loaded3D) load3D();
-    }, 2500);
   } else {
     load3D();
   }
@@ -177,7 +174,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
 
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 80);
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileBP() ? 1.5 : 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.18;
@@ -214,7 +211,8 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     const key = new THREE.DirectionalLight(0xffffff, 3.1);
     key.position.set(4.5, 7.5, 5.5);
     key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048);
+    const shadowSize = isMobileBP() ? 1024 : 2048;
+    key.shadow.mapSize.set(shadowSize, shadowSize);
     key.shadow.camera.left = -6;
     key.shadow.camera.right = 6;
     key.shadow.camera.top = 6;
@@ -1041,7 +1039,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
 
     // ---- render loop ----
     let inView = true;
-    if (!isMobileBP() && typeof IntersectionObserver !== "undefined") {
+    if (typeof IntersectionObserver !== "undefined") {
       new IntersectionObserver(
         ([entry]) => {
           inView = entry.isIntersecting;

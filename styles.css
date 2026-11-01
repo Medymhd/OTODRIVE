@@ -1,3 +1,45 @@
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("fonts/archivo-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("fonts/archivo-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/instrument-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/instrument-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --paper: #f7f4ee;
   --surface: #fffdf8;
@@ -2896,4 +2938,156 @@ html.js .hero-media.is-visible img {
     height: 42svh;
     min-height: 300px;
   }
+}
+
+/* ---------- Hero legibility on video (moved from index.html) ---------- */
+@media (max-width: 820px) {
+  .hero--cinema .hero-scrim {
+    background: linear-gradient(180deg, rgba(17, 16, 14, 0.55) 0%, rgba(17, 16, 14, 0.25) 35%, rgba(17, 16, 14, 0.82) 100%);
+  }
+
+  .hero--cinema .hero-copy .eyebrow,
+  .hero--cinema .hero-copy .hero-title,
+  .hero--cinema .hero-copy .hero-meta dd {
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ---------- Vertical rotating keyword ---------- */
+.keyword-rotator {
+  display: inline-block;
+  margin-top: 1.6rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 253, 248, 0.75);
+}
+
+.keyword-rotator-viewport {
+  position: relative;
+  display: inline-block;
+  height: 2.7em;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(255, 253, 248, 0.18);
+}
+
+.keyword-rotator-word {
+  display: block;
+  height: 1.35em;
+  line-height: 1.35em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  animation: keyword-slide 10s ease-in-out infinite;
+}
+
+.keyword-rotator-word:nth-child(odd) {
+  color: #1d58a8;
+}
+
+.keyword-rotator-word:nth-child(even) {
+  color: #2fb774;
+}
+
+@keyframes keyword-slide {
+  0%, 15% { transform: translateY(0); }
+  20%, 35% { transform: translateY(-200%); }
+  40%, 55% { transform: translateY(-400%); }
+  60%, 75% { transform: translateY(-600%); }
+  80%, 95% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+@media (max-width: 820px) {
+  .keyword-rotator-viewport {
+    height: 2.7em !important;
+    overflow: hidden !important;
+  }
+
+  .keyword-rotator-word {
+    animation: keyword-slide 10s ease-in-out infinite !important;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .keyword-rotator {
+    display: none;
+  }
+}
+
+/* ---------- Form spam trap, consent and status ---------- */
+.hp-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.form-consent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  grid-column: 1 / -1;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.contact-form .form-consent,
+.page-form .form-consent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.form-consent input[type="checkbox"],
+.contact-form .form-consent input[type="checkbox"],
+.page-form .form-consent input[type="checkbox"] {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  margin: 3px 0 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+.form-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid rgba(168, 82, 0, 0.28);
+  border-left: 3px solid var(--orange-deep);
+  border-radius: 2px;
+  background: rgba(29, 88, 168, 0.09);
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.form-status[hidden] {
+  display: none;
 }

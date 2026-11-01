@@ -329,10 +329,73 @@ function injectMapHint(finePointer) {
   panel.append(hint);
 }
 
-if (mapSection) {
-  if (mapSection.hasAttribute("data-map-eager") || document.readyState === "complete") {
-    initNetworkMap();
-  } else {
-    window.addEventListener("load", initNetworkMap, { once: true });
+/* ---------- Lazy MapLibre loader ---------- */
+const MAPLIBRE_CSS = "https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css";
+const MAPLIBRE_JS = "https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js";
+let mapLibrePromise = null;
+
+function loadMapLibre() {
+  if (mapLibrePromise) return mapLibrePromise;
+
+  mapLibrePromise = new Promise((resolve, reject) => {
+    if (typeof maplibregl !== "undefined") {
+      resolve();
+      return;
+    }
+
+    if (!document.querySelector('link[data-maplibre="css"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = MAPLIBRE_CSS;
+      link.dataset.maplibre = "css";
+      document.head.append(link);
+    }
+
+    const script = document.createElement("script");
+    script.src = MAPLIBRE_JS;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error("MapLibre failed to load"));
+    document.head.append(script);
+  });
+
+  return mapLibrePromise;
+}
+
+function showMapFallback() {
+  if (!mapElement) return;
+  mapElement.innerHTML =
+    '<p class="map-fallback">The interactive map could not load. Use the location list above or open the locations page for details.</p>';
+}
+
+function whenMapApproaches(callback) {
+  if (!mapSection) return;
+
+  if (!("IntersectionObserver" in window)) {
+    callback();
+    return;
   }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        observer.disconnect();
+        callback();
+      }
+    },
+    { rootMargin: "700px 0px" }
+  );
+
+  observer.observe(mapSection);
+}
+
+if (mapSection) {
+  whenMapApproaches(() => {
+    loadMapLibre()
+      .then(initNetworkMap)
+      .catch((error) => {
+        console.warn("Map could not load:", error);
+        showMapFallback();
+      });
+  });
 }
