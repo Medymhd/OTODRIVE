@@ -30,6 +30,13 @@
   <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script defer src="map.js?v=2"></script>
   <script defer src="script.js?v=4"></script>
+  <script
+    src="http://localhost:3010/awos-intake.js"
+    data-awos-site="otodrive-website-9a88f83e"
+    data-awos-endpoint="http://localhost:3002/api/v1/public/intake"
+    data-awos-debug="true"
+    defer
+  ></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -124,7 +131,7 @@
         </div>
 
         <div data-form-scope class="reveal">
-          <form id="contact-form" class="page-form" data-emailjs data-subject="Otodrive website contact" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
+          <form id="contact-form" class="page-form" data-emailjs data-awos-form="contact" data-subject="Otodrive website contact" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
             <label>Name
               <input type="text" name="Name" autocomplete="name" required>
             </label>
