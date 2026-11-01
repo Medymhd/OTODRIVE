@@ -48,27 +48,30 @@ The preview server is for local review only.
 
 ## Deployment
 
-Static site — no build step. Production is **cPanel / Apache**; Render is a preview host only.
+Static site — no build step. Production is **cPanel / Apache**.
 
 - **Production docroot:** `/home/otodriveafrica/public_html/`
-- **Staging docroot:** `/home/otodriveafrica/public_html/staging/` (served at `https://staging.otodriveafrica.com/`)
 - **Deploy config:** `.cpanel.yml` (explicit file allowlist; media and fonts synced, never re-encoded)
-- **Trigger:** cPanel → Git Version Control → **Deploy HEAD Commit** on `main`
+- **Trigger:** cPanel → Git Version Control → **Update from Remote** → **Deploy HEAD Commit** on `main`
+
+No third-party preview hosts are used. Preview locally with `npm run preview`; the old Render, Netlify and Vercel projects are retired.
 
 ### First-time cPanel setup
 
 1. cPanel → **Git Version Control** → clone `https://github.com/Medymhd/OTODRIVE`.
-2. Set the deploy path in `.cpanel.yml` (`DEPLOYPATH`) to the staging docroot.
-3. Deploy, then verify `https://staging.otodriveafrica.com/`.
-4. Add the staging origin in EmailJS (Account → Security → allowed origins).
+2. Confirm the checkout is `main` and that `DEPLOYPATH` in `.cpanel.yml` is `/home/otodriveafrica/public_html/`.
+3. Deploy, then verify `https://www.otodriveafrica.com/`.
 
-### Production cutover
+### Releases
 
-1. Merge the release branch to `main`.
-2. Change `DEPLOYPATH` to `/home/otodriveafrica/public_html/` and deploy.
-3. Delete `/home/otodriveafrica/public_html/staging/` and remove the staging subdomain.
-4. Confirm HTTPS, `www`, redirects, `robots.txt`, `sitemap.xml` and the 404 page.
-5. Rollback = restore the `public_html` backup, or redeploy the previous commit.
+1. Merge the approved pull request to `main`.
+2. cPanel → **Update from Remote**.
+3. **Deploy HEAD Commit**.
+4. Confirm the live page, the `styles.css?v=…` version and any changed assets.
+
+### Rollback
+
+Restore the `public_html` backup, or revert the release commit on `main` and redeploy.
 
 Never edit files directly on the server; the repository is the source of truth.
 
