@@ -343,7 +343,7 @@ function loadMapLibre() {
       return;
     }
 
-    if (!document.querySelector('link[data-maplibre="css"]')) {
+    if (!document.querySelector('link[href*="maplibre-gl.css"]')) {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = MAPLIBRE_CSS;
@@ -383,19 +383,25 @@ function whenMapApproaches(callback) {
         callback();
       }
     },
-    { rootMargin: "700px 0px" }
+    { rootMargin: "1200px 0px" }
   );
 
   observer.observe(mapSection);
 }
 
 if (mapSection) {
-  whenMapApproaches(() => {
+  const startMap = () => {
     loadMapLibre()
       .then(initNetworkMap)
       .catch((error) => {
         console.warn("Map could not load:", error);
         showMapFallback();
       });
-  });
+  };
+
+  if (mapSection.hasAttribute("data-map-eager")) {
+    startMap();
+  } else {
+    whenMapApproaches(startMap);
+  }
 }

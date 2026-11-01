@@ -544,6 +544,10 @@ html.js .hero-media.is-visible::before {
   color: #fffdf8;
 }
 
+.hero--cinema .hero-title {
+  margin-top: -1.5rem;
+}
+
 .hero--cinema .eyebrow {
   color: var(--blue-bright);
 }
@@ -590,7 +594,7 @@ html.js .hero-media.is-visible::before {
   .hero--cinema {
     min-height: calc(100svh - 70px);
     align-items: flex-end;
-    padding-block: 3rem 3.5rem;
+    padding-block: 3rem 4.5rem;
   }
 
   .hero--cinema .hero-scrim {
@@ -785,6 +789,10 @@ html.js .hero-media.is-visible::before {
 
 .service-list {
   border-top: 1px solid var(--line);
+}
+
+.kit-feature {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .service-row {
@@ -2946,7 +2954,6 @@ html.js .hero-media.is-visible img {
     background: linear-gradient(180deg, rgba(17, 16, 14, 0.55) 0%, rgba(17, 16, 14, 0.25) 35%, rgba(17, 16, 14, 0.82) 100%);
   }
 
-  .hero--cinema .hero-copy .eyebrow,
   .hero--cinema .hero-copy .hero-title,
   .hero--cinema .hero-copy .hero-meta dd {
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
