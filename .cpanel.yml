@@ -1,10 +1,10 @@
 ---
 # cPanel Git Version Control deployment.
-# First target is the staging subdomain. At cutover, change DEPLOYPATH to
-# /home/otodriveafrica/public_html/ and redeploy the same commit.
+# Deploys the site to the production document root. The staging subdomain was
+# used for sign-off and is removed after cutover.
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/otodriveafrica/public_html/staging/
+    - export DEPLOYPATH=/home/otodriveafrica/public_html/
     - export BACKUPPATH=/home/otodriveafrica/backups/
     - /bin/mkdir -p "$DEPLOYPATH" "$BACKUPPATH"
     # Snapshot the previous staging build before replacing it.
