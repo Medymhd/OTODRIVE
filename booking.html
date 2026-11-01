@@ -23,7 +23,7 @@
   <meta name="twitter:title" content="Book a service — Otodrive">
   <meta name="twitter:description" content="Request an Autogas conversion, LPG system check, diagnosis or LPG fueling appointment at Otodrive.">
   <meta name="twitter:image" content="https://www.otodriveafrica.com/images/og-cover.jpg">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=4">
   <link rel="stylesheet" href="pages.css?v=2">
   <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script defer src="script.js?v=2"></script>
@@ -198,28 +198,30 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="shell footer-main">
+  <footer class="site-footer" id="footer">
+  <div class="shell footer-news-band">
+    <div>
+      <p class="footer-kicker">Stay in the loop.</p>
+      <p class="footer-news-copy">Occasional updates on Autogas, savings and the Otodrive network.</p>
+    </div>
+    <form class="footer-news" data-mailto data-subject="Newsletter subscription" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
+      <label for="newsletter-email">Newsletter</label>
+      <div class="news-row">
+        <input id="newsletter-email" name="Email" type="email" placeholder="Enter your email" required>
+        <button class="button button--primary" type="submit">Subscribe</button>
+      </div>
+      <div class="hp-field" aria-hidden="true">
+        <label>Company website<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
+      </div>
+    </form>
+  </div>
+
+  <div class="shell footer-main">
+    <div class="footer-brand">
       <a class="brand brand--footer" href="index.html" aria-label="Otodrive home">
         <img src="images/website%20Logo.png" alt="Otodrive" width="819" height="474" loading="lazy">
       </a>
-
-      <div class="footer-contact">
-        <a href="tel:+254704644909">+254 704 644 909</a>
-        <a href="mailto:info@otodrive.co.ke">info@otodrive.co.ke</a>
-      </div>
-
-      <form class="footer-news" data-mailto data-subject="Newsletter subscription" action="mailto:info@otodrive.co.ke" method="post" enctype="text/plain">
-        <label for="newsletter-email">Newsletter</label>
-        <div class="news-row">
-          <input id="newsletter-email" name="Email" type="email" placeholder="Enter your email">
-          <button class="button button--primary" type="submit">Subscribe</button>
-        </div>
-        <div class="hp-field" aria-hidden="true">
-          <label>Company website<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label>
-        </div>
-      </form>
-
+      <p class="footer-about">KEBS-licensed Autogas conversion and LPG fueling across Kenya — Mavoko, Thika and Jomvu Yard.</p>
       <div class="footer-social">
         <a href="https://www.facebook.com/profile.php?id=61566117596915" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.52l.4-2.9h-2.92V8.8c0-.85.23-1.42 1.45-1.42h1.55V4.7c-.27-.04-1.2-.12-2.28-.12-2.25 0-3.8 1.37-3.8 3.9v2.12H7.9v2.9h2.52V21h3.08z"/></svg>
@@ -236,9 +238,42 @@
       </div>
     </div>
 
-    <div class="shell footer-bottom">
-      <span>© 2024 OtoDrive.</span>
-    </div>
-  </footer>
+    <nav class="footer-col" aria-label="Company">
+      <h2>Company</h2>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Our Services</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Customer Support">
+      <h2>Customer Support</h2>
+      <ul>
+        <li><a href="faq.html">Frequently Asked Questions</a></li>
+        <li><a href="booking.html">Booking Information</a></li>
+        <li><a href="maps.html">Locations</a></li>
+        <li><a href="testimonial.html">Testimonials</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Get in Touch">
+      <h2>Get in Touch</h2>
+      <ul>
+        <li><a href="tel:+254704644909">+254 704 644 909</a></li>
+        <li><a href="https://wa.me/254704644909" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        <li><a href="mailto:info@otodrive.co.ke">info@otodrive.co.ke</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="shell footer-bottom">
+    <span>© 2024 OtoDrive.</span>
+    <span>Autogas conversion · LPG fueling · Kenya</span>
+  </div>
+</footer>
+
+
+
 </body>
 </html>

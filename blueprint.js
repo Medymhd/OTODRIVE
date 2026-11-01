@@ -15,6 +15,9 @@
   const svg = document.querySelector(".bp-leaders");
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const heroLabels = new URLSearchParams(window.location.search).has("hero-labels");
+  const labelEdge = heroLabels ? 40 : 12;
+  const studio = new URLSearchParams(window.location.search).has("studio");
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   const easeOut = (v) => 1 - Math.pow(1 - v, 3);
 
@@ -58,6 +61,13 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
   };
 
   let ticking = false;
+  if (heroLabels) {
+    window.__setBlueprintProgress = (value) => {
+      autoPlay = false;
+      progress = Math.min(1, Math.max(0, value));
+      updateUI();
+    };
+  }
   const pauseAutoPlay = () => {
     if (isMobileBP()) return;
     autoPlay = false;
@@ -297,21 +307,29 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
       rubber: new THREE.MeshStandardMaterial({ color: 0x080b10, metalness: 0.1, roughness: 0.92 }),
       rim: new THREE.MeshStandardMaterial({ color: 0xa7b4c4, metalness: 0.95, roughness: 0.2, envMapIntensity: 1.5 }),
       body: new THREE.MeshPhysicalMaterial({
-        color: 0x2c3d55,
-        metalness: 0.75,
-        roughness: 0.28,
+        color: 0x9db8d6,
+        metalness: 0.65,
+        roughness: 0.18,
         clearcoat: 1,
-        clearcoatRoughness: 0.15,
+        clearcoatRoughness: 0.05,
         transparent: true,
-        opacity: 0.2,
+        opacity: 0.3,
         depthWrite: false,
         side: THREE.DoubleSide,
-        envMapIntensity: 1.4,
+        envMapIntensity: 1.7,
       }),
       seat: new THREE.MeshStandardMaterial({ color: 0x151c26, metalness: 0.3, roughness: 0.8, transparent: true, opacity: 0.55 }),
     };
 
     const lineMat = new THREE.LineBasicMaterial({ color: 0x8fc4ff, transparent: true, opacity: 0.62 });
+
+    if (studio) {
+      mats.body.opacity = 0.6;
+      mats.body.color.setHex(0x5b7fa6);
+      mats.body.metalness = 0.6;
+      mats.body.roughness = 0.22;
+      mats.body.envMapIntensity = 1.2;
+    }
 
     const addMesh = (geometry, material, parent) => {
       const mesh = new THREE.Mesh(geometry, material);
@@ -336,6 +354,14 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     grid.material.opacity = 0.12;
     scene.add(grid);
 
+    if (studio) {
+      scene.fog = null;
+      ground.visible = false;
+      grid.visible = false;
+      renderer.setClearColor(0xf7f4ee, 1);
+      renderer.toneMappingExposure = 1.1;
+    }
+
     const makeShadowTexture = () => {
       const canvas = document.createElement("canvas");
       canvas.width = 256;
@@ -358,6 +384,10 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     );
     contact.rotation.x = -Math.PI / 2;
     contact.position.y = 0.004;
+    if (studio) {
+      contact.material.opacity = 0.28;
+      contact.scale.set(0.6, 0.6, 0.6);
+    }
     scene.add(contact);
 
     // ---- the car ----
@@ -365,32 +395,32 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     scene.add(car);
 
     const shape = new THREE.Shape();
-    shape.moveTo(-2.28, 0.42);
-    shape.lineTo(-2.3, 0.62);
-    shape.lineTo(-2.26, 1.0);
-    shape.lineTo(-1.95, 1.06);
-    shape.lineTo(-1.45, 1.1);
-    shape.lineTo(-1.12, 1.44);
-    shape.lineTo(0.3, 1.46);
-    shape.lineTo(0.72, 1.12);
-    shape.lineTo(1.62, 1.03);
-    shape.lineTo(2.18, 0.94);
-    shape.lineTo(2.3, 0.62);
-    shape.lineTo(2.26, 0.42);
+    shape.moveTo(-2.3, 0.42);
+    shape.lineTo(-2.34, 0.68);
+    shape.quadraticCurveTo(-2.32, 0.86, -2.14, 0.92);
+    shape.quadraticCurveTo(-1.6, 1.02, -1.0, 1.04);
+    shape.quadraticCurveTo(-0.78, 1.06, -0.58, 1.24);
+    shape.quadraticCurveTo(-0.4, 1.3, -0.1, 1.3);
+    shape.lineTo(0.2, 1.3);
+    shape.quadraticCurveTo(0.4, 1.3, 0.55, 1.18);
+    shape.quadraticCurveTo(0.65, 1.1, 0.8, 1.06);
+    shape.quadraticCurveTo(1.5, 1.02, 2.16, 0.9);
+    shape.quadraticCurveTo(2.3, 0.84, 2.32, 0.68);
+    shape.lineTo(2.28, 0.42);
     shape.lineTo(1.91, 0.42);
     shape.absarc(1.45, 0.42, 0.46, 0, Math.PI, false);
     shape.lineTo(-0.99, 0.42);
     shape.absarc(-1.45, 0.42, 0.46, 0, Math.PI, false);
-    shape.lineTo(-2.28, 0.42);
+    shape.lineTo(-2.3, 0.42);
 
     const bodyGeometry = new THREE.ExtrudeGeometry(shape, {
       depth: 1.5,
       bevelEnabled: true,
-      bevelThickness: 0.04,
-      bevelSize: 0.04,
-      bevelSegments: 2,
+      bevelThickness: 0.06,
+      bevelSize: 0.06,
+      bevelSegments: 3,
       steps: 1,
-      curveSegments: 32,
+      curveSegments: 40,
     });
     bodyGeometry.translate(0, 0, -0.75);
 
@@ -429,10 +459,12 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
 
     // cabin glass, so the silhouette reads as a car rather than a cage
     const glassShape = new THREE.Shape();
-    glassShape.moveTo(-1.45, 1.1);
-    glassShape.lineTo(-1.12, 1.44);
-    glassShape.lineTo(0.3, 1.46);
-    glassShape.lineTo(0.72, 1.12);
+    glassShape.moveTo(-1.0, 1.04);
+    glassShape.quadraticCurveTo(-0.78, 1.06, -0.58, 1.24);
+    glassShape.quadraticCurveTo(-0.4, 1.3, -0.1, 1.3);
+    glassShape.lineTo(0.2, 1.3);
+    glassShape.quadraticCurveTo(0.4, 1.3, 0.55, 1.18);
+    glassShape.quadraticCurveTo(0.65, 1.1, 0.8, 1.06);
     glassShape.closePath();
 
     const glassMaterial = new THREE.MeshPhysicalMaterial({
@@ -455,10 +487,10 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     });
 
     [-0.755, 0.755].forEach((z) => {
-      const pillar = addMesh(new THREE.BoxGeometry(0.045, 0.34, 0.012), mats.graphite, car);
-      pillar.position.set(-0.35, 1.27, z);
+      const pillar = addMesh(new THREE.BoxGeometry(0.045, 0.18, 0.012), mats.graphite, car);
+      pillar.position.set(-0.35, 1.2, z);
       const belt = addMesh(new THREE.BoxGeometry(2.15, 0.012, 0.01), mats.steel, car);
-      belt.position.set(-0.36, 1.1, z);
+      belt.position.set(-0.36, 1.05, z);
     });
 
     const glassPanel = (a, b) => {
@@ -483,11 +515,11 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
       car.add(mesh);
     };
 
-    glassPanel([0.3, 1.46], [0.72, 1.12]);
-    glassPanel([-1.45, 1.1], [-1.12, 1.44]);
+    glassPanel([0.2, 1.3], [0.8, 1.06]);
+    glassPanel([-1.0, 1.04], [-0.58, 1.24]);
 
-    const grille = addMesh(new THREE.BoxGeometry(0.02, 0.12, 0.5), mats.graphite, car);
-    grille.position.set(2.29, 0.66, 0);
+    const intake = addMesh(new THREE.BoxGeometry(0.035, 0.1, 1.0), mats.graphite, car);
+    intake.position.set(2.31, 0.56, 0);
 
     // floor pan and cabin
     const floor = addMesh(new THREE.BoxGeometry(3.3, 0.04, 1.25), mats.graphite, car);
@@ -531,17 +563,17 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     // wheels
     const makeWheel = (x, z) => {
       const group = new THREE.Group();
-      addMesh(new THREE.TorusGeometry(0.32, 0.095, 18, 48), mats.rubber, group);
-      const rim = addMesh(new THREE.CylinderGeometry(0.2, 0.2, 0.1, 32), mats.rim, group);
+      addMesh(new THREE.TorusGeometry(0.33, 0.075, 20, 48), mats.rubber, group);
+      const rim = addMesh(new THREE.CylinderGeometry(0.235, 0.235, 0.1, 32), mats.rim, group);
       rim.rotation.x = Math.PI / 2;
-      const hub = addMesh(new THREE.CylinderGeometry(0.055, 0.055, 0.12, 20), mats.dark, group);
+      const hub = addMesh(new THREE.CylinderGeometry(0.06, 0.06, 0.12, 20), mats.dark, group);
       hub.rotation.x = Math.PI / 2;
-      for (let i = 0; i < 5; i += 1) {
-        const spoke = addMesh(new THREE.BoxGeometry(0.035, 0.3, 0.025), mats.rim, group);
-        spoke.rotation.z = (i / 5) * Math.PI * 2;
+      for (let i = 0; i < 10; i += 1) {
+        const spoke = addMesh(new THREE.BoxGeometry(0.028, 0.34, 0.02), mats.rim, group);
+        spoke.rotation.z = (i / 10) * Math.PI * 2;
         spoke.position.z = 0.045;
       }
-      const disc = addMesh(new THREE.CylinderGeometry(0.15, 0.15, 0.02, 28), mats.dark, group);
+      const disc = addMesh(new THREE.CylinderGeometry(0.17, 0.17, 0.02, 28), mats.dark, group);
       disc.rotation.x = Math.PI / 2;
       disc.position.z = -0.03;
       group.position.set(x, 0.42, z);
@@ -552,6 +584,46 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
     makeWheel(1.45, -0.8);
     makeWheel(-1.45, 0.8);
     makeWheel(-1.45, -0.8);
+
+    // ---- sports details ----
+    const skirtLeft = addMesh(new THREE.BoxGeometry(1.7, 0.045, 0.04), mats.graphite, car);
+    skirtLeft.position.set(0, 0.45, 0.76);
+    const skirtRight = addMesh(new THREE.BoxGeometry(1.7, 0.045, 0.04), mats.graphite, car);
+    skirtRight.position.set(0, 0.45, -0.76);
+
+    const headMat = new THREE.MeshStandardMaterial({
+      color: 0xdceaff,
+      emissive: 0x9dc8ff,
+      emissiveIntensity: 1.4,
+      metalness: 0.2,
+      roughness: 0.2,
+    });
+    [-0.5, 0.5].forEach((z) => {
+      const lamp = addMesh(new THREE.BoxGeometry(0.02, 0.035, 0.34), headMat, car);
+      lamp.position.set(2.3, 0.83, z);
+      lamp.rotation.y = z > 0 ? -0.12 : 0.12;
+    });
+
+    const tailMat = new THREE.MeshStandardMaterial({
+      color: 0xff2a2a,
+      emissive: 0xff1a1a,
+      emissiveIntensity: 1.2,
+      metalness: 0.2,
+      roughness: 0.3,
+    });
+    const tailBar = addMesh(new THREE.BoxGeometry(0.02, 0.035, 1.32), tailMat, car);
+    tailBar.position.set(-2.35, 0.84, 0);
+    [-0.62, 0.62].forEach((z) => {
+      const cap = addMesh(new THREE.BoxGeometry(0.03, 0.05, 0.06), tailMat, car);
+      cap.position.set(-2.35, 0.84, z);
+    });
+
+    const exhaustMat = new THREE.MeshStandardMaterial({ color: 0xb8c2cf, metalness: 0.95, roughness: 0.2 });
+    [-0.38, 0.38].forEach((z) => {
+      const pipe = addMesh(new THREE.CylinderGeometry(0.04, 0.04, 0.08, 16), exhaustMat, car);
+      pipe.rotation.z = Math.PI / 2;
+      pipe.position.set(-2.36, 0.5, z);
+    });
 
     // ---- Zavoli components ----
     const tank = new THREE.Group();
@@ -895,9 +967,9 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
         (x < center ? sides.left : sides.right).push({ part, x, y });
       });
 
-      const gap = 31;
-      const top = 24;
-      const bottom = Math.max(top + gap, height - 24);
+      const gap = heroLabels ? 56 : 31;
+      const top = heroLabels ? 52 : 24;
+      const bottom = Math.max(top + gap, height - (heroLabels ? 52 : 24));
 
       ["left", "right"].forEach((side) => {
         const list = sides[side].sort((a, b) => a.y - b.y);
@@ -918,7 +990,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
           const part = item.part;
           const isLeft = side === "left";
           part.side = side;
-          part.callout.style.left = isLeft ? "12px" : `${width - 12}px`;
+          part.callout.style.left = isLeft ? `${labelEdge}px` : `${width - labelEdge}px`;
           part.callout.style.top = `${part.labelY.toFixed(1)}px`;
           part.callout.style.transform = isLeft ? "translate(0, -50%)" : "translate(-100%, -50%)";
           part.calloutWidth = part.callout.offsetWidth;
@@ -1022,7 +1094,7 @@ const isMobileBP = () => window.matchMedia("(max-width: 900px)").matches || !!(s
         const x = (projected.x * 0.5 + 0.5) * width;
         const y = (-projected.y * 0.5 + 0.5) * height;
         const isLeft = part.side === "left";
-        const startX = isLeft ? 12 + part.calloutWidth + 7 : width - 12 - part.calloutWidth - 7;
+        const startX = isLeft ? labelEdge + part.calloutWidth + 7 : width - labelEdge - part.calloutWidth - 7;
         const elbowX = isLeft ? startX + 18 : startX - 18;
         part.path.setAttribute(
           "d",
