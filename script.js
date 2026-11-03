@@ -63,13 +63,28 @@ if (header) {
 }
 
 /* ---------- Forms ---------- */
+function getFormScope(form) {
+  return form.closest("[data-form-scope]") || form.parentElement;
+}
+
 function setFormStatus(form, message) {
-  const scope = form.closest("[data-form-scope]") || form.parentElement;
+  const scope = getFormScope(form);
   const status = scope ? scope.querySelector("[data-form-status]") : null;
 
   if (status) {
     status.hidden = false;
     status.textContent = message;
+    status.focus({ preventScroll: true });
+  }
+}
+
+function clearFormStatus(form) {
+  const scope = getFormScope(form);
+  const status = scope ? scope.querySelector("[data-form-status]") : null;
+
+  if (status) {
+    status.hidden = true;
+    status.textContent = "";
   }
 }
 
@@ -85,6 +100,194 @@ function setSubmitting(form, busy) {
     if (button.dataset.idleLabel) button.textContent = button.dataset.idleLabel;
     button.disabled = false;
   }
+}
+
+/* ---------- Success panel, hints and reset ---------- */
+const yearPattern = /\b(19\d{2}|20\d{2})\b/;
+
+const FORM_META = {
+  "contact-form": { form_type: "NEW ENQUIRY", subject: "NEW ENQUIRY — Otodrive website" },
+  "quote-form": { form_type: "NEW QUOTE REQUEST", subject: "NEW QUOTE REQUEST — Otodrive website" },
+  "booking-form": { form_type: "NEW BOOKING REQUEST", subject: "NEW BOOKING REQUEST — Otodrive website" },
+};
+
+function updateVehicleHint(input) {
+  const hint = document.getElementById(input.getAttribute("aria-describedby"));
+  if (!hint) return;
+
+  const value = input.value.trim();
+  if (!value) {
+    hint.textContent = "Include make, model and year if known — e.g. Toyota Prado 2018.";
+    hint.dataset.state = "hint";
+    return;
+  }
+
+  const hasYear = yearPattern.test(value);
+  const words = value.replace(yearPattern, " ").trim().split(/\s+/).filter(Boolean);
+
+  if (hasYear && words.length >= 2) {
+    hint.textContent = "Make, model and year look complete.";
+    hint.dataset.state = "ok";
+    return;
+  }
+
+  if (hasYear && words.length === 1) {
+    hint.textContent = "Add the model if you know it — e.g. Toyota Prado 2018. You can still send without it.";
+    hint.dataset.state = "warn";
+    return;
+  }
+
+  if (hasYear) {
+    hint.textContent = "Add the make and model if you know them — e.g. Toyota Prado 2018.";
+    hint.dataset.state = "warn";
+    return;
+  }
+
+  if (words.length >= 2) {
+    hint.textContent = "Add the year if you know it — e.g. Toyota Prado 2018. You can still send without it.";
+    hint.dataset.state = "warn";
+    return;
+  }
+
+  hint.textContent = "Add the model and year if you know them — e.g. Toyota Prado 2018. You can still send without it.";
+  hint.dataset.state = "warn";
+}
+
+function bindVehicleHints() {
+  document.querySelectorAll("[data-vehicle]").forEach((input) => {
+    let timer;
+    input.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => updateVehicleHint(input), 220);
+    });
+    input.addEventListener("blur", () => updateVehicleHint(input));
+    updateVehicleHint(input);
+  });
+}
+
+function firstNameOf(form) {
+  const raw = String(form.elements["Name"]?.value || "").trim();
+  if (!raw) return "";
+  return raw.split(/\s+/)[0];
+}
+
+function formatDateValue(value) {
+  if (!value) return "—";
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-KE", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function setSuccessHeading(form, success) {
+  const heading = success.querySelector("[data-success-heading]");
+  if (!heading) return;
+
+  const name = firstNameOf(form);
+  const byForm = {
+    "contact-form": name
+      ? `Thank you, ${name} — your message is with us.`
+      : "Thank you — your message is with us.",
+    "quote-form": name
+      ? `Thank you, ${name} — your quote request is in.`
+      : "Thank you — your quote request is in.",
+    "booking-form": name
+      ? `Thank you, ${name} — your booking request is in.`
+      : "Thank you — your booking request is in.",
+  };
+
+  heading.textContent = byForm[form.id] || (name ? `Thank you, ${name}.` : "Thank you.");
+}
+
+function fillSuccessSummary(form, success) {
+  const get = (name) => String(form.elements[name]?.value || "").trim();
+  const values = {
+    service: get("Service"),
+    location: get("Location"),
+    date: formatDateValue(get("Date")),
+    time: get("Time"),
+    vehicle: get("Vehicle"),
+  };
+
+  success.querySelectorAll("[data-success-summary]").forEach((el) => {
+    el.textContent = values[el.dataset.successSummary] || "—";
+  });
+}
+
+function showFormSuccess(form) {
+  const scope = getFormScope(form);
+  const success = scope ? scope.querySelector("[data-form-success]") : null;
+
+  if (!success) {
+    setFormStatus(form, "Thank you — your message has been sent. Otodrive will get back to you shortly.");
+    return false;
+  }
+
+  clearFormStatus(form);
+  setSuccessHeading(form, success);
+  if (form.id === "booking-form") fillSuccessSummary(form, success);
+
+  form.hidden = true;
+  success.hidden = false;
+  success.focus({ preventScroll: true });
+  success.scrollIntoView({
+    block: "center",
+    behavior: reduceMotion ? "auto" : "smooth",
+  });
+  return true;
+}
+
+function showFormInvalid(form) {
+  setFormStatus(form, "Please complete the required fields before sending.");
+  const invalid = form.querySelector(":invalid");
+  if (invalid) {
+    invalid.focus({ preventScroll: true });
+    invalid.scrollIntoView({
+      block: "center",
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+  }
+}
+
+function resetFormScope(form) {
+  const scope = getFormScope(form);
+  const success = scope ? scope.querySelector("[data-form-success]") : null;
+
+  form.reset();
+  form.hidden = false;
+  if (success) success.hidden = true;
+  clearFormStatus(form);
+  setSubmitting(form, false);
+  form.querySelectorAll("[data-vehicle]").forEach(updateVehicleHint);
+
+  const dateField = form.querySelector('input[type="date"]');
+  if (dateField) dateField.dispatchEvent(new Event("change", { bubbles: true }));
+
+  const firstField = form.querySelector("input, select, textarea");
+  if (firstField) firstField.focus({ preventScroll: true });
+  form.scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" });
+}
+
+function formMeta(form, data) {
+  const base = FORM_META[form.id] || FORM_META["contact-form"];
+
+  if (form.id === "booking-form") {
+    const detail = [
+      String(data.get("Service") || "").trim(),
+      String(data.get("Date") || "").trim(),
+      String(data.get("Time") || "").trim(),
+    ]
+      .filter(Boolean)
+      .join(" — ");
+
+    if (detail) return { form_type: base.form_type, subject: `${base.subject} — ${detail}` };
+  }
+
+  return { form_type: base.form_type, subject: base.subject };
 }
 
 function encode(value) {
@@ -107,6 +310,12 @@ function collectLines(data) {
       lines.push(`${key}: ${text}`);
     }
   });
+
+  const vehicle = String(data.get("Vehicle") || "").trim();
+  if (vehicle && !yearPattern.test(vehicle)) {
+    lines.push("Vehicle year: not provided");
+  }
+
   return lines;
 }
 
@@ -184,18 +393,24 @@ if (typeof emailjs !== "undefined") {
   }
 }
 
-function sendViaEmailJS(data) {
+function sendViaEmailJS(data, meta = {}) {
   return new Promise((resolve) => {
     if (!emailjsReady) {
       resolve(false);
       return;
     }
 
+    const vehicle = String(data.get("Vehicle") || "").trim();
+    const yearMatch = vehicle.match(yearPattern);
+
     const params = {
       from_name: String(data.get("Name") || "").trim(),
       phone_number: String(data.get("Phone Number") || data.get("Phone") || "").trim(),
       email_id: String(data.get("Email") || "").trim(),
       message: collectLines(data).join("\n"),
+      form_type: meta.form_type || "NEW ENQUIRY",
+      subject: meta.subject || "NEW ENQUIRY — Otodrive website",
+      vehicle_year: yearMatch ? yearMatch[0] : "not provided",
     };
 
     emailjs
@@ -206,17 +421,15 @@ function sendViaEmailJS(data) {
 }
 
 function submitFormEmailJS(form, data) {
-  return sendViaEmailJS(data).then((sent) => {
+  return sendViaEmailJS(data, formMeta(form, data)).then((sent) => {
     if (sent) {
-      setFormStatus(form, "Thank you — your message has been sent. Otodrive will get back to you shortly.");
+      showFormSuccess(form);
       return true;
     }
 
-    const subject = form.dataset.subject || "Otodrive website enquiry";
-    openMailClient(subject, collectLines(data));
     setFormStatus(
       form,
-      "We couldn't send automatically, so your email app was opened with the message ready to send. If it does not open, call +254 704 644 909 or email info@otodrive.co.ke."
+      "We couldn’t send automatically just now. Your details are still here — try again, or call +254 704 644 909."
     );
     return false;
   });
@@ -255,14 +468,15 @@ document.querySelectorAll("form[data-emailjs]").forEach((form) => {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    clearFormStatus(form);
 
     if (!form.checkValidity()) {
-      form.reportValidity();
+      showFormInvalid(form);
       return;
     }
 
     if (isSpam(form)) {
-      setFormStatus(form, "Thank you — your message has been received.");
+      showFormSuccess(form);
       return;
     }
 
@@ -274,6 +488,16 @@ document.querySelectorAll("form[data-emailjs]").forEach((form) => {
     submitFormEmailJS(form, new FormData(form)).finally(() => setSubmitting(form, false));
   });
 });
+
+document.querySelectorAll("[data-form-reset]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const scope = button.closest("[data-form-scope]");
+    const form = scope ? scope.querySelector("form") : null;
+    if (form) resetFormScope(form);
+  });
+});
+
+bindVehicleHints();
 
 /* ---------- Booking ---------- */
 const bookingForm = document.querySelector("#booking-form");
@@ -346,14 +570,15 @@ if (bookingForm && bookingDate && bookingTime && bookingSlots) {
 
   bookingForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    clearFormStatus(bookingForm);
 
     if (!bookingForm.checkValidity()) {
-      bookingForm.reportValidity();
+      showFormInvalid(bookingForm);
       return;
     }
 
     if (isSpam(bookingForm)) {
-      setFormStatus(bookingForm, "Thank you — your booking request has been received.");
+      showFormSuccess(bookingForm);
       return;
     }
 
@@ -367,31 +592,10 @@ if (bookingForm && bookingDate && bookingTime && bookingSlots) {
       return;
     }
 
-    const data = new FormData(bookingForm);
-    const service = data.get("Service") || "Service";
-    const date = data.get("Date") || "";
-    const time = data.get("Time") || "";
-    const lines = collectLines(data);
-    const subject = `Booking request — ${service} — ${date} ${time}`;
-
     setSubmitting(bookingForm, true);
-    sendViaEmailJS(data)
-      .then((sent) => {
-        if (sent) {
-          setFormStatus(
-            bookingForm,
-            "Thank you — your booking request has been sent. Otodrive will confirm the appointment by phone or email."
-          );
-          return;
-        }
-
-        openMailClient(subject, lines);
-        setFormStatus(
-          bookingForm,
-          "We couldn't send automatically, so your email app was opened with the booking request ready to send. If it does not open, call +254 704 644 909."
-        );
-      })
-      .finally(() => setSubmitting(bookingForm, false));
+    submitFormEmailJS(bookingForm, new FormData(bookingForm)).finally(() =>
+      setSubmitting(bookingForm, false)
+    );
   });
 }
 

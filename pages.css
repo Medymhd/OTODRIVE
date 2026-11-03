@@ -328,6 +328,123 @@
   line-height: 1.55;
 }
 
+[data-form-scope] > .form-status {
+  margin-bottom: 18px;
+}
+
+.page-form[hidden] {
+  display: none;
+}
+
+.vehicle-hint {
+  display: block;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+.vehicle-hint[data-state="warn"] {
+  color: #8a5a00;
+}
+
+.vehicle-hint[data-state="ok"] {
+  color: var(--green);
+}
+
+.form-success {
+  padding: clamp(24px, 3vw, 34px);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--orange);
+  border-radius: 3px;
+  background: var(--paper);
+}
+
+.form-success[hidden] {
+  display: none;
+}
+
+.form-success-kicker {
+  margin: 0;
+  color: var(--orange-deep);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.form-success-title {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.form-success p {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.form-success .actions {
+  gap: 14px;
+  margin-top: 1.3rem;
+}
+
+.form-success .button {
+  min-height: 0;
+  padding: 0.7rem 1.1rem;
+  font-size: 0.85rem;
+}
+
+.form-success button.text-link {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--orange);
+  padding: 0 0 3px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  margin: 1.2rem 0 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.form-summary dt {
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.form-summary dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.86rem;
+}
+
+.form-success:focus,
+.form-status:focus {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
+
 .page-location-list {
   border-top: 1px solid var(--line);
 }
