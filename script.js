@@ -506,6 +506,15 @@ const bookingTime = document.querySelector("#booking-time");
 const bookingSlots = document.querySelector("#booking-slots");
 const bookingSlotStatus = document.querySelector("#booking-slot-status");
 
+/* Only workshop services are bookable, and only at the three conversion centres. */
+const BOOKING_SERVICES = [
+  "Vehicle Inspection",
+  "Autogas Diagnosis",
+  "Autogas Conversion",
+  "Autogas Vehicle Service",
+];
+const BOOKING_CENTRES = ["Mavoko", "Thika", "Jomvu Yard"];
+
 if (bookingForm && bookingDate && bookingTime && bookingSlots) {
   const today = new Date();
   const todayIso = [
@@ -574,6 +583,26 @@ if (bookingForm && bookingDate && bookingTime && bookingSlots) {
 
     if (!bookingForm.checkValidity()) {
       showFormInvalid(bookingForm);
+      return;
+    }
+
+    const service = String(bookingForm.elements["Service"]?.value || "").trim();
+    if (!BOOKING_SERVICES.includes(service)) {
+      setFormStatus(
+        bookingForm,
+        "Please choose a workshop service. LPG refueling is walk-in and does not need a booking."
+      );
+      bookingForm.elements["Service"]?.focus();
+      return;
+    }
+
+    const location = String(bookingForm.elements["Location"]?.value || "").trim();
+    if (!BOOKING_CENTRES.includes(location)) {
+      setFormStatus(
+        bookingForm,
+        "Please choose Mavoko, Thika or Jomvu Yard. LPG refueling is walk-in and does not need a booking."
+      );
+      bookingForm.elements["Location"]?.focus();
       return;
     }
 

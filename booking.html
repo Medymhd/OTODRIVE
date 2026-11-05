@@ -7,13 +7,13 @@
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
     <title>Book a service — Otodrive</title>
-  <meta name="description" content="Request an Autogas conversion, LPG system check, diagnosis or LPG fueling appointment at Otodrive.">
+  <meta name="description" content="Request an Autogas conversion, LPG system check or vehicle diagnosis at Otodrive. LPG refueling is walk-in across the network.">
   <link rel="canonical" href="https://www.otodriveafrica.com/booking.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Otodrive">
   <meta property="og:locale" content="en_KE">
   <meta property="og:title" content="Book a service — Otodrive">
-  <meta property="og:description" content="Request an Autogas conversion, LPG system check, diagnosis or LPG fueling appointment at Otodrive.">
+  <meta property="og:description" content="Request an Autogas conversion, LPG system check or vehicle diagnosis at Otodrive. LPG refueling is walk-in across the network.">
   <meta property="og:url" content="https://www.otodriveafrica.com/booking.html">
   <meta property="og:image" content="https://www.otodriveafrica.com/images/og-cover.jpg">
   <meta property="og:image:width" content="1200">
@@ -21,12 +21,12 @@
   <meta property="og:image:alt" content="Otodrive Autogas station canopy">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Book a service — Otodrive">
-  <meta name="twitter:description" content="Request an Autogas conversion, LPG system check, diagnosis or LPG fueling appointment at Otodrive.">
+  <meta name="twitter:description" content="Request an Autogas conversion, LPG system check or vehicle diagnosis at Otodrive. LPG refueling is walk-in across the network.">
   <meta name="twitter:image" content="https://www.otodriveafrica.com/images/og-cover.jpg">
   <link rel="stylesheet" href="styles.css?v=4">
   <link rel="stylesheet" href="pages.css?v=3">
   <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script defer src="script.js?v=5"></script>
+  <script defer src="script.js?v=6"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -122,19 +122,14 @@
                 <option>Autogas Diagnosis</option>
                 <option>Autogas Conversion</option>
                 <option>Autogas Vehicle Service</option>
-                <option>LPG Refueling</option>
               </select>
             </label>
             <label>Preferred location
               <select name="Location" id="booking-location" required>
                 <option value="">Select a location</option>
                 <option>Mavoko</option>
-                <option>Jomvu Yard</option>
                 <option>Thika</option>
-                <option>Kangundo Road</option>
-                <option>Rongai</option>
-                <option>Shanzu</option>
-                <option>Jomvu</option>
+                <option>Jomvu Yard</option>
               </select>
             </label>
             <label class="form-wide">Vehicle Details
@@ -155,7 +150,8 @@
             <label class="form-wide">Notes (optional)
               <textarea name="Notes" id="booking-notes" rows="4" placeholder="Anything the team should know before the appointment."></textarea>
             </label>
-            <p class="form-note">This is a booking request, not a confirmed appointment. Times shown are provisional; Otodrive will confirm by phone or email. Conversions are scheduled at Mavoko, Thika or Jomvu Yard.</p>
+            <p class="form-note">This is a booking request, not a confirmed appointment. Times shown are provisional; Otodrive will confirm by phone or email. Conversion and workshop services are scheduled at Mavoko, Thika or Jomvu Yard.</p>
+            <p class="form-note"><strong>LPG refueling is walk-in.</strong> Visit Mavoko, Thika, Kangundo Road, Rongai, Shanzu or Jomvu — no appointment is needed. <a href="maps.html">See the network</a>.</p>
             <div class="hp-field" aria-hidden="true">
               <label>Company website
                 <input type="text" name="company_website" tabindex="-1" autocomplete="off">
@@ -200,7 +196,7 @@
               <a href="maps.html">Mavoko, Thika &amp; Jomvu Yard directions</a>
             </div>
           </div>
-          <p class="page-note">For LPG fueling, you can also visit any station in the network without an appointment. Use the locations page for directions.</p>
+          <p class="page-note">LPG refueling is walk-in at Mavoko, Thika, Kangundo Road, Rongai, Shanzu and Jomvu. No appointment is needed — use the locations page for directions.</p>
         </aside>
       </div>
     </section>
